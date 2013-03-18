@@ -2,7 +2,7 @@ package org.funcish.core.impl;
 
 import org.funcish.core.fn.Reducer;
 
-public class ProxyParaReducator<E, M> extends AbstractParaReducator<E, M> {
+public class ProxyParaReducator<E, M> extends AbstractParaReducator<E, M> implements Proxied<Reducer<E, M>> {
 
 	private Reducer<E, M> target;
 	
@@ -16,4 +16,8 @@ public class ProxyParaReducator<E, M> extends AbstractParaReducator<E, M> {
 		return target.reduce0(memo, obj, index);
 	}
 
+	@Override
+	public Reducer<E, M> proxiedTarget() {
+		return target;
+	}
 }

@@ -2,7 +2,7 @@ package org.funcish.core.impl;
 
 import org.funcish.core.fn.Function;
 
-public class ProxyReducer<E, M> extends AbstractReducer<E, M> {
+public class ProxyReducer<E, M> extends AbstractReducer<E, M> implements Proxied<Function<M>> {
 
 	private Function<M> target;
 	
@@ -16,4 +16,8 @@ public class ProxyReducer<E, M> extends AbstractReducer<E, M> {
 		return target.call(asArgs(target, memo, obj, index));
 	}
 
+	@Override
+	public Function<M> proxiedTarget() {
+		return target;
+	}
 }

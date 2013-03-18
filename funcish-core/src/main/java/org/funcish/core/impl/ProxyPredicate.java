@@ -2,7 +2,7 @@ package org.funcish.core.impl;
 
 import org.funcish.core.fn.Function;
 
-public class ProxyPredicate<T> extends AbstractPredicate<T> {
+public class ProxyPredicate<T> extends AbstractPredicate<T> implements Proxied<Function<Boolean>> {
 
 	private Function<Boolean> target;
 	
@@ -14,6 +14,11 @@ public class ProxyPredicate<T> extends AbstractPredicate<T> {
 	@Override
 	public boolean test0(T value, Integer index) throws Exception {
 		return target.call(asArgs(target, value, index));
+	}
+	
+	@Override
+	public Function<Boolean> proxiedTarget() {
+		return target;
 	}
 
 }

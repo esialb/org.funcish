@@ -2,7 +2,7 @@ package org.funcish.core.impl;
 
 import java.util.concurrent.Callable;
 
-public class CallableProxyFunction<T> extends AbstractFunction<T> {
+public class CallableProxyFunction<T> extends AbstractFunction<T> implements Proxied<Callable<T>> {
 
 	private Callable<T> target;
 	
@@ -17,8 +17,7 @@ public class CallableProxyFunction<T> extends AbstractFunction<T> {
 	}
 	
 	@Override
-	protected String getClassName() {
-		return target.getClass().getName();
+	public Callable<T> proxiedTarget() {
+		return target;
 	}
-
 }

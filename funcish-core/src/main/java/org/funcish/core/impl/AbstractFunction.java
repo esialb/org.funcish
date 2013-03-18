@@ -42,7 +42,10 @@ public abstract class AbstractFunction<T> implements Function<T> {
 	}
 	
 	protected String getClassName() {
-		return getClass().getName();
+		Object fn = this;
+		while(fn instanceof Proxied<?>)
+			fn = ((Proxied<?>) fn).proxiedTarget();
+		return fn.getClass().getName();
 	}
 	
 	@Override

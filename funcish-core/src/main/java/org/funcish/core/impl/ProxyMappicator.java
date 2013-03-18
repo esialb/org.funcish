@@ -2,7 +2,7 @@ package org.funcish.core.impl;
 
 import org.funcish.core.fn.Mapping;
 
-public class ProxyMappicator<K, V> extends AbstractMappicator<K, V> {
+public class ProxyMappicator<K, V> extends AbstractMappicator<K, V> implements Proxied<Mapping<K, V>> {
 
 	private Mapping<K, V> target;
 	
@@ -16,5 +16,8 @@ public class ProxyMappicator<K, V> extends AbstractMappicator<K, V> {
 		return target.map0(key, index);
 	}
 
-	
+	@Override
+	public Mapping<K, V> proxiedTarget() {
+		return target;
+	}
 }

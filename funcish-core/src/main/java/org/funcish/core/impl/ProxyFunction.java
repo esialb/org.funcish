@@ -2,7 +2,7 @@ package org.funcish.core.impl;
 
 import org.funcish.core.fn.Function;
 
-public class ProxyFunction<T> extends AbstractFunction<T> {
+public class ProxyFunction<T> extends AbstractFunction<T> implements Proxied<Function<T>> {
 
 	private Function<T> target;
 	
@@ -16,4 +16,8 @@ public class ProxyFunction<T> extends AbstractFunction<T> {
 		return target.call(args);
 	}
 
+	@Override
+	public Function<T> proxiedTarget() {
+		return target;
+	}
 }

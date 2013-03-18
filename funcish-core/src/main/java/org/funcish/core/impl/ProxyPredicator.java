@@ -2,7 +2,7 @@ package org.funcish.core.impl;
 
 import org.funcish.core.fn.Predicate;
 
-public class ProxyPredicator<T> extends AbstractPredicator<T> {
+public class ProxyPredicator<T> extends AbstractPredicator<T> implements Proxied<Predicate<T>> {
 
 	private Predicate<T> target;
 	
@@ -16,4 +16,8 @@ public class ProxyPredicator<T> extends AbstractPredicator<T> {
 		return target.test0(value, index);
 	}
 
+	@Override
+	public Predicate<T> proxiedTarget() {
+		return target;
+	}
 }

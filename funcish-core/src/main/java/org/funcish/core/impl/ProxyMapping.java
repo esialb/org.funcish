@@ -2,7 +2,7 @@ package org.funcish.core.impl;
 
 import org.funcish.core.fn.Function;
 
-public class ProxyMapping<K, V> extends AbstractMapping<K, V> {
+public class ProxyMapping<K, V> extends AbstractMapping<K, V> implements Proxied<Function<V>> {
 	private Function<V> target;
 	
 	public ProxyMapping(Class<K> k, Function<V> target) {
@@ -13,5 +13,10 @@ public class ProxyMapping<K, V> extends AbstractMapping<K, V> {
 	@Override
 	public V map0(K key, Integer index) throws Exception {
 		return target.call(asArgs(target, key, index));
+	}
+	
+	@Override
+	public Function<V> proxiedTarget() {
+		return target;
 	}
 }

@@ -4,7 +4,7 @@ import java.lang.reflect.Method;
 
 import org.funcish.core.util.Primitives;
 
-public class MethodProxyFunction<T> extends AbstractFunction<T> {
+public class MethodProxyFunction<T> extends AbstractFunction<T> implements Proxied<Object> {
 	private Object target;
 	private Method method;
 	
@@ -20,9 +20,9 @@ public class MethodProxyFunction<T> extends AbstractFunction<T> {
 	public T call(Object... args) throws Exception {
 		return ret().cast(method.invoke(target, args));
 	}
-
+	
 	@Override
-	protected String getClassName() {
-		return method.getDeclaringClass().getName();
+	public Object proxiedTarget() {
+		return target;
 	}
 }
