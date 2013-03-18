@@ -29,7 +29,7 @@ public abstract class AbstractParaReducator<E, M> extends AbstractReducator<E, M
 			final int findex = index++;
 			RunnableFuture<M> f = new FutureTask<M>(new Callable<M>() {
 				public M call() throws Exception {
-					return reduce(fmemo, fe, findex);
+					return reduce0(fmemo, fe, findex);
 				}
 			});
 			exec.execute(f);
@@ -39,7 +39,7 @@ public abstract class AbstractParaReducator<E, M> extends AbstractReducator<E, M
 			index = 0;
 			memo = collator().memoStart();
 			for(Future<M> f : futures) {
-				memo = collator().reduce(memo, f.get(), index++);
+				memo = collator().reduce0(memo, f.get(), index++);
 			}
 		} catch(RuntimeException re) {
 			throw re;

@@ -25,7 +25,7 @@ public abstract class AbstractParaPredicator<T> extends AbstractPredicator<T> im
 			final int findex = index++;
 			RunnableFuture<Object[]> f = new FutureTask<Object[]>(new Callable<Object[]>() {
 				public Object[] call() throws Exception {
-					return new Object[] {test(t().cast(fe), findex), fe};
+					return new Object[] {test0(t().cast(fe), findex), fe};
 				}
 			});
 			exec.execute(f);

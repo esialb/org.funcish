@@ -15,7 +15,7 @@ public abstract class AbstractMappicator<K, V> extends AbstractMapping<K, V> imp
 		int index = 0;
 		for(K e : c) {
 			try {
-				out.add(v().cast(map(k().cast(e), index++)));
+				out.add(v().cast(map0(k().cast(e), index++)));
 			} catch(RuntimeException re) {
 				throw re;
 			} catch(Exception ex) {

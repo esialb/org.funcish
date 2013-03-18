@@ -14,7 +14,7 @@ public abstract class AbstractReducator<E, M> extends AbstractReducer<E, M> impl
 		int index = 0;
 		for(E e : c) {
 			try {
-				memo = reduce(memo, e, index++);
+				memo = reduce0(memo, e, index++);
 			} catch(RuntimeException re) {
 				throw re;
 			} catch(Exception ex) {

@@ -22,6 +22,17 @@ public abstract class AbstractMapping<K, V> extends AbstractFunction<V> implemen
 	}
 	
 	public V call(Object... args) throws Exception {
-		return v.cast(map(k.cast(args[0]), (Integer) args[1]));
+		return v.cast(map0(k.cast(args[0]), (Integer) args[1]));
+	}
+	
+	@Override
+	public V map(K key, Integer index) {
+		try {
+			return map0(key, index);
+		} catch(RuntimeException re) {
+			throw re;
+		} catch(Exception ex) {
+			throw new RuntimeException(ex);
+		}
 	}
 }

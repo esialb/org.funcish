@@ -11,7 +11,7 @@ public class ProxyMapping<K, V> extends AbstractMapping<K, V> {
 	}
 
 	@Override
-	public V map(K key, Integer index) throws Exception {
+	public V map0(K key, Integer index) throws Exception {
 		return target.call(asArgs(target, key, index));
 	}
 }

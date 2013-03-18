@@ -29,6 +29,17 @@ public abstract class AbstractReducer<E, M> extends AbstractFunction<M> implemen
 	}
 
 	public M call(Object... args) throws Exception {
-		return m.cast(reduce(m.cast(args[0]), e.cast(args[1]), (Integer) args[2]));
+		return m.cast(reduce0(m.cast(args[0]), e.cast(args[1]), (Integer) args[2]));
+	}
+	
+	@Override
+	public M reduce(M memo, E obj, Integer index) {
+		try {
+			return reduce0(memo, obj, index);
+		} catch(RuntimeException re) {
+			throw re;
+		} catch(Exception ex) {
+			throw new RuntimeException(ex);
+		}
 	}
 }

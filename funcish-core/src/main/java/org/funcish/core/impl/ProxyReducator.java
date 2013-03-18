@@ -12,8 +12,8 @@ public class ProxyReducator<E, M> extends AbstractReducator<E, M> {
 	}
 
 	@Override
-	public M reduce(M memo, E obj, Integer index) throws Exception {
-		return target.reduce(memo, obj, index);
+	public M reduce0(M memo, E obj, Integer index) throws Exception {
+		return target.reduce0(memo, obj, index);
 	}
 	
 }

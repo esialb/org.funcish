@@ -12,8 +12,8 @@ public class ProxyPredicator<T> extends AbstractPredicator<T> {
 	}
 
 	@Override
-	public boolean test(T value, Integer index) throws Exception {
-		return target.test(value, index);
+	public boolean test0(T value, Integer index) throws Exception {
+		return target.test0(value, index);
 	}
 
 }

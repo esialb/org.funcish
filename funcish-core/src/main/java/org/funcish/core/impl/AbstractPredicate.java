@@ -16,6 +16,17 @@ public abstract class AbstractPredicate<T> extends AbstractFunction<Boolean> imp
 	}
 
 	public Boolean call(Object... args) throws Exception {
-		return test(t.cast(args[0]), (Integer) args[1]);
+		return test0(t.cast(args[0]), (Integer) args[1]);
+	}
+	
+	@Override
+	public boolean test(T value, Integer index) {
+		try {
+			return test0(value, index);
+		} catch(RuntimeException re) {
+			throw re;
+		} catch(Exception ex) {
+			throw new RuntimeException(ex);
+		}
 	}
 }

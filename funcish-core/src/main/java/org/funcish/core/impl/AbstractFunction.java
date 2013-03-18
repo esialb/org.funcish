@@ -2,7 +2,10 @@ package org.funcish.core.impl;
 
 import java.util.Arrays;
 
+import org.funcish.core.Mappings;
 import org.funcish.core.fn.Function;
+import org.funcish.core.fn.Mappicator;
+import org.funcish.core.util.Strings;
 
 public abstract class AbstractFunction<T> implements Function<T> {
 	protected static Object[] asArgs(Function<?> f, Object... values) {
@@ -44,14 +47,11 @@ public abstract class AbstractFunction<T> implements Function<T> {
 	
 	@Override
 	public String toString() {
-		StringBuilder sb = new StringBuilder(ret.getSimpleName());
+		Mappicator<Class<?>, String> NAME = Mappings.classSimpleName();
+		
+		StringBuilder sb = new StringBuilder(NAME.map(ret, null));
 		sb.append("(");
-		String sep = "";
-		for(Class<?> a : args()) {
-			sb.append(sep);
-			sb.append(a.getSimpleName());
-			sep = ",";
-		}
+		sb.append(Strings.join(",", NAME.map(Arrays.asList(args()))));
 		sb.append("):");
 		sb.append(getClassName());
 		return sb.toString();

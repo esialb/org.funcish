@@ -12,7 +12,7 @@ public class ProxyPredicate<T> extends AbstractPredicate<T> {
 	}
 
 	@Override
-	public boolean test(T value, Integer index) throws Exception {
+	public boolean test0(T value, Integer index) throws Exception {
 		return target.call(asArgs(target, value, index));
 	}
 

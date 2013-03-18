@@ -12,7 +12,7 @@ public class ProxyReducer<E, M> extends AbstractReducer<E, M> {
 	}
 
 	@Override
-	public M reduce(M memo, E obj, Integer index) throws Exception {
+	public M reduce0(M memo, E obj, Integer index) throws Exception {
 		return target.call(asArgs(target, memo, obj, index));
 	}
 

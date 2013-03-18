@@ -12,8 +12,8 @@ public class ProxyMappicator<K, V> extends AbstractMappicator<K, V> {
 	}
 
 	@Override
-	public V map(K key, Integer index) throws Exception {
-		return target.map(key, index);
+	public V map0(K key, Integer index) throws Exception {
+		return target.map0(key, index);
 	}
 
 	

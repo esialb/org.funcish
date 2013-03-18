@@ -16,7 +16,7 @@ public abstract class AbstractPredicator<T> extends AbstractPredicate<T> impleme
 		int index = 0;
 		for(T e : c) {
 			try {
-				if(test(t().cast(e), index++))
+				if(test0(t().cast(e), index++))
 					out.add(e);
 			} catch(RuntimeException re) {
 				throw re;

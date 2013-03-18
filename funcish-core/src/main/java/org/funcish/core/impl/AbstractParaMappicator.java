@@ -25,7 +25,7 @@ public abstract class AbstractParaMappicator<K, V> extends AbstractMappicator<K,
 			final int findex = index++;
 			RunnableFuture<V> f = new FutureTask<V>(new Callable<V>() {
 				public V call() throws Exception {
-					return v().cast(map(k().cast(fe), findex));
+					return v().cast(map0(k().cast(fe), findex));
 				}
 			});
 			exec.execute(f);
