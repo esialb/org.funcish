@@ -7,8 +7,8 @@ import org.funcish.Function;
 public abstract class AbstractFunction<T> implements Function<T> {
 	private Class<?>[] args;
 	
-	public AbstractFunction(Class<?>[] args) {
-		this.args = args;
+	public AbstractFunction(Class<?>[] fnargs) {
+		this.args = fnargs;
 	}
 	
 	protected Object[] asArgs(Object... values) {

@@ -13,11 +13,11 @@ public abstract class AbstractMapping<K, V> extends AbstractFunction<V> implemen
 		this.v = v;
 	}
 	
-	public Class<K> getK() {
+	public Class<K> k() {
 		return k;
 	}
 	
-	public Class<V> getV() {
+	public Class<V> v() {
 		return v;
 	}
 	

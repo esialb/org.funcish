@@ -11,7 +11,7 @@ public abstract class AbstractPredicate<T> extends AbstractFunction<Boolean> imp
 		this.t = t;
 	}
 
-	public Class<T> getT() {
+	public Class<T> t() {
 		return t;
 	}
 
