@@ -10,12 +10,16 @@ import clojure.lang.IFn;
 import clojure.lang.ISeq;
 import clojure.lang.Util;
 
-public class CljProxyFunction<T> extends ProxyFunction implements IFn {
+public class ProxyFunctionIFn<T> extends ProxyFunction implements IFn {
 
-	public CljProxyFunction(Function<T> target) {
+	public ProxyFunctionIFn(Function<T> target) {
 		super(target);
 	}
 
+	public Function<T> typed() {
+		return (Function<T>) this;
+	}
+	
 	protected Object sneakyCall(Object... args) {
 		try {
 			return call(args);
