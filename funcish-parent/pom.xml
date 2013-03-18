@@ -33,4 +33,12 @@
 		</plugins>
 	</build>
 
+	<name>funcish utilities: parent pom</name>
+	<url>http://www.funcish.org/</url>
+	<description>Functional programming API borrowing heavily from Ruby and Clojure but staying within the bounds of Java</description>
+	<scm>
+		<url>https://github.com/esialb/org.funcish.git</url>
+		<connection>scm:git:git://github.com/esialb/org.funcish.git</connection>
+		<developerConnection>scm:git:git@github.com:esialb/org.funcish.git</developerConnection>
+	</scm>
 </project>
