@@ -12,7 +12,7 @@ public class ProxyMapping<K, V> extends AbstractMapping<K, V> implements Proxied
 
 	@Override
 	public V map0(K key, Integer index) throws Exception {
-		return target.call(asArgs(target, key, index));
+		return target.call(target.args(new Object[] {key, index}));
 	}
 	
 	@Override

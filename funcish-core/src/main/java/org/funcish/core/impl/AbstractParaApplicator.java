@@ -25,7 +25,7 @@ public abstract class AbstractParaApplicator<E, T> extends AbstractApplicator<E,
 			final int findex = index++;
 			RunnableFuture<T> f = new FutureTask<T>(new Callable<T>() {
 				public T call() throws Exception {
-					return AbstractParaApplicator.this.call(asArgs(fe, findex));
+					return AbstractParaApplicator.this.call(args(fe, findex));
 				}
 			});
 			exec.execute(f);

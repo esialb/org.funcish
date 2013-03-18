@@ -19,7 +19,7 @@ public class ClojurelikeProxyReducator extends AbstractReducator<Object, Object>
 	@Override
 	public Object reduce0(Object memo, Object obj, Integer index)
 			throws Exception {
-		return fn.call(asArgs(fn, memo, obj, index));
+		return fn.call(fn.args(new Object[] {memo, obj, index}));
 	}
 	
 	@Override

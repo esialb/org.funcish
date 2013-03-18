@@ -13,7 +13,7 @@ public class ProxyPredicate<T> extends AbstractPredicate<T> implements Proxied<F
 
 	@Override
 	public boolean test0(T value, Integer index) throws Exception {
-		return target.call(asArgs(target, value, index));
+		return target.call(target.args(new Object[] {value, index}));
 	}
 	
 	@Override

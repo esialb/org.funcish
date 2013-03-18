@@ -12,5 +12,5 @@
 
 (deftest like-clojure-fns
   (is (LikeClojure/reducator (FromClojure/function +)))
-  (is (= 6 (.reduce (LikeClojure/reducator (FromClojure/function +)) '(1 2 3))))
+  (is (= 6 (.reduce (LikeClojure/reducator (FromClojure/function + 2)) (list 1 2 3))))
   )

@@ -8,11 +8,6 @@ import org.funcish.core.fn.Mappicator;
 import org.funcish.core.util.Strings;
 
 public abstract class AbstractFunction<T> implements Function<T> {
-	protected static Object[] asArgs(Function<?> f, Object... values) {
-		if(values.length == f.args().length)
-			return values;
-		return Arrays.copyOf(values, f.args().length);
-	}
 	
 	private Class<T> ret;
 	private Class<?>[] args;
@@ -22,14 +17,14 @@ public abstract class AbstractFunction<T> implements Function<T> {
 		this.args = fnargs;
 	}
 	
-	protected Object[] asArgs(Object... values) {
+	public Object[] args(Object... values) {
 		if(values.length == args().length)
 			return values;
 		return Arrays.copyOf(values, args().length);
 	}
 
 	public T call() throws Exception {
-		return call(asArgs(new Object[0]));
+		return call(args(new Object[0]));
 	}
 
 	@Override

@@ -13,7 +13,7 @@ public class ProxyReducer<E, M> extends AbstractReducer<E, M> implements Proxied
 
 	@Override
 	public M reduce0(M memo, E obj, Integer index) throws Exception {
-		return target.call(asArgs(target, memo, obj, index));
+		return target.call(target.args(new Object[] {memo, obj, index}));
 	}
 
 	@Override
