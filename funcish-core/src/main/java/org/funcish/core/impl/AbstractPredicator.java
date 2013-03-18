@@ -31,7 +31,7 @@ public abstract class AbstractPredicator<T> extends AbstractPredicate<T> impleme
 		return innerOver(new ArrayCollection<T>(), c);
 	}
 	
-	public <C extends Collection<T>> C overInto(Collection<T> c, C into) {
+	public <C extends Collection<T>> C into(Collection<T> c, C into) {
 		return innerOver(into, c);
 	}
 

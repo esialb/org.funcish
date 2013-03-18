@@ -29,7 +29,7 @@ public abstract class AbstractMappicator<K, V> extends AbstractMapping<K, V> imp
 		return innerOver(new ArrayCollection<V>(), c);
 	}
 	
-	public <C extends Collection<V>> C overInto(Collection<K> c, C into) {
+	public <C extends Collection<V>> C into(Collection<K> c, C into) {
 		return innerOver(into, c);
 	}
 

@@ -35,7 +35,7 @@ public abstract class AbstractReducator<E, M> extends AbstractReducer<E, M> impl
 		return memoStart;
 	}
 	
-	public M overInto(Collection<E> c, M into) {
+	public M into(Collection<E> c, M into) {
 		return innerOver(into, c);
 	}
 }
