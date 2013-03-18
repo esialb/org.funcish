@@ -19,4 +19,8 @@ public class MethodProxyFunction<T> extends AbstractFunction<T> {
 		return ret().cast(method.invoke(target, args));
 	}
 
+	@Override
+	protected String getClassName() {
+		return method.getDeclaringClass().getName();
+	}
 }

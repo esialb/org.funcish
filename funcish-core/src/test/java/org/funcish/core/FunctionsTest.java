@@ -16,5 +16,6 @@ public class FunctionsTest {
 		};
 		Function<?> f = Functions.fn(plus);
 		Assert.assertNotNull(f);
+		System.out.println(f);
 	}
 }

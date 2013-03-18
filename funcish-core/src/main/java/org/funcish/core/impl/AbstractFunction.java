@@ -38,4 +38,22 @@ public abstract class AbstractFunction<T> implements Function<T> {
 		return args;
 	}
 	
+	protected String getClassName() {
+		return getClass().getName();
+	}
+	
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder(ret.getSimpleName());
+		sb.append("(");
+		String sep = "";
+		for(Class<?> a : args()) {
+			sb.append(sep);
+			sb.append(a.getSimpleName());
+			sep = ",";
+		}
+		sb.append("):");
+		sb.append(getClassName());
+		return sb.toString();
+	}
 }
