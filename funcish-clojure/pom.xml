@@ -29,7 +29,7 @@
 				<extensions>true</extensions>
 				<executions>
 					<execution>
-						<id>test-clojure</id>
+						<id>default-test</id>
 						<phase>test</phase>
 						<goals>
 							<goal>test-with-junit</goal>
