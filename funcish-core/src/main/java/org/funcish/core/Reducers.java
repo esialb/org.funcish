@@ -28,22 +28,42 @@ public class Reducers {
 	}
 
 	public static <E, F extends E, M> Reducer<F, M> narrow(Class<F> f, final Reducer<E, M> reducer) {
-		return new AbstractReducer<F, M>(f, reducer.m(), reducer.memoStart()) {
-			@Override
-			public M reduce0(M memo, F obj, Integer index) throws Exception {
-				return reducer.reduce(memo, obj, index);
-			}
-		};
+		return new NarrowingReducer<E, F, M>(f, reducer.m(), reducer.memoStart(), reducer);
 	}
 	
 	public static <E, N, M extends N> Reducer<E, N> widen(Class<N> n, final Reducer<E, M> reducer) {
-		return new AbstractReducer<E, N>(reducer.e(), n, reducer.memoStart()) {
-			@Override
-			public N reduce0(N memo, E obj, Integer index) throws Exception {
-				return reducer.reduce(reducer.m().cast(memo), obj, index);
-			}
-		};
+		return new WideningReducer<E, N, M>(reducer.e(), n, reducer.memoStart(), reducer);
 	}
 	
+	private static class WideningReducer<E, N, M extends N> extends AbstractReducer<E, N> {
+		private final Reducer<E, M> reducer;
+
+		private WideningReducer(Class<E> e, Class<N> m, N memoStart,
+				Reducer<E, M> reducer) {
+			super(e, m, memoStart);
+			this.reducer = reducer;
+		}
+
+		@Override
+		public N reduce0(N memo, E obj, Integer index) throws Exception {
+			return reducer.reduce(reducer.m().cast(memo), obj, index);
+		}
+	}
+
+	private static class NarrowingReducer<E, F extends E, M> extends AbstractReducer<F, M> {
+		private final Reducer<E, M> reducer;
+	
+		private NarrowingReducer(Class<F> e, Class<M> m, M memoStart,
+				Reducer<E, M> reducer) {
+			super(e, m, memoStart);
+			this.reducer = reducer;
+		}
+	
+		@Override
+		public M reduce0(M memo, F obj, Integer index) throws Exception {
+			return reducer.reduce(memo, obj, index);
+		}
+	}
+
 	private Reducers() {}
 }

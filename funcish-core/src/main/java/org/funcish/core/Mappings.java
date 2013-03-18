@@ -30,23 +30,41 @@ public class Mappings {
 	}
 	
 	public static <K, L extends K, V> Mapping<L, V> narrow(Class<L> l, final Mapping<K, V> mapping) {
-		return new AbstractMapping<L, V>(l, mapping.v()) {
-			@Override
-			public V map0(L key, Integer index) throws Exception {
-				return mapping.map(key, index);
-			}
-		};
+		return new NarrowingMapping<K, L, V>(l, mapping.v(), mapping);
 	}
 	
 	public static <K, U, V extends U> Mapping<K, U> widen(Class<U> u, final Mapping<K, V> mapping) {
-		return new AbstractMapping<K, U>(mapping.k(), u) {
-			@Override
-			public U map0(K key, Integer index) throws Exception {
-				return mapping.map(key, index);
-			}
-		};
+		return new WideningMapping<K, U, V>(mapping.k(), u, mapping);
 	}
 	
+	private static class WideningMapping<K, U, V extends U> extends AbstractMapping<K, U> {
+		private final Mapping<K, V> mapping;
+
+		private WideningMapping(Class<K> k, Class<U> v, Mapping<K, V> mapping) {
+			super(k, v);
+			this.mapping = mapping;
+		}
+
+		@Override
+		public U map0(K key, Integer index) throws Exception {
+			return mapping.map(key, index);
+		}
+	}
+
+	private static class NarrowingMapping<K, L extends K, V> extends AbstractMapping<L, V> {
+		private final Mapping<K, V> mapping;
+
+		private NarrowingMapping(Class<L> k, Class<V> v, Mapping<K, V> mapping) {
+			super(k, v);
+			this.mapping = mapping;
+		}
+
+		@Override
+		public V map0(L key, Integer index) throws Exception {
+			return mapping.map(key, index);
+		}
+	}
+
 	private static class ClassSimpleName extends AbstractMappicator<Class<?>, String> {
 		private ClassSimpleName(Class<Class<?>> k, Class<String> v) {
 			super(k, v);

@@ -24,13 +24,22 @@ public class Predicates {
 	}
 	
 	public static <T, U extends T> Predicate<U> narrow(Class<U> u, final Predicate<T> test) {
-		return new AbstractPredicate<U>(u) {
-			@Override
-			public boolean test0(U value, Integer index) throws Exception {
-				return test.test(value, index);
-			}
-		};
+		return new NarrowingPredicate<T, U>(u, test);
 	}
 	
+	private static class NarrowingPredicate<T, U extends T> extends AbstractPredicate<U> {
+		private final Predicate<T> test;
+	
+		private NarrowingPredicate(Class<U> t, Predicate<T> test) {
+			super(t);
+			this.test = test;
+		}
+	
+		@Override
+		public boolean test0(U value, Integer index) throws Exception {
+			return test.test(value, index);
+		}
+	}
+
 	private Predicates() {}
 }

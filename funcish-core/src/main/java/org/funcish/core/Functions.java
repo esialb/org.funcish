@@ -49,12 +49,7 @@ public class Functions {
 	}
 	
 	public static <T> Function<T> widen(Class<T> t, final Function<? extends T> fn) {
-		return new AbstractFunction<T>(t, fn.args()) {
-			@Override
-			public T call(Object... args) throws Exception {
-				return fn.call(fn.args(args));
-			}
-		};
+		return new WideningFunction<T>(t, fn.args(), fn);
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -102,5 +97,20 @@ public class Functions {
 		return new MethodProxyFunction<T>(ret, m, fnObj);
 	}
 	
+	private static class WideningFunction<T> extends AbstractFunction<T> {
+		private final Function<? extends T> fn;
+	
+		private WideningFunction(Class<T> ret, Class<?>[] fnargs,
+				Function<? extends T> fn) {
+			super(ret, fnargs);
+			this.fn = fn;
+		}
+	
+		@Override
+		public T call(Object... args) throws Exception {
+			return fn.call(fn.args(args));
+		}
+	}
+
 	private Functions() {}
 }
