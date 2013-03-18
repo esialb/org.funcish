@@ -7,7 +7,7 @@ public abstract class AbstractPredicate<T> extends AbstractFunction<Boolean> imp
 	private Class<T> t;
 	
 	public AbstractPredicate(Class<T> t) {
-		super(new Class<?>[] {t, Integer.class});
+		super(Boolean.class, new Class<?>[] {t, Integer.class});
 		this.t = t;
 	}
 

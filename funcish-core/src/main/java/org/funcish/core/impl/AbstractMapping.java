@@ -8,7 +8,7 @@ public abstract class AbstractMapping<K, V> extends AbstractFunction<V> implemen
 	private Class<V> v;
 	
 	public AbstractMapping(Class<K> k, Class<V> v) {
-		super(new Class<?>[] {k, Integer.class});
+		super(v, new Class<?>[] {k, Integer.class});
 		this.k = k;
 		this.v = v;
 	}

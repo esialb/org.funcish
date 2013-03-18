@@ -6,8 +6,8 @@ import org.funcish.core.fn.Applicator;
 
 public abstract class AbstractApplicator<E, T> extends AbstractFunction<T> implements Applicator<E, T, T> {
 
-	public AbstractApplicator(Class<?>[] fnargs) {
-		super(fnargs);
+	public AbstractApplicator(Class<T> ret, Class<?>[] fnargs) {
+		super(ret, fnargs);
 	}
 
 	public T over(Collection<E> c) {

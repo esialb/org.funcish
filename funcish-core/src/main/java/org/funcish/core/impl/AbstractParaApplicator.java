@@ -12,8 +12,8 @@ import org.funcish.core.fn.ParaApplicator;
 
 public abstract class AbstractParaApplicator<E, T> extends AbstractApplicator<E, T> implements ParaApplicator<E, T, T> {
 
-	public AbstractParaApplicator(Class<?>[] fnargs) {
-		super(fnargs);
+	public AbstractParaApplicator(Class<T> ret, Class<?>[] fnargs) {
+		super(ret, fnargs);
 	}
 
 	public T over(Executor exec, Collection<E> c) {

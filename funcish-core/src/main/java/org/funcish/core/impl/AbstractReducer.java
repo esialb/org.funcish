@@ -10,7 +10,7 @@ public abstract class AbstractReducer<E, M> extends AbstractFunction<M> implemen
 	private Class<M> m;
 	
 	public AbstractReducer(Class<E> e, Class<M> m, M memoStart) {
-		super(new Class<?>[] {e, m});
+		super(m, new Class<?>[] {m, e, Integer.class});
 		this.e = e;
 		this.m = m;
 		this.memoStart = memoStart;
