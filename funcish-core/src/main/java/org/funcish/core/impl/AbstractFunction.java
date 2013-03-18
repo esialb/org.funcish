@@ -17,7 +17,7 @@ public abstract class AbstractFunction<T> implements Function<T> {
 		this.args = fnargs;
 	}
 	
-	public Object[] args(Object... values) {
+	public Object[] args(Object[] values) {
 		if(values.length == args().length)
 			return values;
 		return Arrays.copyOf(values, args().length);

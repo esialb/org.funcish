@@ -17,14 +17,13 @@ public class FunctionsTest {
 			}
 		};
 		Function<?> f = Functions.fn(plus);
-		Function<Integer> fi = Functions.fn(int.class, plus);
 		Assert.assertNotNull(f);
 		System.out.println(f);
 	}
 	
 	@Test
 	public void testFn_Callable() throws Exception {
-		Callable foo = new Callable<Object>() {
+		Callable<?> foo = new Callable<Object>() {
 			@Override
 			public String call() throws Exception {
 				return "bar";

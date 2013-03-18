@@ -12,6 +12,7 @@ public class Primitives {
 		return primitives.get(wrapperClass);
 	}
 	
+	@SuppressWarnings("unchecked")
 	public static <T> Class<T> ensureNonPrimitive(Class<T> possiblePrimitive) {
 		if(wrappers.containsKey(possiblePrimitive))
 			return (Class<T>) wrappers.get(possiblePrimitive);

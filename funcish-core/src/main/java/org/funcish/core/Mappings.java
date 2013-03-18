@@ -23,6 +23,7 @@ public class Mappings {
 		return new ProxyParaMappicator<K, V>(target);
 	}
 	
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public static Mappicator<Class<?>, String> classSimpleName() {
 		return new AbstractMappicator<Class<?>, String>((Class) Class.class, String.class) {
 			@Override

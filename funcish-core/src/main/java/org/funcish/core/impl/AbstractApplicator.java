@@ -15,7 +15,7 @@ public abstract class AbstractApplicator<E, T> extends AbstractFunction<T> imple
 		int index = 0;
 		for(E e : c) {
 			try {
-				ret = call(args(e, index++));
+				ret = call(args(new Object[] {e, index++}));
 			} catch(RuntimeException re) {
 				throw re;
 			} catch(Exception ex) {

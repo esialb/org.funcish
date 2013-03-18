@@ -7,7 +7,6 @@ import org.funcish.core.impl.Proxied;
 
 import clojure.lang.ArraySeq;
 import clojure.lang.IFn;
-import clojure.lang.RestFn;
 
 public class IFnProxyFunction extends AbstractFunction<Object> implements Proxied<IFn> {
 	private static Class<?>[] fnargs(int arity) {
@@ -28,7 +27,7 @@ public class IFnProxyFunction extends AbstractFunction<Object> implements Proxie
 	}
 
 	@Override
-	public Object[] args(Object... values) {
+	public Object[] args(Object[] values) {
 		if(arity == null)
 			return values;
 		return super.args(values);

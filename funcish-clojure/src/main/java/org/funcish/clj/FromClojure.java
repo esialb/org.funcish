@@ -14,7 +14,6 @@ import org.funcish.core.fn.Reducator;
 import org.funcish.core.fn.Reducer;
 
 import clojure.lang.IFn;
-import clojure.lang.IFn;
 
 public class FromClojure {
 	

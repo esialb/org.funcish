@@ -10,12 +10,15 @@ import clojure.lang.IFn;
 import clojure.lang.ISeq;
 import clojure.lang.Util;
 
+@SuppressWarnings("rawtypes")
 public class ProxyFunctionIFn<T> extends ProxyFunction implements IFn {
 
+	@SuppressWarnings("unchecked")
 	public ProxyFunctionIFn(Function<T> target) {
 		super(target);
 	}
 
+	@SuppressWarnings("unchecked")
 	public Function<T> typed() {
 		return (Function<T>) this;
 	}
