@@ -49,7 +49,7 @@ public abstract class AbstractFunction<T> implements Function<T> {
 	public String toString() {
 		Mappicator<Class<?>, String> NAME = Mappings.classSimpleName();
 		
-		StringBuilder sb = new StringBuilder(NAME.map(ret, null));
+		StringBuilder sb = new StringBuilder(NAME.map(ret(), null));
 		sb.append("(");
 		sb.append(Strings.join(",", NAME.map(Arrays.asList(args()))));
 		sb.append("):");
