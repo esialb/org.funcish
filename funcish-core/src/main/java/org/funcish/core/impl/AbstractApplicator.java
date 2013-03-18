@@ -1,8 +1,8 @@
-package org.funcish.core;
+package org.funcish.core.impl;
 
 import java.util.Collection;
 
-import org.funcish.Applicator;
+import org.funcish.core.fn.Applicator;
 
 public abstract class AbstractApplicator<E, T> extends AbstractFunction<T> implements Applicator<E, T, T> {
 

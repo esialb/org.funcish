@@ -1,8 +1,8 @@
-package org.funcish.core;
+package org.funcish.core.impl;
 
 import java.util.Arrays;
 
-import org.funcish.Function;
+import org.funcish.core.fn.Function;
 
 public abstract class AbstractFunction<T> implements Function<T> {
 	private Class<?>[] args;

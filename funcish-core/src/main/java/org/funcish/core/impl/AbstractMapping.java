@@ -1,6 +1,6 @@
-package org.funcish.core;
+package org.funcish.core.impl;
 
-import org.funcish.Mapping;
+import org.funcish.core.fn.Mapping;
 
 public abstract class AbstractMapping<K, V> extends AbstractFunction<V> implements Mapping<K, V> {
 

@@ -1,4 +1,4 @@
-package org.funcish;
+package org.funcish.core.fn;
 
 import java.util.concurrent.Callable;
 

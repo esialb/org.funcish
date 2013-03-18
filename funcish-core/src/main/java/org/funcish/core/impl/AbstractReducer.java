@@ -1,6 +1,6 @@
-package org.funcish.core;
+package org.funcish.core.impl;
 
-import org.funcish.Reducer;
+import org.funcish.core.fn.Reducer;
 
 public abstract class AbstractReducer<E, M> extends AbstractFunction<M> implements Reducer<E, M> {
 

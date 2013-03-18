@@ -1,9 +1,9 @@
-package org.funcish.core;
+package org.funcish.core.impl;
 
 import java.util.Collection;
 
-import org.funcish.Predicator;
 import org.funcish.core.coll.ArrayCollection;
+import org.funcish.core.fn.Predicator;
 
 public abstract class AbstractPredicator<T> extends AbstractPredicate<T> implements Predicator<T> {
 

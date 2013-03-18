@@ -1,8 +1,8 @@
-package org.funcish.core;
+package org.funcish.core.impl;
 
 import java.util.Collection;
 
-import org.funcish.Reducator;
+import org.funcish.core.fn.Reducator;
 
 public abstract class AbstractReducator<E, M> extends AbstractReducer<E, M> implements Reducator<E, M> {
 
