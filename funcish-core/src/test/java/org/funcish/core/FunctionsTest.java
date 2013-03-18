@@ -1,7 +1,10 @@
 package org.funcish.core;
 
+import java.util.Arrays;
+
 import org.funcish.core.ann.MethodFunction;
 import org.funcish.core.fn.Function;
+import org.funcish.core.fn.Reducator;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -15,7 +18,12 @@ public class FunctionsTest {
 			}
 		};
 		Function<?> f = Functions.fn(plus);
+		Function<Integer> fi = Functions.fn(int.class, plus);
 		Assert.assertNotNull(f);
 		System.out.println(f);
+		
+		Reducator<Integer, Integer> sum = Reducers.reducator(Reducers.reducer(int.class, 0, fi));
+		System.out.println(sum.reduce(Arrays.asList(1, 2, 3)));
+	
 	}
 }

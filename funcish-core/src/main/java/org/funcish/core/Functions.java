@@ -56,9 +56,11 @@ public class Functions {
 			return null;
 		if(candidates.size() > 1)
 			throw new IllegalArgumentException("Class " + fnClass + " annotates " + candidates.size() + " methods as " + MethodFunction.class);
+		Method m = candidates.get(0);
+		m.setAccessible(true);
 		if(ret == null)
-			ret = (Class<T>) candidates.get(0).getReturnType();
-		return new MethodProxyFunction<T>(ret, candidates.get(0), fnObj);
+			ret = (Class<T>) m.getReturnType();
+		return new MethodProxyFunction<T>(ret, m, fnObj);
 	}
 	
 	private static <T> Function<T> solitaryFn(Class<T> ret, Class<?> fnClass, Object fnObj) {
@@ -69,9 +71,11 @@ public class Functions {
 		}
 		if(candidates.size() != 1)
 			return null;
+		Method m = candidates.get(0);
+		m.setAccessible(true);
 		if(ret == null)
-			ret = (Class<T>) candidates.get(0).getReturnType();
-		return new MethodProxyFunction<T>(ret, candidates.get(0), fnObj);
+			ret = (Class<T>) m.getReturnType();
+		return new MethodProxyFunction<T>(ret, m, fnObj);
 	}
 	
 	private Functions() {}

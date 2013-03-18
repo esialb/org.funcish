@@ -12,9 +12,9 @@ public class Primitives {
 		return primitives.get(wrapperClass);
 	}
 	
-	public static Class<?> ensureNonPrimitive(Class<?> possiblePrimitive) {
+	public static <T> Class<T> ensureNonPrimitive(Class<T> possiblePrimitive) {
 		if(wrappers.containsKey(possiblePrimitive))
-			return wrappers.get(possiblePrimitive);
+			return (Class<T>) wrappers.get(possiblePrimitive);
 		return possiblePrimitive;
 	}
 	
