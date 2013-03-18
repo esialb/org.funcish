@@ -6,8 +6,9 @@ import java.util.Iterator;
 
 import org.funcish.core.fn.Function;
 import org.funcish.core.impl.AbstractReducator;
+import org.funcish.core.impl.Proxied;
 
-public class ClojurelikeProxyReducator extends AbstractReducator<Object, Object> {
+public class ClojurelikeProxyReducator extends AbstractReducator<Object, Object> implements Proxied<Function<?>> {
 
 	private Function<?> fn;
 	
@@ -30,6 +31,11 @@ public class ClojurelikeProxyReducator extends AbstractReducator<Object, Object>
 		while(i.hasNext())
 			rest.add(i.next());
 		return innerOver(first, rest);
+	}
+	
+	@Override
+	public Function<?> proxiedTarget() {
+		return fn;
 	}
 
 }

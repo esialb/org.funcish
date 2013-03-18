@@ -10,6 +10,8 @@
 (with-junit-output
   (run-tests 'org.funcish.clj.FromClojureTest))
 
+(println (FromClojure/function +))
+
 (deftest from-clojure-fns
   (is (FromClojure/function +))
   (is (= 6 (.reduce (FromClojure/reducator + 0) '(1 2 3))))

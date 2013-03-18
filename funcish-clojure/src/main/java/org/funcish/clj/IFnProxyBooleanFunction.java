@@ -3,12 +3,13 @@ package org.funcish.clj;
 import java.util.Collections;
 
 import org.funcish.core.impl.AbstractFunction;
+import org.funcish.core.impl.Proxied;
 
 import clojure.lang.ArraySeq;
 import clojure.lang.IFn;
 import clojure.lang.RestFn;
 
-public class IFnProxyBooleanFunction extends AbstractFunction<Boolean> {
+public class IFnProxyBooleanFunction extends AbstractFunction<Boolean> implements Proxied<IFn> {
 	private static Class<?>[] fnargs(int arity) {
 		return Collections.nCopies(arity, Object.class).toArray(new Class[0]);
 	}
@@ -41,4 +42,8 @@ public class IFnProxyBooleanFunction extends AbstractFunction<Boolean> {
 		return true;
 	}
 
+	@Override
+	public IFn proxiedTarget() {
+		return fn;
+	}
 }
