@@ -34,6 +34,9 @@
 						<goals>
 							<goal>test-with-junit</goal>
 						</goals>
+						<configuration>
+							<testOutputDirectory>${project.build.directory}/surefire-reports</testOutputDirectory>
+						</configuration>
 					</execution>
 				</executions>
 			</plugin>
