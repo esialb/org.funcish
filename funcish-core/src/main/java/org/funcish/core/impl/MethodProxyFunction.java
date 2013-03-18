@@ -9,7 +9,7 @@ public class MethodProxyFunction<T> extends AbstractFunction<T> implements Proxi
 	private Method method;
 	
 	public MethodProxyFunction(Class<T> t, Method method, Object target) {
-		super(Primitives.ensureNonPrimitive(t), method.getParameterTypes());
+		super(t, method.getParameterTypes());
 		this.target = target;
 		this.method = method;
 		if(!t.isAssignableFrom(method.getReturnType()))
@@ -18,7 +18,7 @@ public class MethodProxyFunction<T> extends AbstractFunction<T> implements Proxi
 
 	@Override
 	public T call(Object... args) throws Exception {
-		return ret().cast(method.invoke(target, args));
+		return Primitives.ensureNonPrimitive(ret()).cast(method.invoke(target, args));
 	}
 	
 	@Override
