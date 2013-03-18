@@ -1,4 +1,4 @@
-package org.funcish.base;
+package org.funcish.core;
 
 import java.util.Arrays;
 
