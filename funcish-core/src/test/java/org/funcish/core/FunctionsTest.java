@@ -1,10 +1,9 @@
 package org.funcish.core;
 
-import java.util.Arrays;
+import java.util.concurrent.Callable;
 
 import org.funcish.core.ann.MethodFunction;
 import org.funcish.core.fn.Function;
-import org.funcish.core.fn.Reducator;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -20,6 +19,18 @@ public class FunctionsTest {
 		Function<?> f = Functions.fn(plus);
 		Function<Integer> fi = Functions.fn(int.class, plus);
 		Assert.assertNotNull(f);
+		System.out.println(f);
+	}
+	
+	@Test
+	public void testFn_Callable() throws Exception {
+		Callable foo = new Callable<Object>() {
+			@Override
+			public String call() throws Exception {
+				return "bar";
+			}
+		};
+		Function<?> f = Functions.fn(foo);
 		System.out.println(f);
 	}
 }

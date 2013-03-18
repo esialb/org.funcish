@@ -1,7 +1,9 @@
 package org.funcish.core;
 
 import java.lang.reflect.Method;
+import java.lang.reflect.TypeVariable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.Callable;
 
@@ -13,7 +15,7 @@ import org.funcish.core.impl.MethodProxyFunction;
 public class Functions {
 	
 	public static <T> Function<T> fn(Callable<T> callable) {
-		return new CallableProxyFunction<T>((Class) Object.class, callable);
+		return new CallableProxyFunction<T>(extractCallableClass(callable), callable);
 	}
 	
 	public static <T> Function<T> fn(Class<T> ret, Callable<T> callable) {
@@ -44,6 +46,16 @@ public class Functions {
 		}
 		
 		throw new IllegalArgumentException("Unable to locate acceptable target function on " + fnObj.getClass());
+	}
+	
+	private static <T> Class<T> extractCallableClass(Callable<T> callable) {
+		try {
+			return (Class<T>) callable.getClass().getMethod("call").getReturnType();			
+		} catch(RuntimeException re) {
+			throw re;
+		} catch(Exception ex) {
+			throw new RuntimeException(ex);
+		}
 	}
 
 	private static <T> Function<T> annotatedFn(Class<T> ret, Class<?> fnClass, Object fnObj) {

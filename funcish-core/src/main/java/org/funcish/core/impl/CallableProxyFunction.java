@@ -15,5 +15,10 @@ public class CallableProxyFunction<T> extends AbstractFunction<T> {
 	public T call(Object... args) throws Exception {
 		return ret().cast(target.call());
 	}
+	
+	@Override
+	protected String getClassName() {
+		return target.getClass().getName();
+	}
 
 }
