@@ -35,4 +35,8 @@ public abstract class AbstractPredicator<T> extends AbstractPredicate<T> impleme
 		return innerOver(into, c);
 	}
 
+	@Override
+	public Collection<T> filter(Collection<T> c) {
+		return over(c);
+	}
 }

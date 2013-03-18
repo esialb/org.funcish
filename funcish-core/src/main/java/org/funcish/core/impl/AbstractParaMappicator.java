@@ -51,4 +51,8 @@ public abstract class AbstractParaMappicator<K, V> extends AbstractMappicator<K,
 		return paraInnerOver(into, exec, c);
 	}
 
+	@Override
+	public Collection<V> map(Executor exec, Collection<K> c) {
+		return over(exec, c);
+	}
 }

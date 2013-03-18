@@ -6,11 +6,8 @@ import org.funcish.core.fn.Reducator;
 
 public abstract class AbstractReducator<E, M> extends AbstractReducer<E, M> implements Reducator<E, M> {
 
-	private M memoStart;
-	
 	public AbstractReducator(Class<E> e, Class<M> m, M memoStart) {
-		super(e, m);
-		this.memoStart = memoStart;
+		super(e, m, memoStart);
 	}
 
 	protected M innerOver(M memo, Collection<E> c) {
@@ -28,14 +25,20 @@ public abstract class AbstractReducator<E, M> extends AbstractReducer<E, M> impl
 	}
 
 	public M over(Collection<E> c) {
-		return innerOver(memoStart, c);
-	}
-	
-	public M memoStart() {
-		return memoStart;
+		return innerOver(memoStart(), c);
 	}
 	
 	public M into(Collection<E> c, M into) {
 		return innerOver(into, c);
+	}
+	
+	@Override
+	public M reduce(Collection<E> c) {
+		return over(c);
+	}
+	
+	@Override
+	public M reduce(Collection<E> c, M into) {
+		return into(c, into);
 	}
 }

@@ -4,13 +4,20 @@ import org.funcish.core.fn.Reducer;
 
 public abstract class AbstractReducer<E, M> extends AbstractFunction<M> implements Reducer<E, M> {
 
+	private M memoStart;
+	
 	private Class<E> e;
 	private Class<M> m;
 	
-	public AbstractReducer(Class<E> e, Class<M> m) {
+	public AbstractReducer(Class<E> e, Class<M> m, M memoStart) {
 		super(new Class<?>[] {e, m});
 		this.e = e;
 		this.m = m;
+		this.memoStart = memoStart;
+	}
+	
+	public M memoStart() {
+		return memoStart;
 	}
 	
 	public Class<E> e() {

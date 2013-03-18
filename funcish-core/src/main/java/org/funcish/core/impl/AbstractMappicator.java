@@ -33,5 +33,9 @@ public abstract class AbstractMappicator<K, V> extends AbstractMapping<K, V> imp
 		return innerOver(into, c);
 	}
 
+	@Override
+	public Collection<V> map(Collection<K> c) {
+		return over(c);
+	}
 
 }

@@ -37,6 +37,7 @@ public abstract class AbstractParaReducator<E, M> extends AbstractReducator<E, M
 		}
 		try {
 			index = 0;
+			memo = collator().memoStart();
 			for(Future<M> f : futures) {
 				memo = collator().reduce(memo, f.get(), index++);
 			}
@@ -60,4 +61,13 @@ public abstract class AbstractParaReducator<E, M> extends AbstractReducator<E, M
 		return collator;
 	}
 
+	@Override
+	public M reduce(Executor exec, Collection<E> c) {
+		return over(exec, c);
+	}
+	
+	@Override
+	public M reduce(Executor exec, Collection<E> c, M into) {
+		return into(exec, c, into);
+	}
 }

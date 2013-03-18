@@ -4,4 +4,6 @@ import java.util.Collection;
 
 public interface Mappicator<K, V> extends Mapping<K, V>, Applicator<K, Collection<V>, V> {
 	public <C extends Collection<V>> C into(Collection<K> c, C into);
+	
+	public Collection<V> map(Collection<K> c);
 }
