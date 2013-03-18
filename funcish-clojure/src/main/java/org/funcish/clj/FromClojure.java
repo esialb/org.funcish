@@ -8,11 +8,7 @@ import org.funcish.core.fn.Reducer;
 import clojure.lang.IFn;
 import clojure.lang.RestFn;
 
-public class ClojureSupport {
-	
-	public static <T> IFn clojureIFn(Function<T> fn) {
-		return new ProxyFunctionIFn<T>(fn);
-	}
+public class FromClojure {
 	
 	public static Function<Object> function(RestFn fn) {
 		return new RestFnProxyFunction(fn);
@@ -34,5 +30,5 @@ public class ClojureSupport {
 		return Reducers.reducator(reducer(fn, memoStart));
 	}
 
-	private ClojureSupport() {}
+	private FromClojure() {}
 }
