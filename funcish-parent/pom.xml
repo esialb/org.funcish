@@ -5,10 +5,45 @@
 	<artifactId>funcish-parent</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
+	<name>funcish utilities: parent pom</name>
+	<url>http://www.funcish.org/</url>
+	<description>Functional programming API borrowing heavily from Ruby and Clojure but staying within the bounds of Java</description>
+	
+	<scm>
+		<url>https://github.com/esialb/org.funcish.git</url>
+		<connection>scm:git:git://github.com/esialb/org.funcish.git</connection>
+		<developerConnection>scm:git:git@github.com:esialb/org.funcish.git</developerConnection>
+	</scm>
+	
+	<licenses>
+		<license>
+			<distribution>repo</distribution>
+			<url>http://www.funcish.org/license.html</url>
+			<name>BSD</name>
+			<comments>Standard 3-condition BSD license.</comments>
+		</license>
+	</licenses>
+
+	<developers>
+		<developer>
+			<id>robin</id>
+			<email>funcish@robinkirkman.com</email>
+			<name>Robin Kirkman</name>
+			<roles>
+				<role>architect</role>
+				<role>developer</role>
+				<role>head honcho</role>
+			</roles>
+			<timezone>-5</timezone>
+			<url>http://www.robinkirkman.com/</url>
+		</developer>
+	</developers>
+
 	<modules>
 		<module>../funcish-core</module>
 		<module>../funcish-clojure</module>
 	</modules>
+
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
@@ -33,12 +68,9 @@
 		</plugins>
 	</build>
 
-	<name>funcish utilities: parent pom</name>
-	<url>http://www.funcish.org/</url>
-	<description>Functional programming API borrowing heavily from Ruby and Clojure but staying within the bounds of Java</description>
-	<scm>
-		<url>https://github.com/esialb/org.funcish.git</url>
-		<connection>scm:git:git://github.com/esialb/org.funcish.git</connection>
-		<developerConnection>scm:git:git@github.com:esialb/org.funcish.git</developerConnection>
-	</scm>
+	<parent>
+		<groupId>org.sonatype.oss</groupId>
+		<artifactId>oss-parent</artifactId>
+		<version>7</version>
+	</parent>
 </project>
