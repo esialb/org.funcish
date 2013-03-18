@@ -28,6 +28,10 @@ public abstract class AbstractMappicator<K, V> extends AbstractMapping<K, V> imp
 	public Collection<V> over(Collection<K> c) {
 		return innerOver(new ArrayCollection<V>(), c);
 	}
+	
+	public <C extends Collection<V>> C overInto(Collection<K> c, C into) {
+		return innerOver(into, c);
+	}
 
 
 }
