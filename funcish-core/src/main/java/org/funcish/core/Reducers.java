@@ -4,6 +4,7 @@ import org.funcish.core.fn.Function;
 import org.funcish.core.fn.ParaReducator;
 import org.funcish.core.fn.Reducator;
 import org.funcish.core.fn.Reducer;
+import org.funcish.core.impl.AbstractReducer;
 import org.funcish.core.impl.ProxyParaReducator;
 import org.funcish.core.impl.ProxyReducator;
 import org.funcish.core.impl.ProxyReducer;
@@ -26,5 +27,23 @@ public class Reducers {
 		return new ProxyParaReducator<E, M>(target, collator);
 	}
 
+	public static <E, F extends E, M> Reducer<F, M> narrow(Class<F> f, final Reducer<E, M> reducer) {
+		return new AbstractReducer<F, M>(f, reducer.m(), reducer.memoStart()) {
+			@Override
+			public M reduce0(M memo, F obj, Integer index) throws Exception {
+				return reducer.reduce(memo, obj, index);
+			}
+		};
+	}
+	
+	public static <E, N, M extends N> Reducer<E, N> widen(Class<N> n, final Reducer<E, M> reducer) {
+		return new AbstractReducer<E, N>(reducer.e(), n, reducer.memoStart()) {
+			@Override
+			public N reduce0(N memo, E obj, Integer index) throws Exception {
+				return reducer.reduce(reducer.m().cast(memo), obj, index);
+			}
+		};
+	}
+	
 	private Reducers() {}
 }

@@ -7,8 +7,10 @@ import java.util.concurrent.Callable;
 
 import org.funcish.core.ann.MethodFunction;
 import org.funcish.core.fn.Function;
+import org.funcish.core.impl.AbstractFunction;
 import org.funcish.core.impl.CallableProxyFunction;
 import org.funcish.core.impl.MethodProxyFunction;
+import org.funcish.core.impl.ProxyFunction;
 
 public class Functions {
 	
@@ -44,6 +46,15 @@ public class Functions {
 		}
 		
 		throw new IllegalArgumentException("Unable to locate acceptable target function on " + fnObj.getClass());
+	}
+	
+	public static <T> Function<T> widen(Class<T> t, final Function<? extends T> fn) {
+		return new AbstractFunction<T>(t, fn.args()) {
+			@Override
+			public T call(Object... args) throws Exception {
+				return fn.call(fn.args(args));
+			}
+		};
 	}
 	
 	@SuppressWarnings("unchecked")
