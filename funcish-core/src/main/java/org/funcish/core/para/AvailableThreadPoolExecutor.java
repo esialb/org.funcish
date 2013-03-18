@@ -22,7 +22,7 @@ public class AvailableThreadPoolExecutor extends ThreadPoolExecutor {
 		int idealThreads = threadsPerProcessor * Runtime.getRuntime().availableProcessors();
 		if(idealThreads > getCorePoolSize())
 			setCorePoolSize(getCorePoolSize() + 1);
-		else if(idealThreads < getCorePoolSize() && getActiveCount() < idealThreads- 1)
+		else if(idealThreads < getCorePoolSize())
 			setCorePoolSize(Math.max(getCorePoolSize() - 1, 1));
 	}
 	
