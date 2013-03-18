@@ -39,4 +39,9 @@ public abstract class AbstractPredicator<T> extends AbstractPredicate<T> impleme
 	public Collection<T> filter(Collection<T> c) {
 		return over(c);
 	}
+	
+	@Override
+	public <C extends Collection<T>> C filter(Collection<T> c, C into) {
+		return into(c, into);
+	}
 }

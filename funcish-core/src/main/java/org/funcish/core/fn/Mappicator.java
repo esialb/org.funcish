@@ -6,4 +6,5 @@ public interface Mappicator<K, V> extends Mapping<K, V>, Applicator<K, Collectio
 	public <C extends Collection<V>> C into(Collection<K> c, C into);
 	
 	public Collection<V> map(Collection<K> c);
+	public <C extends Collection<V>> C map(Collection<K> c, C into);
 }

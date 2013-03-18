@@ -56,4 +56,9 @@ public abstract class AbstractParaPredicator<T> extends AbstractPredicator<T> im
 	public Collection<T> filter(Executor exec, Collection<T> c) {
 		return over(exec, c);
 	}
+	
+	@Override
+	public <C extends Collection<T>> C filter(Executor exec, Collection<T> c, C into) {
+		return into(exec, c, into);
+	}
 }

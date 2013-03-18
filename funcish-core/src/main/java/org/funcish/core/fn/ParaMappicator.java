@@ -7,4 +7,5 @@ public interface ParaMappicator<K, V> extends Mappicator<K, V>, ParaApplicator<K
 	public <C extends Collection<V>> C into(Executor exec, Collection<K> c, C into);
 	
 	public Collection<V> map(Executor exec, Collection<K> c);
+	public <C extends Collection<V>> C map(Executor exec, Collection<K> c, C into);
 }

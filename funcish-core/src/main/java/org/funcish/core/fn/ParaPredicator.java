@@ -7,4 +7,5 @@ public interface ParaPredicator<T> extends Predicator<T>, ParaApplicator<T, Coll
 	public <C extends Collection<T>> C into(Executor exec, Collection<T> c, C into);
 
 	public Collection<T> filter(Executor exec, Collection<T> c);
+	public <C extends Collection<T>> C filter(Executor exec, Collection<T> c, C into);
 }
