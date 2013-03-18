@@ -46,12 +46,14 @@ public abstract class AbstractFunction<T> implements Function<T> {
 	@Override
 	public String toString() {
 		Mappicator<Class<?>, String> NAME = Mappings.classSimpleName();
-		
-		StringBuilder sb = new StringBuilder(NAME.map(ret(), null));
+		StringBuilder sb = new StringBuilder();
+		sb.append("fn://");
+		sb.append(getClassName());
+		sb.append("/");
+		sb.append(NAME.map(ret(), null));
 		sb.append("(");
 		sb.append(Strings.join(",", NAME.map(Arrays.asList(args()))));
-		sb.append("):");
-		sb.append(getClassName());
+		sb.append(")");
 		return sb.toString();
 	}
 }
