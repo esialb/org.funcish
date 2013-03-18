@@ -21,9 +21,5 @@ public class FunctionsTest {
 		Function<Integer> fi = Functions.fn(int.class, plus);
 		Assert.assertNotNull(f);
 		System.out.println(f);
-		
-		Reducator<Integer, Integer> sum = Reducers.reducator(Reducers.reducer(int.class, 0, fi));
-		System.out.println(sum.reduce(Arrays.asList(1, 2, 3)));
-	
 	}
 }
