@@ -20,9 +20,30 @@ public class ProxyFunctionIFn<T> extends ProxyFunction implements IFn {
 		return (Function<T>) this;
 	}
 	
+	protected Object[] underflow(Object... args) {
+		for(int i = 0; i < args().length; i++) {
+			Class<?> fc = args()[i];
+			if(!fc.isPrimitive())
+				continue;
+			if(fc == byte.class)
+				args[i] = ((Number) args[i]).byteValue();
+			else if(fc == short.class)
+				args[i] = ((Number) args[i]).shortValue();
+			else if(fc == int.class)
+				args[i] = ((Number) args[i]).intValue();
+			else if(fc == long.class)
+				args[i] = ((Number) args[i]).longValue();
+			else if(fc == float.class)
+				args[i] = ((Number) args[i]).floatValue();
+			else if(fc == double.class)
+				args[i] = ((Number) args[i]).doubleValue();
+		}
+		return args;
+	}
+	
 	protected Object sneakyCall(Object... args) {
 		try {
-			return call(args);
+			return call(underflow(args));
 		} catch (Exception ex) {
 			throw Util.sneakyThrow(ex);
 		}
