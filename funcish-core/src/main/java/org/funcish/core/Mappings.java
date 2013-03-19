@@ -24,23 +24,41 @@ public class Mappings {
 		return new ProxyParaMappicator<K, V>(target);
 	}
 	
+	public static <K, L extends K, V> Mappicator<L, V> narrow(Class<L> l, final Mapping<K, V> mapping) {
+		return new NarrowingMappicator<K, L, V>(l, mapping.v(), mapping);
+	}
+	
+	public static <K, U, V extends U> Mappicator<K, U> widen(Class<U> u, final Mapping<K, V> mapping) {
+		return new WideningMappicator<K, U, V>(mapping.k(), u, mapping);
+	}
+	
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public static Mappicator<Class<?>, String> classSimpleName() {
 		return new ClassSimpleName((Class) Class.class, String.class);
 	}
-	
-	public static <K, L extends K, V> Mapping<L, V> narrow(Class<L> l, final Mapping<K, V> mapping) {
-		return new NarrowingMapping<K, L, V>(l, mapping.v(), mapping);
+
+	public static <K, V> Mappicator<K, V> classCast(Class<K> k, Class<V> v) {
+		return new ClassCast<K, V>(k, v, v);
 	}
 	
-	public static <K, U, V extends U> Mapping<K, U> widen(Class<U> u, final Mapping<K, V> mapping) {
-		return new WideningMapping<K, U, V>(mapping.k(), u, mapping);
+	private static class ClassCast<K, V> extends AbstractMappicator<K, V> {
+		private final Class<V> v;
+
+		private ClassCast(Class<K> k, Class<V> v, Class<V> v2) {
+			super(k, v);
+			this.v = v2;
+		}
+
+		@Override
+		public V map0(K key, Integer index) throws Exception {
+			return v.cast(key);
+		}
 	}
-	
-	private static class WideningMapping<K, U, V extends U> extends AbstractMapping<K, U> {
+
+	private static class WideningMappicator<K, U, V extends U> extends AbstractMappicator<K, U> {
 		private final Mapping<K, V> mapping;
 
-		private WideningMapping(Class<K> k, Class<U> v, Mapping<K, V> mapping) {
+		private WideningMappicator(Class<K> k, Class<U> v, Mapping<K, V> mapping) {
 			super(k, v);
 			this.mapping = mapping;
 		}
@@ -51,10 +69,10 @@ public class Mappings {
 		}
 	}
 
-	private static class NarrowingMapping<K, L extends K, V> extends AbstractMapping<L, V> {
+	private static class NarrowingMappicator<K, L extends K, V> extends AbstractMappicator<L, V> {
 		private final Mapping<K, V> mapping;
 
-		private NarrowingMapping(Class<L> k, Class<V> v, Mapping<K, V> mapping) {
+		private NarrowingMappicator(Class<L> k, Class<V> v, Mapping<K, V> mapping) {
 			super(k, v);
 			this.mapping = mapping;
 		}
