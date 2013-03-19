@@ -40,6 +40,24 @@ public class Predicates {
 		return new NotPredicator<T>(p.t(), p);
 	}
 	
+	public static <T> Predicator<Object> classIsInstance(final Class<T> t) {
+		return new ClassIsInstance<T>(Object.class, t);
+	}
+	
+	private static class ClassIsInstance<T> extends AbstractPredicator<Object> {
+		private final Class<T> t;
+
+		private ClassIsInstance(Class<Object> t, Class<T> t2) {
+			super(t);
+			this.t = t2;
+		}
+
+		@Override
+		public boolean test0(Object value, Integer index) throws Exception {
+			return t.isInstance(value);
+		}
+	}
+
 	private static class NotPredicator<T> extends AbstractPredicator<T> {
 		private Predicate<T> p;
 
