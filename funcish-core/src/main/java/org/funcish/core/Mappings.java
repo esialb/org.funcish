@@ -41,6 +41,22 @@ public class Mappings {
 		return new ClassCast<K, V>(k, v, v);
 	}
 	
+	public static <T> Mappicator<Class<? extends T>, T> classNewInstance(Class<T> t) {
+		return new ClassNewInstance<T>((Class) Class.class, t);
+	}
+	
+	private static class ClassNewInstance<T> extends
+			AbstractMappicator<Class<? extends T>, T> {
+		private ClassNewInstance(Class<Class<? extends T>> k, Class<T> v) {
+			super(k, v);
+		}
+
+		@Override
+		public T map0(Class<? extends T> key, Integer index) throws Exception {
+			return key.newInstance();
+		}
+	}
+
 	private static class ClassCast<K, V> extends AbstractMappicator<K, V> {
 		private final Class<V> v;
 
