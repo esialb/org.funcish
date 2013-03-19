@@ -4,7 +4,6 @@ import org.funcish.core.fn.Function;
 import org.funcish.core.fn.ParaPredicator;
 import org.funcish.core.fn.Predicate;
 import org.funcish.core.fn.Predicator;
-import org.funcish.core.impl.AbstractPredicate;
 import org.funcish.core.impl.AbstractPredicator;
 import org.funcish.core.impl.ProxyParaPredicator;
 import org.funcish.core.impl.ProxyPredicate;

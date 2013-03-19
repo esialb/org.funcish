@@ -10,7 +10,6 @@ import org.funcish.core.fn.Function;
 import org.funcish.core.impl.AbstractFunction;
 import org.funcish.core.impl.CallableProxyFunction;
 import org.funcish.core.impl.MethodProxyFunction;
-import org.funcish.core.impl.ProxyFunction;
 
 public class Functions {
 	

@@ -5,7 +5,6 @@ import org.funcish.core.fn.Mappicator;
 import org.funcish.core.fn.Mapping;
 import org.funcish.core.fn.ParaMappicator;
 import org.funcish.core.impl.AbstractMappicator;
-import org.funcish.core.impl.AbstractMapping;
 import org.funcish.core.impl.ProxyMappicator;
 import org.funcish.core.impl.ProxyMapping;
 import org.funcish.core.impl.ProxyParaMappicator;
@@ -41,6 +40,7 @@ public class Mappings {
 		return new ClassCast<K, V>(k, v, v);
 	}
 	
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public static <T> Mappicator<Class<? extends T>, T> classNewInstance(Class<T> t) {
 		return new ClassNewInstance<T>((Class) Class.class, t);
 	}
