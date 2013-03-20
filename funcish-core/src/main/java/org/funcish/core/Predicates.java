@@ -47,6 +47,7 @@ public class Predicates {
 		return new ClassIsInstance<T>(Object.class, t);
 	}
 	
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public static Predicator<Class<?>> classIsAssignableFrom(Class<?> cls) {
 		return new ClassIsAssignableFrom((Class)Class.class, cls);
 	}

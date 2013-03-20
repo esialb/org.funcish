@@ -49,6 +49,7 @@ public class Mappings {
 		return new ClassNewInstance<T>((Class) Class.class, t);
 	}
 	
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public static <T, U extends T> Mappicator<Class<? extends T>, Class<? extends U>> classAsSubclass(Class<U> u) {
 		return new ClassAsSubclass<T, U>((Class) Class.class, (Class) Class.class, u);
 	}
