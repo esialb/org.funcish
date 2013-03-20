@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.funcish</groupId>
 	<artifactId>funcish-parent</artifactId>
-	<version>0.0.2-SNAPSHOT</version>
+	<version>0.0.2</version>
 	<packaging>pom</packaging>
 	<name>funcish utilities: parent pom</name>
 	<url>http://www.funcish.org/</url>
@@ -49,7 +49,7 @@
 			<dependency>
 				<groupId>org.funcish</groupId>
 				<artifactId>funcish-core</artifactId>
-				<version>0.0.2-SNAPSHOT</version>
+				<version>0.0.2</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
