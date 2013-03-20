@@ -49,6 +49,27 @@ public class Mappings {
 		return new ClassNewInstance<T>((Class) Class.class, t);
 	}
 	
+	public static <T, U extends T> Mappicator<Class<? extends T>, Class<? extends U>> classAsSubclass(Class<U> u) {
+		return new ClassAsSubclass<T, U>((Class) Class.class, (Class) Class.class, u);
+	}
+	
+	private static class ClassAsSubclass<T, U> extends
+			AbstractMappicator<Class<? extends T>, Class<? extends U>> {
+		private final Class<U> u;
+
+		private ClassAsSubclass(Class<Class<? extends T>> k,
+				Class<Class<? extends U>> v, Class<U> u) {
+			super(k, v);
+			this.u = u;
+		}
+
+		@Override
+		public Class<? extends U> map0(Class<? extends T> key, Integer index)
+				throws Exception {
+			return key.asSubclass(u);
+		}
+	}
+
 	private static class ClassNewInstance<T> extends
 			AbstractMappicator<Class<? extends T>, T> {
 		private ClassNewInstance(Class<Class<? extends T>> k, Class<T> v) {
