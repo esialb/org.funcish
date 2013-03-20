@@ -6,15 +6,19 @@ public abstract class AbstractPredicate<T> extends AbstractFunction<Boolean> imp
 
 	private Class<T> t;
 	
+	public abstract boolean test0(T value, Integer index) throws Exception;
+	
 	public AbstractPredicate(Class<T> t) {
 		super(Boolean.class, new Class<?>[] {t, Integer.class});
 		this.t = t;
 	}
 
+	@Override
 	public Class<T> t() {
 		return t;
 	}
 
+	@Override
 	public Boolean call(Object... args) throws Exception {
 		return test0(t.cast(args[0]), (Integer) args[1]);
 	}

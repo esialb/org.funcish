@@ -16,7 +16,8 @@ public abstract class AbstractParaApplicator<E, T> extends AbstractApplicator<E,
 		super(ret, fnargs);
 	}
 
-	public T over(Executor exec, Collection<E> c) {
+	@Override
+	public T over(Executor exec, Collection<? extends E> c) {
 		Collection<Future<T>> futures = new ArrayList<Future<T>>();
 		T ret = null;
 		int index = 0;
@@ -24,6 +25,7 @@ public abstract class AbstractParaApplicator<E, T> extends AbstractApplicator<E,
 			final E fe = e;
 			final int findex = index++;
 			RunnableFuture<T> f = new FutureTask<T>(new Callable<T>() {
+				@Override
 				public T call() throws Exception {
 					return AbstractParaApplicator.this.call(args(new Object[] {fe, findex}));
 				}

@@ -7,20 +7,25 @@ public abstract class AbstractMapping<K, V> extends AbstractFunction<V> implemen
 	private Class<K> k;
 	private Class<V> v;
 	
+	public abstract V map0(K key, Integer index) throws Exception;
+	
 	public AbstractMapping(Class<K> k, Class<V> v) {
 		super(v, new Class<?>[] {k, Integer.class});
 		this.k = k;
 		this.v = v;
 	}
 	
+	@Override
 	public Class<K> k() {
 		return k;
 	}
 	
+	@Override
 	public Class<V> v() {
 		return v;
 	}
 	
+	@Override
 	public V call(Object... args) throws Exception {
 		return v.cast(map0(k.cast(args[0]), (Integer) args[1]));
 	}

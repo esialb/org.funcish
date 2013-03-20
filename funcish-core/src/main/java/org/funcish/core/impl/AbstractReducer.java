@@ -9,6 +9,8 @@ public abstract class AbstractReducer<E, M> extends AbstractFunction<M> implemen
 	private Class<E> e;
 	private Class<M> m;
 	
+	public abstract M reduce0(M memo, E obj, Integer index) throws Exception;
+	
 	public AbstractReducer(Class<E> e, Class<M> m, M memoStart) {
 		super(m, new Class<?>[] {m, e, Integer.class});
 		this.e = e;
@@ -16,18 +18,22 @@ public abstract class AbstractReducer<E, M> extends AbstractFunction<M> implemen
 		this.memoStart = memoStart;
 	}
 	
+	@Override
 	public M memoStart() {
 		return memoStart;
 	}
 	
+	@Override
 	public Class<E> e() {
 		return e;
 	}
 	
+	@Override
 	public Class<M> m() {
 		return m;
 	}
 
+	@Override
 	public M call(Object... args) throws Exception {
 		return m.cast(reduce0(m.cast(args[0]), e.cast(args[1]), (Integer) args[2]));
 	}

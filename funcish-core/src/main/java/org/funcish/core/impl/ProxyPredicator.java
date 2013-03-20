@@ -13,7 +13,7 @@ public class ProxyPredicator<T> extends AbstractPredicator<T> implements Proxied
 
 	@Override
 	public boolean test0(T value, Integer index) throws Exception {
-		return target.test0(value, index);
+		return target.test(value, index);
 	}
 
 	@Override

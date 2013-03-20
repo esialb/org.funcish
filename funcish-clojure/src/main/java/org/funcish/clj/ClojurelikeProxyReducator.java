@@ -24,8 +24,8 @@ public class ClojurelikeProxyReducator extends AbstractReducator<Object, Object>
 	}
 	
 	@Override
-	public Object over(Collection<Object> c) {
-		Iterator<Object> i = c.iterator();
+	public Object over(Collection<?> c) {
+		Iterator<?> i = c.iterator();
 		Object first = i.next();
 		Collection<Object> rest = new ArrayList<Object>();
 		while(i.hasNext())

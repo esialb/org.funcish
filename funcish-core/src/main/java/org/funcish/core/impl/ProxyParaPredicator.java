@@ -14,7 +14,7 @@ public class ProxyParaPredicator<T> extends AbstractParaPredicator<T> implements
 	
 	@Override
 	public boolean test0(T value, Integer index) throws Exception {
-		return target.test0(value, index);
+		return target.test(value, index);
 	}
 	
 	@Override

@@ -10,7 +10,7 @@ public abstract class AbstractReducator<E, M> extends AbstractReducer<E, M> impl
 		super(e, m, memoStart);
 	}
 
-	protected M innerOver(M memo, Collection<E> c) {
+	protected M innerOver(M memo, Collection<? extends E> c) {
 		int index = 0;
 		for(E e : c) {
 			try {
@@ -24,21 +24,22 @@ public abstract class AbstractReducator<E, M> extends AbstractReducer<E, M> impl
 		return memo;
 	}
 
-	public M over(Collection<E> c) {
+	@Override
+	public M over(Collection<? extends E> c) {
 		return innerOver(memoStart(), c);
 	}
 	
-	public M into(Collection<E> c, M into) {
+	public M into(Collection<? extends E> c, M into) {
 		return innerOver(into, c);
 	}
 	
 	@Override
-	public M reduce(Collection<E> c) {
+	public M reduce(Collection<? extends E> c) {
 		return over(c);
 	}
 	
 	@Override
-	public M reduce(Collection<E> c, M into) {
+	public M reduce(Collection<? extends E> c, M into) {
 		return into(c, into);
 	}
 }

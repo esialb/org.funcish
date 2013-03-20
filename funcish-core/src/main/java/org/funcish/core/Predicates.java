@@ -9,40 +9,122 @@ import org.funcish.core.impl.ProxyParaPredicator;
 import org.funcish.core.impl.ProxyPredicate;
 import org.funcish.core.impl.ProxyPredicator;
 
+/**
+ * Utility methods for creating and wrapping {@link Predicate}s
+ * @author robin
+ *
+ */
 public class Predicates {
-	
+	/**
+	 * Return the argument {@link Function} as a {@link Predicate}
+	 * @param t
+	 * @param target
+	 * @return
+	 */
 	public static <T> Predicate<T> predicate(Class<T> t, Function<Boolean> target) {
 		return new ProxyPredicate<T>(t, target);
 	}
 	
+	/**
+	 * Return a {@link Predicator} from the argument {@link Predicate}, either by
+	 * casting, or failing that, wrapping
+	 * @param target
+	 * @return
+	 */
 	public static <T> Predicator<T> predicator(Predicate<T> target) {
+		if(target instanceof Predicator<?>)
+			return (Predicator<T>) target;
 		return new ProxyPredicator<T>(target);
 	}
 	
+	/**
+	 * Return a {@link ParaPredicator} from the argument {@link Predicate}, either by
+	 * casting, or failing that, wrapping
+	 * @param target
+	 * @return
+	 */
 	public static <T> ParaPredicator<T> paraPredicator(Predicate<T> target) {
+		if(target instanceof ParaPredicator<?>)
+			return (ParaPredicator<T>) target;
 		return new ProxyParaPredicator<T>(target);
 	}
 	
+	/**
+	 * Returns a new {@link Predicator} that narrows the inputs of the argument
+	 * @param u
+	 * @param test
+	 * @return
+	 */
 	public static <T, U extends T> Predicator<U> narrow(Class<U> u, Predicate<T> test) {
 		return new NarrowingPredicator<T, U>(u, test);
 	}
 	
+	/**
+	 * Returns a new {@link Predicate} that lazily evaluates the argument {@link Predicate}s
+	 * in order, returning false if any return false, otherwise returning true.
+	 * @param first
+	 * @param rest
+	 * @return
+	 */
 	public static <T> Predicator<T> and(Predicate<T> first, Predicate<T>... rest) {
 		return new AndPredicator<T>(first.t(), rest, first);
 	}
 	
+	/**
+	 * Returns a new {@link Predicate} that lazily evaluates the argument {@link Predicate}s
+	 * in order, returning true if any return true, otherwise returning false.
+	 * @param first
+	 * @param rest
+	 * @return
+	 */
 	public static <T> Predicator<T> or(Predicate<T> first, Predicate<T>... rest) {
 		return new OrPredicator<T>(first.t(), first, rest);
 	}
 	
+	/**
+	 * Return a new {@link Predicate} that returns the opposite of the argument
+	 * @param p
+	 * @return
+	 */
 	public static <T> Predicator<T> not(Predicate<T> p) {
 		return new NotPredicator<T>(p.t(), p);
 	}
 	
-	public static <T> Predicator<Object> classIsInstance(final Class<T> t) {
+	/**
+	 * Returns a new {@link Predicate} that calls {@link Class#isInstance(Object)}
+	 * @param t
+	 * @return
+	 */
+	public static <T> Predicator<Object> classIsInstance(Class<T> t) {
 		return new ClassIsInstance<T>(Object.class, t);
 	}
 	
+	/**
+	 * Returns a new {@link Predicate} that calls {@link Class#isAssignableFrom(Class)}
+	 * @param cls
+	 * @return
+	 */
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	public static Predicator<Class<?>> classIsAssignableFrom(Class<?> cls) {
+		return new ClassIsAssignableFrom((Class)Class.class, cls);
+	}
+	
+	private static class ClassIsAssignableFrom extends
+			AbstractPredicator<Class<?>> {
+		private final Class<?> cls;
+
+		private ClassIsAssignableFrom(Class<Class<?>> t, Class<?> cls) {
+			super(t);
+			this.cls = cls;
+		}
+
+		@Override
+		public boolean test0(Class<?> value, Integer index)
+				throws Exception {
+			return cls.isAssignableFrom(value);
+		}
+	}
+
 	private static class ClassIsInstance<T> extends AbstractPredicator<Object> {
 		private final Class<T> t;
 

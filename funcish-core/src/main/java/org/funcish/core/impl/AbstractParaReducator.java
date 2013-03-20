@@ -20,7 +20,7 @@ public abstract class AbstractParaReducator<E, M> extends AbstractReducator<E, M
 		this.collator = collator;
 	}
 
-	protected M paraInnerOver(M memo, Executor exec, Collection<E> c) {
+	protected M paraInnerOver(M memo, Executor exec, Collection<? extends E> c) {
 		Collection<Future<M>> futures = new ArrayList<Future<M>>();
 		int index = 0;
 		for(E e : c) {
@@ -28,6 +28,7 @@ public abstract class AbstractParaReducator<E, M> extends AbstractReducator<E, M
 			final E fe = e;
 			final int findex = index++;
 			RunnableFuture<M> f = new FutureTask<M>(new Callable<M>() {
+				@Override
 				public M call() throws Exception {
 					return reduce0(fmemo, fe, findex);
 				}
@@ -39,7 +40,7 @@ public abstract class AbstractParaReducator<E, M> extends AbstractReducator<E, M
 			index = 0;
 			memo = collator().memoStart();
 			for(Future<M> f : futures) {
-				memo = collator().reduce0(memo, f.get(), index++);
+				memo = collator().reduce(memo, f.get(), index++);
 			}
 		} catch(RuntimeException re) {
 			throw re;
@@ -49,25 +50,27 @@ public abstract class AbstractParaReducator<E, M> extends AbstractReducator<E, M
 		return memo;
 	}
 	
-	public M over(Executor exec, Collection<E> c) {
+	@Override
+	public M over(Executor exec, Collection<? extends E> c) {
 		return paraInnerOver(memoStart(), exec, c);
 	}
 
-	public M into(Executor exec, Collection<E> c, M into) {
+	public M into(Executor exec, Collection<? extends E> c, M into) {
 		return paraInnerOver(into, exec, c);
 	}
 
+	@Override
 	public Reducer<M, M> collator() {
 		return collator;
 	}
 
 	@Override
-	public M reduce(Executor exec, Collection<E> c) {
+	public M reduce(Executor exec, Collection<? extends E> c) {
 		return over(exec, c);
 	}
 	
 	@Override
-	public M reduce(Executor exec, Collection<E> c, M into) {
+	public M reduce(Executor exec, Collection<? extends E> c, M into) {
 		return into(exec, c, into);
 	}
 }

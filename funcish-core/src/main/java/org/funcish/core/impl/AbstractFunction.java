@@ -17,12 +17,14 @@ public abstract class AbstractFunction<T> implements Function<T> {
 		this.args = fnargs;
 	}
 	
+	@Override
 	public Object[] args(Object[] values) {
 		if(values.length == args().length)
 			return values;
 		return Arrays.copyOf(values, args().length);
 	}
 
+	@Override
 	public T call() throws Exception {
 		return call(args(new Object[0]));
 	}
@@ -32,6 +34,7 @@ public abstract class AbstractFunction<T> implements Function<T> {
 		return ret;
 	}
 	
+	@Override
 	public Class<?>[] args() {
 		return args;
 	}
