@@ -13,14 +13,17 @@ public abstract class AbstractMapping<K, V> extends AbstractFunction<V> implemen
 		this.v = v;
 	}
 	
+	@Override
 	public Class<K> k() {
 		return k;
 	}
 	
+	@Override
 	public Class<V> v() {
 		return v;
 	}
 	
+	@Override
 	public V call(Object... args) throws Exception {
 		return v.cast(map0(k.cast(args[0]), (Integer) args[1]));
 	}

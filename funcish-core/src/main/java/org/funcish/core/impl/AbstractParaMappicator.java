@@ -24,6 +24,7 @@ public abstract class AbstractParaMappicator<K, V> extends AbstractMappicator<K,
 			final K fe = e;
 			final int findex = index++;
 			RunnableFuture<V> f = new FutureTask<V>(new Callable<V>() {
+				@Override
 				public V call() throws Exception {
 					return v().cast(map0(k().cast(fe), findex));
 				}
@@ -43,6 +44,7 @@ public abstract class AbstractParaMappicator<K, V> extends AbstractMappicator<K,
 		return out;
 	}
 	
+	@Override
 	public Collection<V> over(Executor exec, Collection<? extends K> c) {
 		return paraInnerOver(new ArrayCollection<V>(), exec, c);
 	}

@@ -24,6 +24,7 @@ public abstract class AbstractReducator<E, M> extends AbstractReducer<E, M> impl
 		return memo;
 	}
 
+	@Override
 	public M over(Collection<? extends E> c) {
 		return innerOver(memoStart(), c);
 	}

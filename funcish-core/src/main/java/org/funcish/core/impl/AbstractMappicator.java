@@ -25,6 +25,7 @@ public abstract class AbstractMappicator<K, V> extends AbstractMapping<K, V> imp
 		return out;
 	}
 
+	@Override
 	public Collection<V> over(Collection<? extends K> c) {
 		return innerOver(new ArrayCollection<V>(), c);
 	}

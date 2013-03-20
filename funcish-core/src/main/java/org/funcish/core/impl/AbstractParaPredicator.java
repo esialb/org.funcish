@@ -24,6 +24,7 @@ public abstract class AbstractParaPredicator<T> extends AbstractPredicator<T> im
 			final T fe = e;
 			final int findex = index++;
 			RunnableFuture<Object[]> f = new FutureTask<Object[]>(new Callable<Object[]>() {
+				@Override
 				public Object[] call() throws Exception {
 					return new Object[] {test0(t().cast(fe), findex), fe};
 				}
@@ -44,6 +45,7 @@ public abstract class AbstractParaPredicator<T> extends AbstractPredicator<T> im
 		return out;
 	}
 
+	@Override
 	public Collection<T> over(Executor exec, Collection<? extends T> c) {
 		return paraInnerOver(new ArrayCollection<T>(), exec, c);
 	}

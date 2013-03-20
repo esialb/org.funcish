@@ -27,6 +27,7 @@ public abstract class AbstractPredicator<T> extends AbstractPredicate<T> impleme
 		return out;
 	}
 
+	@Override
 	public Collection<T> over(Collection<? extends T> c) {
 		return innerOver(new ArrayCollection<T>(), c);
 	}

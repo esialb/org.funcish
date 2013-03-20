@@ -10,6 +10,7 @@ public abstract class AbstractApplicator<E, T> extends AbstractFunction<T> imple
 		super(ret, fnargs);
 	}
 
+	@Override
 	public T over(Collection<? extends E> c) {
 		T ret = null;
 		int index = 0;

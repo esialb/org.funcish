@@ -28,6 +28,7 @@ public abstract class AbstractParaReducator<E, M> extends AbstractReducator<E, M
 			final E fe = e;
 			final int findex = index++;
 			RunnableFuture<M> f = new FutureTask<M>(new Callable<M>() {
+				@Override
 				public M call() throws Exception {
 					return reduce0(fmemo, fe, findex);
 				}
@@ -49,6 +50,7 @@ public abstract class AbstractParaReducator<E, M> extends AbstractReducator<E, M
 		return memo;
 	}
 	
+	@Override
 	public M over(Executor exec, Collection<? extends E> c) {
 		return paraInnerOver(memoStart(), exec, c);
 	}
@@ -57,6 +59,7 @@ public abstract class AbstractParaReducator<E, M> extends AbstractReducator<E, M
 		return paraInnerOver(into, exec, c);
 	}
 
+	@Override
 	public Reducer<M, M> collator() {
 		return collator;
 	}

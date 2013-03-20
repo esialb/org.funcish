@@ -16,18 +16,22 @@ public abstract class AbstractReducer<E, M> extends AbstractFunction<M> implemen
 		this.memoStart = memoStart;
 	}
 	
+	@Override
 	public M memoStart() {
 		return memoStart;
 	}
 	
+	@Override
 	public Class<E> e() {
 		return e;
 	}
 	
+	@Override
 	public Class<M> m() {
 		return m;
 	}
 
+	@Override
 	public M call(Object... args) throws Exception {
 		return m.cast(reduce0(m.cast(args[0]), e.cast(args[1]), (Integer) args[2]));
 	}

@@ -11,10 +11,12 @@ public abstract class AbstractPredicate<T> extends AbstractFunction<Boolean> imp
 		this.t = t;
 	}
 
+	@Override
 	public Class<T> t() {
 		return t;
 	}
 
+	@Override
 	public Boolean call(Object... args) throws Exception {
 		return test0(t.cast(args[0]), (Integer) args[1]);
 	}
