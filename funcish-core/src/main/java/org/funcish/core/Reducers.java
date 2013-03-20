@@ -5,7 +5,6 @@ import org.funcish.core.fn.ParaReducator;
 import org.funcish.core.fn.Reducator;
 import org.funcish.core.fn.Reducer;
 import org.funcish.core.impl.AbstractReducator;
-import org.funcish.core.impl.AbstractReducer;
 import org.funcish.core.impl.ProxyParaReducator;
 import org.funcish.core.impl.ProxyReducator;
 import org.funcish.core.impl.ProxyReducer;
