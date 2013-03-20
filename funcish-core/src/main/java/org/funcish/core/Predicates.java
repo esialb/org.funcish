@@ -43,10 +43,30 @@ public class Predicates {
 		return new NotPredicator<T>(p.t(), p);
 	}
 	
-	public static <T> Predicator<Object> classIsInstance(final Class<T> t) {
+	public static <T> Predicator<Object> classIsInstance(Class<T> t) {
 		return new ClassIsInstance<T>(Object.class, t);
 	}
 	
+	public static Predicator<Class<?>> classIsAssignableFrom(Class<?> cls) {
+		return new ClassIsAssignableFrom((Class)Class.class, cls);
+	}
+	
+	private static class ClassIsAssignableFrom extends
+			AbstractPredicator<Class<?>> {
+		private final Class<?> cls;
+
+		private ClassIsAssignableFrom(Class<Class<?>> t, Class<?> cls) {
+			super(t);
+			this.cls = cls;
+		}
+
+		@Override
+		public boolean test0(Class<?> value, Integer index)
+				throws Exception {
+			return cls.isAssignableFrom(value);
+		}
+	}
+
 	private static class ClassIsInstance<T> extends AbstractPredicator<Object> {
 		private final Class<T> t;
 
