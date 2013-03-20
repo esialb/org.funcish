@@ -40,7 +40,7 @@ public abstract class AbstractParaReducator<E, M> extends AbstractReducator<E, M
 			index = 0;
 			memo = collator().memoStart();
 			for(Future<M> f : futures) {
-				memo = collator().reduce0(memo, f.get(), index++);
+				memo = collator().reduce(memo, f.get(), index++);
 			}
 		} catch(RuntimeException re) {
 			throw re;

@@ -13,7 +13,7 @@ public class ProxyParaMappicator<K, V> extends AbstractParaMappicator<K, V> impl
 	
 	@Override
 	public V map0(K key, Integer index) throws Exception {
-		return target.map0(key, index);
+		return target.map(key, index);
 	}
 
 	@Override

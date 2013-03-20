@@ -9,6 +9,8 @@ public abstract class AbstractReducer<E, M> extends AbstractFunction<M> implemen
 	private Class<E> e;
 	private Class<M> m;
 	
+	public abstract M reduce0(M memo, E obj, Integer index) throws Exception;
+	
 	public AbstractReducer(Class<E> e, Class<M> m, M memoStart) {
 		super(m, new Class<?>[] {m, e, Integer.class});
 		this.e = e;
