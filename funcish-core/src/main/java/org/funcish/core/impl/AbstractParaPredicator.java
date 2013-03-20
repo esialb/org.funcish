@@ -17,11 +17,12 @@ public abstract class AbstractParaPredicator<T> extends AbstractPredicator<T> im
 		super(t);
 	}
 
-	protected <C extends Collection<T>> C paraInnerOver(C out, Executor exec, Collection<? extends T> c) {
+	@SuppressWarnings("unchecked")
+	protected <U extends T, C extends Collection<U>> C paraInnerOver(C out, Executor exec, Collection<? extends U> c) {
 		Collection<Future<Object[]>> futures = new ArrayList<Future<Object[]>>();
 		int index = 0;
-		for(T e : c) {
-			final T fe = e;
+		for(U e : c) {
+			final U fe = e;
 			final int findex = index++;
 			RunnableFuture<Object[]> f = new FutureTask<Object[]>(new Callable<Object[]>() {
 				@Override
@@ -35,7 +36,7 @@ public abstract class AbstractParaPredicator<T> extends AbstractPredicator<T> im
 		try {
 			for(Future<Object[]> f : futures) {
 				if(((Boolean) f.get()[0]))
-					out.add(t().cast(f.get()[1]));
+					out.add((U) f.get()[1]);
 			}
 		} catch(RuntimeException re) {
 			throw re;
@@ -50,7 +51,7 @@ public abstract class AbstractParaPredicator<T> extends AbstractPredicator<T> im
 		return paraInnerOver(new ArrayCollection<T>(), exec, c);
 	}
 
-	public <C extends Collection<T>> C into(Executor exec, Collection<? extends T> c, C into) {
+	public <U extends T, C extends Collection<U>> C into(Executor exec, Collection<? extends U> c, C into) {
 		return paraInnerOver(into, exec, c);
 	}
 
@@ -60,7 +61,7 @@ public abstract class AbstractParaPredicator<T> extends AbstractPredicator<T> im
 	}
 	
 	@Override
-	public <C extends Collection<T>> C filter(Executor exec, Collection<? extends T> c, C into) {
+	public <U extends T, C extends Collection<U>> C filter(Executor exec, Collection<? extends U> c, C into) {
 		return into(exec, c, into);
 	}
 }

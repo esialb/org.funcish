@@ -16,10 +16,14 @@ public class Mappings {
 	}
 	
 	public static <K, V> Mappicator<K, V> mappicator(Mapping<K, V> target) {
+		if(target instanceof Mappicator<?, ?>)
+			return (Mappicator<K, V>) target;
 		return new ProxyMappicator<K, V>(target);
 	}
 	
 	public static <K, V> ParaMappicator<K, V> paraMappicator(Mapping<K, V> target) {
+		if(target instanceof ParaMappicator<?, ?>)
+			return (ParaMappicator<K, V>) target;
 		return new ProxyParaMappicator<K, V>(target);
 	}
 	

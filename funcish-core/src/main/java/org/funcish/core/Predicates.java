@@ -16,10 +16,14 @@ public class Predicates {
 	}
 	
 	public static <T> Predicator<T> predicator(Predicate<T> target) {
+		if(target instanceof Predicator<?>)
+			return (Predicator<T>) target;
 		return new ProxyPredicator<T>(target);
 	}
 	
 	public static <T> ParaPredicator<T> paraPredicator(Predicate<T> target) {
+		if(target instanceof ParaPredicator<?>)
+			return (ParaPredicator<T>) target;
 		return new ProxyParaPredicator<T>(target);
 	}
 	

@@ -17,7 +17,7 @@ public abstract class AbstractParaMappicator<K, V> extends AbstractMappicator<K,
 		super(k, v);
 	}
 
-	protected <C extends Collection<V>> C paraInnerOver(C out, Executor exec, Collection<? extends K> c) {
+	protected <C extends Collection<? super V>> C paraInnerOver(C out, Executor exec, Collection<? extends K> c) {
 		Collection<Future<V>> futures = new ArrayList<Future<V>>();
 		int index = 0;
 		for(K e : c) {
@@ -49,7 +49,7 @@ public abstract class AbstractParaMappicator<K, V> extends AbstractMappicator<K,
 		return paraInnerOver(new ArrayCollection<V>(), exec, c);
 	}
 
-	public <C extends Collection<V>> C into(Executor exec, Collection<? extends K> c, C into) {
+	public <C extends Collection<? super V>> C into(Executor exec, Collection<? extends K> c, C into) {
 		return paraInnerOver(into, exec, c);
 	}
 
@@ -59,7 +59,7 @@ public abstract class AbstractParaMappicator<K, V> extends AbstractMappicator<K,
 	}
 	
 	@Override
-	public <C extends Collection<V>> C map(Executor exec, Collection<? extends K> c, C into) {
+	public <C extends Collection<? super V>> C map(Executor exec, Collection<? extends K> c, C into) {
 		return into(exec, c, into);
 	}
 }

@@ -20,6 +20,8 @@ public class Reducers {
 	}
 	
 	public static <E, M> Reducator<E, M> reducator(Reducer<E, M> target) {
+		if(target instanceof Reducator<?, ?>)
+			return (Reducator<E, M>) target;
 		return new ProxyReducator<E, M>(target);
 	}
 	
