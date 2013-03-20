@@ -2,8 +2,8 @@ package org.funcish.core.impl;
 
 import java.util.Collection;
 
-import org.funcish.core.coll.ArrayCollection;
 import org.funcish.core.fn.Mappicator;
+import org.funcish.core.util.ArrayCollection;
 
 public abstract class AbstractMappicator<K, V> extends AbstractMapping<K, V> implements Mappicator<K, V> {
 
@@ -11,7 +11,7 @@ public abstract class AbstractMappicator<K, V> extends AbstractMapping<K, V> imp
 		super(k, v);
 	}
 	
-	protected <C extends Collection<V>> C innerOver(C out, Collection<K> c) {
+	protected <C extends Collection<V>> C innerOver(C out, Collection<? extends K> c) {
 		int index = 0;
 		for(K e : c) {
 			try {
@@ -25,21 +25,21 @@ public abstract class AbstractMappicator<K, V> extends AbstractMapping<K, V> imp
 		return out;
 	}
 
-	public Collection<V> over(Collection<K> c) {
+	public Collection<V> over(Collection<? extends K> c) {
 		return innerOver(new ArrayCollection<V>(), c);
 	}
 	
-	public <C extends Collection<V>> C into(Collection<K> c, C into) {
+	public <C extends Collection<V>> C into(Collection<? extends K> c, C into) {
 		return innerOver(into, c);
 	}
 
 	@Override
-	public Collection<V> map(Collection<K> c) {
+	public Collection<V> map(Collection<? extends K> c) {
 		return over(c);
 	}
 
 	@Override
-	public <C extends Collection<V>> C map(Collection<K> c, C into) {
+	public <C extends Collection<V>> C map(Collection<? extends K> c, C into) {
 		return into(c, into);
 	}
 }

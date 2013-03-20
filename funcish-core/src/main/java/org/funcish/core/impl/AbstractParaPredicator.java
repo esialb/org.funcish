@@ -8,8 +8,8 @@ import java.util.concurrent.Future;
 import java.util.concurrent.FutureTask;
 import java.util.concurrent.RunnableFuture;
 
-import org.funcish.core.coll.ArrayCollection;
 import org.funcish.core.fn.ParaPredicator;
+import org.funcish.core.util.ArrayCollection;
 
 public abstract class AbstractParaPredicator<T> extends AbstractPredicator<T> implements ParaPredicator<T> {
 
@@ -17,7 +17,7 @@ public abstract class AbstractParaPredicator<T> extends AbstractPredicator<T> im
 		super(t);
 	}
 
-	protected <C extends Collection<T>> C paraInnerOver(C out, Executor exec, Collection<T> c) {
+	protected <C extends Collection<T>> C paraInnerOver(C out, Executor exec, Collection<? extends T> c) {
 		Collection<Future<Object[]>> futures = new ArrayList<Future<Object[]>>();
 		int index = 0;
 		for(T e : c) {
@@ -44,21 +44,21 @@ public abstract class AbstractParaPredicator<T> extends AbstractPredicator<T> im
 		return out;
 	}
 
-	public Collection<T> over(Executor exec, Collection<T> c) {
+	public Collection<T> over(Executor exec, Collection<? extends T> c) {
 		return paraInnerOver(new ArrayCollection<T>(), exec, c);
 	}
 
-	public <C extends Collection<T>> C into(Executor exec, Collection<T> c, C into) {
+	public <C extends Collection<T>> C into(Executor exec, Collection<? extends T> c, C into) {
 		return paraInnerOver(into, exec, c);
 	}
 
 	@Override
-	public Collection<T> filter(Executor exec, Collection<T> c) {
+	public Collection<T> filter(Executor exec, Collection<? extends T> c) {
 		return over(exec, c);
 	}
 	
 	@Override
-	public <C extends Collection<T>> C filter(Executor exec, Collection<T> c, C into) {
+	public <C extends Collection<T>> C filter(Executor exec, Collection<? extends T> c, C into) {
 		return into(exec, c, into);
 	}
 }

@@ -20,7 +20,7 @@ public abstract class AbstractParaReducator<E, M> extends AbstractReducator<E, M
 		this.collator = collator;
 	}
 
-	protected M paraInnerOver(M memo, Executor exec, Collection<E> c) {
+	protected M paraInnerOver(M memo, Executor exec, Collection<? extends E> c) {
 		Collection<Future<M>> futures = new ArrayList<Future<M>>();
 		int index = 0;
 		for(E e : c) {
@@ -49,11 +49,11 @@ public abstract class AbstractParaReducator<E, M> extends AbstractReducator<E, M
 		return memo;
 	}
 	
-	public M over(Executor exec, Collection<E> c) {
+	public M over(Executor exec, Collection<? extends E> c) {
 		return paraInnerOver(memoStart(), exec, c);
 	}
 
-	public M into(Executor exec, Collection<E> c, M into) {
+	public M into(Executor exec, Collection<? extends E> c, M into) {
 		return paraInnerOver(into, exec, c);
 	}
 
@@ -62,12 +62,12 @@ public abstract class AbstractParaReducator<E, M> extends AbstractReducator<E, M
 	}
 
 	@Override
-	public M reduce(Executor exec, Collection<E> c) {
+	public M reduce(Executor exec, Collection<? extends E> c) {
 		return over(exec, c);
 	}
 	
 	@Override
-	public M reduce(Executor exec, Collection<E> c, M into) {
+	public M reduce(Executor exec, Collection<? extends E> c, M into) {
 		return into(exec, c, into);
 	}
 }

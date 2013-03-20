@@ -1,4 +1,4 @@
-package org.funcish.core.coll;
+package org.funcish.core.util;
 
 import java.util.AbstractCollection;
 import java.util.ArrayList;

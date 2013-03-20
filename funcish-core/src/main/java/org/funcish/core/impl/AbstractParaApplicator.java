@@ -16,7 +16,7 @@ public abstract class AbstractParaApplicator<E, T> extends AbstractApplicator<E,
 		super(ret, fnargs);
 	}
 
-	public T over(Executor exec, Collection<E> c) {
+	public T over(Executor exec, Collection<? extends E> c) {
 		Collection<Future<T>> futures = new ArrayList<Future<T>>();
 		T ret = null;
 		int index = 0;
