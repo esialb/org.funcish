@@ -12,6 +12,11 @@ import org.funcish.core.fn.Reducer;
 
 public class ArrayFunctionalDeque<E> extends ArrayDeque<E> implements FunctionalDeque<E> {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public ArrayFunctionalDeque() {
 	}
 

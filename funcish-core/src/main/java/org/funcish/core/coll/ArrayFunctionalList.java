@@ -11,6 +11,11 @@ import org.funcish.core.fn.Predicate;
 import org.funcish.core.fn.Reducer;
 
 public class ArrayFunctionalList<E> extends ArrayList<E> implements FunctionalList<E> {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public ArrayFunctionalList() {
 	}
 

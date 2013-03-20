@@ -1,11 +1,16 @@
 package org.funcish.core.util;
 
+import java.io.Serializable;
 import java.util.AbstractCollection;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 
-public class ArrayCollection<E> extends AbstractCollection<E> {
+public class ArrayCollection<E> extends AbstractCollection<E> implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Collection<E> backing = new ArrayList<E>();
 
 	public ArrayCollection() {

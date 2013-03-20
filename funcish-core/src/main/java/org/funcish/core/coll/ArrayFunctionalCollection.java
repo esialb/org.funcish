@@ -12,6 +12,11 @@ import org.funcish.core.util.ArrayCollection;
 
 public class ArrayFunctionalCollection<E> extends ArrayCollection<E> implements FunctionalCollection<E> {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public ArrayFunctionalCollection() {
 	}
 

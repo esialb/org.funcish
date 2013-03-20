@@ -11,6 +11,11 @@ import org.funcish.core.fn.Predicate;
 import org.funcish.core.fn.Reducer;
 
 public class HashFunctionalSet<E> extends HashSet<E> implements FunctionalSet<E> {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public HashFunctionalSet() {
 	}
 

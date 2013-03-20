@@ -13,6 +13,11 @@ import org.funcish.core.fn.Reducer;
 
 public class PriorityFunctionalQueue<E> extends PriorityQueue<E> implements FunctionalQueue<E> {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public PriorityFunctionalQueue() {
 	}
 
