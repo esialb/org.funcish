@@ -11,20 +11,57 @@ import org.funcish.core.impl.AbstractFunction;
 import org.funcish.core.impl.CallableProxyFunction;
 import org.funcish.core.impl.MethodProxyFunction;
 
+/**
+ * Utility methods for creating or wrapping {@link Function} objects
+ * @author robin
+ *
+ */
 public class Functions {
 	
+	/**
+	 * Create a new {@link Function} from a {@link Callable}.  The runtime type-safety
+	 * obtains its return type from reflection on the {@link Callable#call()} method's
+	 * return type.
+	 * @param callable
+	 * @return
+	 */
 	public static <T> Function<T> fn(Callable<T> callable) {
 		return new CallableProxyFunction<T>(extractCallableClass(callable), callable);
 	}
 	
+	/**
+	 * Create a new {@link Function} from a {@link Callable}.
+	 * @param ret
+	 * @param callable
+	 * @return
+	 */
 	public static <T> Function<T> fn(Class<T> ret, Callable<T> callable) {
 		return new CallableProxyFunction<T>(ret, callable);
 	}
 	
+	/**
+	 * Create a new {@link Function} from an ordinary POJO.  First checks for
+	 * a method annotated with {@link MethodFunction}, and failing that,
+	 * selects the first method in the object's class hierarchy whose class
+	 * declares only one public method, and failing that, throws
+	 * {@link IllegalArgumentException}
+	 * @param fnObj
+	 * @return
+	 */
 	public static Function<?> fn(Object fnObj) {
 		return fn(null, fnObj);
 	}
 	
+	/**
+	 * Creates a new {@link Function} from an ordinary POJO.  First checks
+	 * for a method annotated with {@link MethodFunction}, and failing that,
+	 * selects the first method in the object's class hierarchy whose
+	 * class declares only one public method with the argument return type,
+	 * and failing that, throws {@link IllegalArgumentException}.
+	 * @param ret
+	 * @param fnObj
+	 * @return
+	 */
 	public static <T> Function<T> fn(Class<T> ret, Object fnObj) {
 		Class<?> fnClass;
 		
@@ -47,6 +84,12 @@ public class Functions {
 		throw new IllegalArgumentException("Unable to locate acceptable target function on " + fnObj.getClass());
 	}
 	
+	/**
+	 * Wrap this function to specify a wider return type
+	 * @param t
+	 * @param fn
+	 * @return
+	 */
 	public static <T> Function<T> widen(Class<T> t, final Function<? extends T> fn) {
 		return new WideningFunction<T>(t, fn.args(), fn);
 	}
