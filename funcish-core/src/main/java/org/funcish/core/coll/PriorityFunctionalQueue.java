@@ -37,6 +37,10 @@ public class PriorityFunctionalQueue<E> extends PriorityQueue<E> implements Func
 	public <V> FunctionalQueue<V> map(Mapping<? super E, V> m) {
 		return Mappings.mappicator(m).map(this, new PriorityFunctionalQueue<V>());
 	}
+	
+	public <V> FunctionalQueue<V> map(Mapping<? super E, V> m, Comparator<? super V> cmp) {
+		return Mappings.mappicator(m).map(this, new PriorityFunctionalQueue<V>(size(), cmp));
+	}
 
 	@Override
 	public <V, C extends Collection<? super V>> C map(Mapping<? super E, V> m, C into) {
