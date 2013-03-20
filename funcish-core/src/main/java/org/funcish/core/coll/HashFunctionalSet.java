@@ -1,6 +1,7 @@
 package org.funcish.core.coll;
 
 import java.util.Collection;
+import java.util.HashSet;
 
 import org.funcish.core.Mappings;
 import org.funcish.core.Predicates;
@@ -8,20 +9,18 @@ import org.funcish.core.Reducers;
 import org.funcish.core.fn.Mapping;
 import org.funcish.core.fn.Predicate;
 import org.funcish.core.fn.Reducer;
-import org.funcish.core.util.ArrayCollection;
 
-public class ArrayFunctionalCollection<E> extends ArrayCollection<E> implements FunctionalCollection<E> {
-
-	public ArrayFunctionalCollection() {
+public class HashFunctionalSet<E> extends HashSet<E> implements FunctionalSet<E> {
+	public HashFunctionalSet() {
 	}
 
-	public ArrayFunctionalCollection(Collection<? extends E> c) {
+	public HashFunctionalSet(Collection<? extends E> c) {
 		super(c);
 	}
 
 	@Override
-	public <V> FunctionalCollection<V> map(Mapping<? super E, V> m) {
-		return Mappings.mappicator(m).map(this, new ArrayFunctionalCollection<V>());
+	public <V> FunctionalSet<V> map(Mapping<? super E, V> m) {
+		return Mappings.mappicator(m).map(this, new HashFunctionalSet<V>());
 	}
 
 	@Override
@@ -30,8 +29,8 @@ public class ArrayFunctionalCollection<E> extends ArrayCollection<E> implements 
 	}
 
 	@Override
-	public FunctionalCollection<E> filter(Predicate<? super E> p) {
-		return Predicates.predicator(p).filter(this, new ArrayFunctionalCollection<E>());
+	public FunctionalSet<E> filter(Predicate<? super E> p) {
+		return Predicates.predicator(p).filter(this, new HashFunctionalSet<E>());
 	}
 
 	@Override
