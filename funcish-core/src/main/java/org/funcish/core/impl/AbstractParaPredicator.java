@@ -18,7 +18,7 @@ public abstract class AbstractParaPredicator<T> extends AbstractPredicator<T> im
 	}
 
 	@SuppressWarnings("unchecked")
-	protected <U extends T, C extends Collection<U>> C paraInnerOver(C out, Executor exec, Collection<? extends U> c) {
+	protected <U extends T, C extends Collection<? super U>> C paraInnerOver(C out, Executor exec, Collection<? extends U> c) {
 		Collection<Future<Object[]>> futures = new ArrayList<Future<Object[]>>();
 		int index = 0;
 		for(U e : c) {
@@ -51,7 +51,7 @@ public abstract class AbstractParaPredicator<T> extends AbstractPredicator<T> im
 		return paraInnerOver(new ArrayCollection<T>(), exec, c);
 	}
 
-	public <U extends T, C extends Collection<U>> C into(Executor exec, Collection<? extends U> c, C into) {
+	public <U extends T, C extends Collection<? super U>> C into(Executor exec, Collection<? extends U> c, C into) {
 		return paraInnerOver(into, exec, c);
 	}
 
@@ -61,7 +61,7 @@ public abstract class AbstractParaPredicator<T> extends AbstractPredicator<T> im
 	}
 	
 	@Override
-	public <U extends T, C extends Collection<U>> C filter(Executor exec, Collection<? extends U> c, C into) {
+	public <U extends T, C extends Collection<? super U>> C filter(Executor exec, Collection<? extends U> c, C into) {
 		return into(exec, c, into);
 	}
 }

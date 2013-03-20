@@ -12,7 +12,7 @@ public abstract class AbstractPredicator<T> extends AbstractPredicate<T> impleme
 	}
 
 	
-	protected <U extends T, C extends Collection<U>> C innerOver(C out, Collection<? extends U> c) {
+	protected <U extends T, C extends Collection<? super U>> C innerOver(C out, Collection<? extends U> c) {
 		int index = 0;
 		for(U e : c) {
 			try {
@@ -32,7 +32,7 @@ public abstract class AbstractPredicator<T> extends AbstractPredicate<T> impleme
 		return innerOver(new ArrayCollection<T>(), c);
 	}
 	
-	public <U extends T, C extends Collection<U>> C into(Collection<? extends U> c, C into) {
+	public <U extends T, C extends Collection<? super U>> C into(Collection<? extends U> c, C into) {
 		return innerOver(into, c);
 	}
 
@@ -42,7 +42,7 @@ public abstract class AbstractPredicator<T> extends AbstractPredicate<T> impleme
 	}
 	
 	@Override
-	public <U extends T, C extends Collection<U>> C filter(Collection<? extends U> c, C into) {
+	public <U extends T, C extends Collection<? super U>> C filter(Collection<? extends U> c, C into) {
 		return into(c, into);
 	}
 }
