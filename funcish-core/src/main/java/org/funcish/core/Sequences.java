@@ -1,8 +1,11 @@
 package org.funcish.core;
 
+import java.io.BufferedReader;
+import java.io.Reader;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import org.funcish.core.fn.Function;
 import org.funcish.core.fn.Reducator;
@@ -41,6 +44,19 @@ public class Sequences {
 	
 	public static <E> Sequence<E> widen(Class<E> e, final Sequence<? extends E> sequence) {
 		return sequence(e, sequence);
+	}
+	
+	public static Sequence<String> lines(Reader r) {
+		final BufferedReader br = new BufferedReader(r); 
+		return new AbstractSequence<String>(String.class) {
+			@Override
+			public String next0(Integer index) throws Exception {
+				String line = br.readLine();
+				if(line == null)
+					throw new NoSuchElementException();
+				return line;
+			}
+		};
 	}
 	
 	private static class IteratorSequencator<E> extends AbstractSequencator<E> {
