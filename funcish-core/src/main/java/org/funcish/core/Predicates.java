@@ -1,5 +1,7 @@
 package org.funcish.core;
 
+import java.util.regex.Pattern;
+
 import org.funcish.core.fn.Function;
 import org.funcish.core.fn.ParaPredicator;
 import org.funcish.core.fn.Predicate;
@@ -99,6 +101,10 @@ public class Predicates {
 		return new ClassIsInstance<T>(Object.class, t);
 	}
 	
+	public static Predicator<CharSequence> patternFind(Pattern p) {
+		return new PatternFind(CharSequence.class, p);
+	}
+	
 	/**
 	 * Returns a new {@link Predicate} that calls {@link Class#isAssignableFrom(Class)}
 	 * @param cls
@@ -109,6 +115,21 @@ public class Predicates {
 		return new ClassIsAssignableFrom((Class)Class.class, cls);
 	}
 	
+	private static class PatternFind extends AbstractPredicator<CharSequence> {
+		private final Pattern p;
+
+		private PatternFind(Class<CharSequence> t, Pattern p) {
+			super(t);
+			this.p = p;
+		}
+
+		@Override
+		public boolean test0(CharSequence value, Integer index)
+				throws Exception {
+			return p.matcher(value).find();
+		}
+	}
+
 	private static class ClassIsAssignableFrom extends
 			AbstractPredicator<Class<?>> {
 		private final Class<?> cls;
