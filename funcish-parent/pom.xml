@@ -42,6 +42,7 @@
 	<modules>
 		<module>../funcish-core</module>
 		<module>../funcish-clojure</module>
+		<module>../funcish-guava</module>
 	</modules>
 
 	<dependencyManagement>
