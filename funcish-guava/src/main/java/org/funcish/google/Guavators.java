@@ -1,27 +1,26 @@
 package org.funcish.google;
 
 import org.funcish.core.fn.Function;
+import org.funcish.core.fn.Mapping;
 import org.funcish.core.fn.Predicate;
 import org.funcish.core.impl.AbstractFunction;
+import org.funcish.core.impl.AbstractMappicator;
 import org.funcish.core.impl.AbstractPredicator;
 import org.funcish.core.impl.ProxyFunction;
+import org.funcish.core.impl.ProxyMappicator;
 import org.funcish.core.impl.ProxyPredicator;
 
 public class Guavators {
-	public static <F, T> DualFunction<F, T> dualFunction(Class<T> t, Class<F> f, com.google.common.base.Function<F, T> gf) {
-		return new DualGFunction<F, T>(t, new Class<?>[]{f}, f, gf, t);
+	public static <F, T> DualMapping<F, T> dualFunction(Class<T> t, Class<F> f, com.google.common.base.Function<F, T> gf) {
+		return new DualGMapping<F, T>(t, f, gf);
 	}
 	
-	public static <F, T> DualFunction<F, T> dualFunction(com.google.common.base.Function<F, T> gf) {
-		return new DualUncheckedGFunction<F, T>(gf);
+	public static <F, T> DualMapping<F, T> dualFunction(com.google.common.base.Function<F, T> gf) {
+		return new DualUncheckedGMapping<F, T>(gf);
 	}
 	
-	public static <F, T> DualFunction<F, T> dualFunction(Class<F> f, Function<T> fn) {
-		return new DualProxyFunction<F, T>(fn, f);
-	}
-	
-	public static <F, T> DualFunction<F, T> dualFunction(Function<T> fn) {
-		return new DualUncheckedProxyFunction<F, T>(fn);
+	public static <F, T> DualMapping<F, T> dualFunction(Mapping<F, T> fn) {
+		return new DualProxyMapping<F, T>(fn);
 	}
 	
 	public static <T> DualPredicate<T> dualPredicate(Class<T> t, com.google.common.base.Predicate<T> gp) {
@@ -87,82 +86,51 @@ public class Guavators {
 		}
 	}
 
-	private static class DualUncheckedProxyFunction<F, T> extends ProxyFunction<T> implements DualFunction<F, T> {
-		public DualUncheckedProxyFunction(Function<T> target) {
+	private static class DualProxyMapping<F, T> extends ProxyMappicator<F, T> implements DualMapping<F, T> {
+		private DualProxyMapping(Mapping<F, T> target) {
 			super(target);
 		}
 
-		@Override
 		public T apply(F input) {
-			try {
-				return ret().cast(proxiedTarget().call(input));
-			} catch(RuntimeException re) {
-				throw re;
-			} catch(Exception ex) {
-				throw new RuntimeException(ex);
-			}
-		}
-	}
-	
-	private static class DualProxyFunction<F, T> extends ProxyFunction<T> implements DualFunction<F, T> {
-		private final Class<F> f;
-
-		private DualProxyFunction(Function<T> target, Class<F> f) {
-			super(target);
-			this.f = f;
-		}
-
-		public T apply(F input) {
-			try {
-				return ret().cast(proxiedTarget().call(f.cast(input)));
-			} catch(RuntimeException re) {
-				throw re;
-			} catch(Exception ex) {
-				throw new RuntimeException(ex);
-			}
+			return proxiedTarget().map(input, null);
 		}
 	}
 
-	private static class DualUncheckedGFunction<F, T> extends AbstractFunction<T> implements DualFunction<F, T> {
+	private static class DualUncheckedGMapping<F, T> extends AbstractMappicator<F, T> implements DualMapping<F, T> {
 		private final com.google.common.base.Function<F, T> gf;
 
-		private DualUncheckedGFunction(com.google.common.base.Function<F, T> gf) {
-			super((Class) Object.class, new Class<?>[] {Object.class});
+		private DualUncheckedGMapping(com.google.common.base.Function<F, T> gf) {
+			super((Class) Object.class, (Class) Object.class);
 			this.gf = gf;
-		}
-
-		@Override
-		public T call(Object... args) throws Exception {
-			return gf.apply((F) args[0]);
 		}
 
 		@Override
 		public T apply(F input) {
 			return gf.apply(input);
 		}
+
+		@Override
+		public T map0(F key, Integer index) throws Exception {
+			return gf.apply(key);
+		}
 	}
 
-	private static class DualGFunction<F, T> extends AbstractFunction<T> implements DualFunction<F, T> {
-		private final Class<F> f;
+	private static class DualGMapping<F, T> extends AbstractMappicator<F, T> implements DualMapping<F, T> {
 		private final com.google.common.base.Function<F, T> gf;
-		private final Class<T> t;
 	
-		private DualGFunction(Class<T> ret, Class<?>[] fnargs, Class<F> f,
-				com.google.common.base.Function<F, T> gf, Class<T> t) {
-			super(ret, fnargs);
-			this.f = f;
+		private DualGMapping(Class<T> t, Class<F> f, com.google.common.base.Function<F, T> gf) {
+			super(f, t);
 			this.gf = gf;
-			this.t = t;
 		}
 	
 		@Override
-		public T call(Object... args) throws Exception {
-			return t.cast(gf.apply(f.cast(args[0])));
+		public T apply(F input) {
+			return gf.apply(input);
 		}
 
 		@Override
-		public T apply(F input) {
-			return t.cast(gf.apply(f.cast(input)));
+		public T map0(F key, Integer index) throws Exception {
+			return gf.apply(key);
 		}
 	}
 
