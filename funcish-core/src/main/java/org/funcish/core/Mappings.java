@@ -109,6 +109,27 @@ public class Mappings {
 		return new ClassAsSubclass<T, U>((Class) Class.class, (Class) Class.class, u);
 	}
 	
+	public static <V> Mappicator<String, Class<? extends V>> classForName(Class<V> v) {
+		return new ClassForName<V>(String.class, (Class) Class.class, v);
+	}
+	
+	private static class ClassForName<V> extends
+			AbstractMappicator<String, Class<? extends V>> {
+		private final Class<V> v;
+
+		private ClassForName(Class<String> k, Class<Class<? extends V>> v,
+				Class<V> v2) {
+			super(k, v);
+			this.v = v2;
+		}
+
+		@Override
+		public Class<? extends V> map0(String key, Integer index)
+				throws Exception {
+			return Class.forName(key).asSubclass(v);
+		}
+	}
+
 	private static class ClassAsSubclass<T, U> extends
 			AbstractMappicator<Class<? extends T>, Class<? extends U>> {
 		private final Class<U> u;

@@ -52,8 +52,10 @@ public class Sequences {
 			@Override
 			public String next0(Integer index) throws Exception {
 				String line = br.readLine();
-				if(line == null)
+				if(line == null) {
+					br.close();
 					throw new NoSuchElementException();
+				}
 				return line;
 			}
 		};
