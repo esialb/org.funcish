@@ -5,6 +5,7 @@ import org.funcish.core.fn.Predicate;
 import org.funcish.core.impl.AbstractFunction;
 import org.funcish.core.impl.AbstractPredicator;
 import org.funcish.core.impl.ProxyFunction;
+import org.funcish.core.impl.ProxyPredicator;
 
 public class Guavators {
 	public static <F, T> DualFunction<F, T> dualFunction(Class<T> t, Class<F> f, com.google.common.base.Function<F, T> gf) {
@@ -30,6 +31,22 @@ public class Guavators {
 	public static <T> DualPredicate<T> dualPredicate(com.google.common.base.Predicate<T> gp) {
 		return new DualUncheckedGPredicate<T>(gp);
 	}
+	
+	public static <T> DualPredicate<T> dualPredicate(Predicate<T> fp) {
+		return new DualProxyPredicate<T>(fp);
+	}
+
+	private static class DualProxyPredicate<T> extends ProxyPredicator<T> implements DualPredicate<T> {
+		private DualProxyPredicate(Predicate<T> target) {
+			super(target);
+		}
+
+		@Override
+		public boolean apply(T input) {
+			return test(input, null);
+		}
+	}
+
 
 	private static class DualUncheckedGPredicate<T> extends AbstractPredicator<T> implements DualPredicate<T> {
 		private final com.google.common.base.Predicate<T> gp;
