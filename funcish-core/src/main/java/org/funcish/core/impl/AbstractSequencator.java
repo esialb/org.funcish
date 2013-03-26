@@ -1,6 +1,8 @@
 package org.funcish.core.impl;
 
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 import org.funcish.core.fn.Sequencator;
 
@@ -42,6 +44,17 @@ public abstract class AbstractSequencator<E> extends AbstractSequence<E> impleme
 		} catch(Exception ex) {
 			throw new RuntimeException(ex);
 		}
+	}
+	
+	@Override
+	public List<E> list() {
+		int index = 0;
+		List<E> ret = new ArrayList<E>();
+		while(hasNext(index)) {
+			ret.add(next(index));
+			index++;
+		}
+		return ret;
 	}
 
 }

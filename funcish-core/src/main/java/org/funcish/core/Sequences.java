@@ -1,6 +1,11 @@
 package org.funcish.core;
 
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
+
 import org.funcish.core.fn.Function;
+import org.funcish.core.fn.Reducator;
 import org.funcish.core.fn.Sequencator;
 import org.funcish.core.fn.Sequence;
 import org.funcish.core.impl.AbstractSequencator;
@@ -22,6 +27,10 @@ public class Sequences {
 		return new ProxySequencator<E>(e, target);
 	}
 	
+	public static <E, M> Sequencator<M> sequencator(Reducator<E, M> reducator, Iterator<? extends E> in) {
+		return new ReducatorSequencator<E, M>(reducator.m(), reducator, in);
+	}
+	
 	public static <E> Sequencator<E> widen(Class<E> e, final Sequencator<? extends E> sequence) {
 		return sequencator(e, sequence);
 	}
@@ -30,6 +39,29 @@ public class Sequences {
 		return sequence(e, sequence);
 	}
 	
+	private static class ReducatorSequencator<E, M> extends AbstractSequencator<M> {
+		private final Reducator<E, M> reducator;
+		private final Iterator<? extends E> in;
+		private M last;
+
+		private ReducatorSequencator(Class<M> e, Reducator<E, M> reducator, Iterator<? extends E> in) {
+			super(e);
+			this.reducator = reducator;
+			this.in = in;
+			last = reducator.memoStart();
+		}
+
+		@Override
+		public boolean hasNext0(Integer index) throws Exception {
+			return in.hasNext();
+		}
+
+		@Override
+		public M next0(Integer index) throws Exception {
+			return last = reducator.reduce(last, in.next(), index);
+		}
+	}
+
 	private static class WideningSequencator<E> extends AbstractSequencator<E> {
 		private final Sequencator<? extends E> s;
 	
