@@ -10,16 +10,16 @@ import org.funcish.core.impl.ProxyFunction;
 import org.funcish.core.impl.ProxyMappicator;
 import org.funcish.core.impl.ProxyPredicator;
 
-public class Guavators {
-	public static <F, T> DualMapping<F, T> dualFunction(Class<T> t, Class<F> f, com.google.common.base.Function<F, T> gf) {
+public class DualFunctions {
+	public static <F, T> DualMapping<F, T> dualMapping(Class<T> t, Class<F> f, com.google.common.base.Function<F, T> gf) {
 		return new DualGMapping<F, T>(t, f, gf);
 	}
 	
-	public static <F, T> DualMapping<F, T> dualFunction(com.google.common.base.Function<F, T> gf) {
+	public static <F, T> DualMapping<F, T> dualMapping(com.google.common.base.Function<F, T> gf) {
 		return new DualUncheckedGMapping<F, T>(gf);
 	}
 	
-	public static <F, T> DualMapping<F, T> dualFunction(Mapping<F, T> fn) {
+	public static <F, T> DualMapping<F, T> dualMapping(Mapping<F, T> fn) {
 		return new DualProxyMapping<F, T>(fn);
 	}
 	
@@ -134,5 +134,5 @@ public class Guavators {
 		}
 	}
 
-	private Guavators() {}
+	private DualFunctions() {}
 }
