@@ -1,7 +1,9 @@
 package org.funcish.google;
 
 import org.funcish.core.fn.Function;
+import org.funcish.core.fn.Predicate;
 import org.funcish.core.impl.AbstractFunction;
+import org.funcish.core.impl.AbstractPredicator;
 import org.funcish.core.impl.ProxyFunction;
 
 public class Guavators {
@@ -17,10 +19,57 @@ public class Guavators {
 		return new DualProxyFunction<F, T>(fn, f);
 	}
 	
-	public static <F, T> DualFunction<F, T> dualFunction(final Function<T> fn) {
+	public static <F, T> DualFunction<F, T> dualFunction(Function<T> fn) {
 		return new DualUncheckedProxyFunction<F, T>(fn);
 	}
 	
+	public static <T> DualPredicate<T> dualPredicate(Class<T> t, com.google.common.base.Predicate<T> gp) {
+		return new DualGPredicate<T>(t, gp);
+	}
+	
+	public static <T> DualPredicate<T> dualPredicate(com.google.common.base.Predicate<T> gp) {
+		return new DualUncheckedGPredicate<T>(gp);
+	}
+
+	private static class DualUncheckedGPredicate<T> extends AbstractPredicator<T> implements DualPredicate<T> {
+		private final com.google.common.base.Predicate<T> gp;
+
+		private DualUncheckedGPredicate(com.google.common.base.Predicate<T> gp) {
+			super((Class) Object.class);
+			this.gp = gp;
+		}
+
+		@Override
+		public boolean test0(T value, Integer index) throws Exception {
+			return gp.apply(value);
+		}
+
+		@Override
+		public boolean apply(T input) {
+			return gp.apply(input);
+		}
+	}
+
+	
+	private static class DualGPredicate<T> extends AbstractPredicator<T> implements DualPredicate<T> {
+		private final com.google.common.base.Predicate<T> gp;
+
+		private DualGPredicate(Class<T> t, com.google.common.base.Predicate<T> gp) {
+			super(t);
+			this.gp = gp;
+		}
+
+		@Override
+		public boolean test0(T value, Integer index) throws Exception {
+			return gp.apply(t().cast(value));
+		}
+
+		@Override
+		public boolean apply(T input) {
+			return gp.apply(t().cast(input));
+		}
+	}
+
 	private static class DualUncheckedProxyFunction<F, T> extends ProxyFunction<T> implements DualFunction<F, T> {
 		public DualUncheckedProxyFunction(Function<T> target) {
 			super(target);

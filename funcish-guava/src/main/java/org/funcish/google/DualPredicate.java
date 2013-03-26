@@ -1,7 +1,9 @@
 package org.funcish.google;
 
-import org.funcish.core.fn.Predicate;
+import org.funcish.core.fn.Predicator;
 
-public interface DualPredicate<T> extends Predicate<T>, com.google.common.base.Predicate<T> {
+import com.google.common.base.Predicate;
+
+public interface DualPredicate<T> extends Predicator<T>, Predicate<T> {
 
 }
