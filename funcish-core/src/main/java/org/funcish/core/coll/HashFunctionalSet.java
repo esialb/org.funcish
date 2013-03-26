@@ -6,9 +6,11 @@ import java.util.HashSet;
 import org.funcish.core.Mappings;
 import org.funcish.core.Predicates;
 import org.funcish.core.Reducers;
+import org.funcish.core.Sequences;
 import org.funcish.core.fn.Mapping;
 import org.funcish.core.fn.Predicate;
 import org.funcish.core.fn.Reducer;
+import org.funcish.core.fn.Sequencator;
 
 public class HashFunctionalSet<E> extends HashSet<E> implements FunctionalSet<E> {
 	/**
@@ -16,16 +18,25 @@ public class HashFunctionalSet<E> extends HashSet<E> implements FunctionalSet<E>
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public HashFunctionalSet() {
+	private Class<E> e;
+	
+	public HashFunctionalSet(Class<E> e) {
+		this.e = e;
 	}
 
-	public HashFunctionalSet(Collection<? extends E> c) {
+	public HashFunctionalSet(Class<E> e, Collection<? extends E> c) {
 		super(c);
+		this.e = e;
 	}
 
 	@Override
+	public Class<E> e() {
+		return e;
+	}
+	
+	@Override
 	public <V> FunctionalSet<V> map(Mapping<? super E, V> m) {
-		return Mappings.mappicator(m).map(this, new HashFunctionalSet<V>());
+		return Mappings.mappicator(m).map(this, new HashFunctionalSet<V>(m.v()));
 	}
 
 	@Override
@@ -35,7 +46,7 @@ public class HashFunctionalSet<E> extends HashSet<E> implements FunctionalSet<E>
 
 	@Override
 	public FunctionalSet<E> filter(Predicate<? super E> p) {
-		return Predicates.predicator(p).filter(this, new HashFunctionalSet<E>());
+		return Predicates.predicator(p).filter(this, new HashFunctionalSet<E>(e()));
 	}
 
 	@Override
@@ -46,6 +57,11 @@ public class HashFunctionalSet<E> extends HashSet<E> implements FunctionalSet<E>
 	@Override
 	public <M> M reduce(Reducer<? super E, M> r) {
 		return Reducers.reducator(r).reduce(this);
+	}
+
+	@Override
+	public Sequencator<E> seq() {
+		return Sequences.sequencator(e(), iterator());
 	}
 
 }

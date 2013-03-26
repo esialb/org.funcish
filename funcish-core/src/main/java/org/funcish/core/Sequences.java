@@ -27,18 +27,41 @@ public class Sequences {
 		return new ProxySequencator<E>(e, target);
 	}
 	
+	public static <E> Sequencator<E> sequencator(Class<E> e, Iterator<? extends E> in) {
+		return new IteratorSequencator<E>(e, in);
+	}
+	
 	public static <E, M> Sequencator<M> sequencator(Reducator<E, M> reducator, Iterator<? extends E> in) {
 		return new ReducatorSequencator<E, M>(reducator.m(), reducator, in);
 	}
 	
 	public static <E> Sequencator<E> widen(Class<E> e, final Sequencator<? extends E> sequence) {
-		return sequencator(e, sequence);
+		return sequencator(e, (Sequence<? extends E>) sequence);
 	}
 	
 	public static <E> Sequence<E> widen(Class<E> e, final Sequence<? extends E> sequence) {
 		return sequence(e, sequence);
 	}
 	
+	private static class IteratorSequencator<E> extends AbstractSequencator<E> {
+		private final Iterator<? extends E> in;
+
+		private IteratorSequencator(Class<E> e, Iterator<? extends E> in) {
+			super(e);
+			this.in = in;
+		}
+
+		@Override
+		public boolean hasNext0(Integer index) throws Exception {
+			return in.hasNext();
+		}
+
+		@Override
+		public E next0(Integer index) throws Exception {
+			return in.next();
+		}
+	}
+
 	private static class ReducatorSequencator<E, M> extends AbstractSequencator<M> {
 		private final Reducator<E, M> reducator;
 		private final Iterator<? extends E> in;

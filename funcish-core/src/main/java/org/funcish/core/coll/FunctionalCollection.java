@@ -8,6 +8,7 @@ import org.funcish.core.fn.Predicate;
 import org.funcish.core.fn.Predicator;
 import org.funcish.core.fn.Reducator;
 import org.funcish.core.fn.Reducer;
+import org.funcish.core.fn.Sequencator;
 
 /**
  * {@link Collection} with additional helper methods to process itself using
@@ -17,6 +18,9 @@ import org.funcish.core.fn.Reducer;
  * @param <E>
  */
 public interface FunctionalCollection<E> extends Collection<E> {
+	
+	public Class<E> e();
+	
 	/**
 	 * Return a new {@link FunctionalCollection} obtained by applying
 	 * the argument {@link Mapping} to this object.
@@ -60,4 +64,6 @@ public interface FunctionalCollection<E> extends Collection<E> {
 	 * @see Reducator#reduce(Collection)
 	 */
 	public <M> M reduce(Reducer<? super E, M> r);
+	
+	public Sequencator<E> seq();
 }

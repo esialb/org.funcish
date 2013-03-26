@@ -5,9 +5,11 @@ import java.util.Collection;
 import org.funcish.core.Mappings;
 import org.funcish.core.Predicates;
 import org.funcish.core.Reducers;
+import org.funcish.core.Sequences;
 import org.funcish.core.fn.Mapping;
 import org.funcish.core.fn.Predicate;
 import org.funcish.core.fn.Reducer;
+import org.funcish.core.fn.Sequencator;
 import org.funcish.core.util.ArrayCollection;
 
 public class ArrayFunctionalCollection<E> extends ArrayCollection<E> implements FunctionalCollection<E> {
@@ -17,16 +19,25 @@ public class ArrayFunctionalCollection<E> extends ArrayCollection<E> implements 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public ArrayFunctionalCollection() {
+	private Class<E> e;
+	
+	public ArrayFunctionalCollection(Class<E> e) {
+		this.e = e;
 	}
 
-	public ArrayFunctionalCollection(Collection<? extends E> c) {
+	public ArrayFunctionalCollection(Class<E> e, Collection<? extends E> c) {
 		super(c);
+		this.e = e;
+	}
+
+	@Override
+	public Class<E> e() {
+		return e;
 	}
 
 	@Override
 	public <V> FunctionalCollection<V> map(Mapping<? super E, V> m) {
-		return Mappings.mappicator(m).map(this, new ArrayFunctionalCollection<V>());
+		return Mappings.mappicator(m).map(this, new ArrayFunctionalCollection<V>(m.v()));
 	}
 
 	@Override
@@ -36,7 +47,7 @@ public class ArrayFunctionalCollection<E> extends ArrayCollection<E> implements 
 
 	@Override
 	public FunctionalCollection<E> filter(Predicate<? super E> p) {
-		return Predicates.predicator(p).filter(this, new ArrayFunctionalCollection<E>());
+		return Predicates.predicator(p).filter(this, new ArrayFunctionalCollection<E>(e()));
 	}
 
 	@Override
@@ -47,6 +58,11 @@ public class ArrayFunctionalCollection<E> extends ArrayCollection<E> implements 
 	@Override
 	public <M> M reduce(Reducer<? super E, M> r) {
 		return Reducers.reducator(r).reduce(this);
+	}
+
+	@Override
+	public Sequencator<E> seq() {
+		return Sequences.sequencator(e(), iterator());
 	}
 
 }

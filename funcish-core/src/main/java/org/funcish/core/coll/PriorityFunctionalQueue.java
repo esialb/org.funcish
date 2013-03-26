@@ -7,9 +7,11 @@ import java.util.PriorityQueue;
 import org.funcish.core.Mappings;
 import org.funcish.core.Predicates;
 import org.funcish.core.Reducers;
+import org.funcish.core.Sequences;
 import org.funcish.core.fn.Mapping;
 import org.funcish.core.fn.Predicate;
 import org.funcish.core.fn.Reducer;
+import org.funcish.core.fn.Sequencator;
 
 public class PriorityFunctionalQueue<E> extends PriorityQueue<E> implements FunctionalQueue<E> {
 
@@ -18,28 +20,39 @@ public class PriorityFunctionalQueue<E> extends PriorityQueue<E> implements Func
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public PriorityFunctionalQueue() {
+	private Class<E> e;
+	
+	public PriorityFunctionalQueue(Class<E> e) {
+		this.e = e;
 	}
 
-	public PriorityFunctionalQueue(Collection<? extends E> c) {
+	public PriorityFunctionalQueue(Class<E> e, Collection<? extends E> c) {
 		super(c);
+		this.e = e;
 	}
 
-	public PriorityFunctionalQueue(int initialCapacity, Comparator<? super E> comparator) {
+	public PriorityFunctionalQueue(Class<E> e, int initialCapacity, Comparator<? super E> comparator) {
 		super(initialCapacity, comparator);
+		this.e = e;
 	}
 
-	public PriorityFunctionalQueue(PriorityQueue<? extends E> c) {
+	public PriorityFunctionalQueue(Class<E> e, PriorityQueue<? extends E> c) {
 		super(c);
+		this.e = e;
+	}
+	
+	@Override
+	public Class<E> e() {
+		return e;
 	}
 	
 	@Override
 	public <V> FunctionalQueue<V> map(Mapping<? super E, V> m) {
-		return Mappings.mappicator(m).map(this, new PriorityFunctionalQueue<V>());
+		return Mappings.mappicator(m).map(this, new PriorityFunctionalQueue<V>(m.v()));
 	}
 	
 	public <V> FunctionalQueue<V> map(Mapping<? super E, V> m, Comparator<? super V> cmp) {
-		return Mappings.mappicator(m).map(this, new PriorityFunctionalQueue<V>(size(), cmp));
+		return Mappings.mappicator(m).map(this, new PriorityFunctionalQueue<V>(m.v(), size(), cmp));
 	}
 
 	@Override
@@ -49,7 +62,7 @@ public class PriorityFunctionalQueue<E> extends PriorityQueue<E> implements Func
 
 	@Override
 	public FunctionalQueue<E> filter(Predicate<? super E> p) {
-		return Predicates.predicator(p).filter(this, new PriorityFunctionalQueue<E>(0, comparator()));
+		return Predicates.predicator(p).filter(this, new PriorityFunctionalQueue<E>(e(), 0, comparator()));
 	}
 
 	@Override
@@ -60,6 +73,11 @@ public class PriorityFunctionalQueue<E> extends PriorityQueue<E> implements Func
 	@Override
 	public <M> M reduce(Reducer<? super E, M> r) {
 		return Reducers.reducator(r).reduce(this);
+	}
+
+	@Override
+	public Sequencator<E> seq() {
+		return Sequences.sequencator(e(), iterator());
 	}
 
 }
