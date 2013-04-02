@@ -8,12 +8,12 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 import org.funcish.core.fn.Function;
-import org.funcish.core.fn.Reducator;
-import org.funcish.core.fn.Sequencator;
+import org.funcish.core.fn.Reducer;
+import org.funcish.core.fn.Sequencer;
 import org.funcish.core.fn.Sequence;
-import org.funcish.core.impl.AbstractSequencator;
+import org.funcish.core.impl.AbstractSequencer;
 import org.funcish.core.impl.AbstractSequence;
-import org.funcish.core.impl.ProxySequencator;
+import org.funcish.core.impl.ProxySequencer;
 import org.funcish.core.impl.ProxySequence;
 
 public class Sequences {
@@ -22,23 +22,23 @@ public class Sequences {
 		return new ProxySequence<E>(e, target);
 	}
 	
-	public static <E> Sequencator<E> sequencator(Class<E> e, Sequence<? extends E> target) {
-		if(target instanceof Sequencator<?>) {
-			final Sequencator<? extends E> s = (Sequencator<? extends E>) target;
+	public static <E> Sequencer<E> sequencator(Class<E> e, Sequence<? extends E> target) {
+		if(target instanceof Sequencer<?>) {
+			final Sequencer<? extends E> s = (Sequencer<? extends E>) target;
 			return new WideningSequencator<E>(e, s);
 		}
-		return new ProxySequencator<E>(e, target);
+		return new ProxySequencer<E>(e, target);
 	}
 	
-	public static <E> Sequencator<E> sequencator(Class<E> e, Iterator<? extends E> in) {
+	public static <E> Sequencer<E> sequencator(Class<E> e, Iterator<? extends E> in) {
 		return new IteratorSequencator<E>(e, in);
 	}
 	
-	public static <E, M> Sequencator<M> sequencator(Reducator<E, M> reducator, Iterator<? extends E> in) {
+	public static <E, M> Sequencer<M> sequencator(Reducer<E, M> reducator, Iterator<? extends E> in) {
 		return new ReducatorSequencator<E, M>(reducator.m(), reducator, in);
 	}
 	
-	public static <E> Sequencator<E> widen(Class<E> e, final Sequencator<? extends E> sequence) {
+	public static <E> Sequencer<E> widen(Class<E> e, final Sequencer<? extends E> sequence) {
 		return sequencator(e, (Sequence<? extends E>) sequence);
 	}
 	
@@ -61,7 +61,7 @@ public class Sequences {
 		};
 	}
 	
-	private static class IteratorSequencator<E> extends AbstractSequencator<E> {
+	private static class IteratorSequencator<E> extends AbstractSequencer<E> {
 		private final Iterator<? extends E> in;
 
 		private IteratorSequencator(Class<E> e, Iterator<? extends E> in) {
@@ -80,12 +80,12 @@ public class Sequences {
 		}
 	}
 
-	private static class ReducatorSequencator<E, M> extends AbstractSequencator<M> {
-		private final Reducator<E, M> reducator;
+	private static class ReducatorSequencator<E, M> extends AbstractSequencer<M> {
+		private final Reducer<E, M> reducator;
 		private final Iterator<? extends E> in;
 		private M last;
 
-		private ReducatorSequencator(Class<M> e, Reducator<E, M> reducator, Iterator<? extends E> in) {
+		private ReducatorSequencator(Class<M> e, Reducer<E, M> reducator, Iterator<? extends E> in) {
 			super(e);
 			this.reducator = reducator;
 			this.in = in;
@@ -103,10 +103,10 @@ public class Sequences {
 		}
 	}
 
-	private static class WideningSequencator<E> extends AbstractSequencator<E> {
-		private final Sequencator<? extends E> s;
+	private static class WideningSequencator<E> extends AbstractSequencer<E> {
+		private final Sequencer<? extends E> s;
 	
-		private WideningSequencator(Class<E> e, Sequencator<? extends E> s) {
+		private WideningSequencator(Class<E> e, Sequencer<? extends E> s) {
 			super(e);
 			this.s = s;
 		}

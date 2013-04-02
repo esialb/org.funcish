@@ -9,16 +9,16 @@ import java.util.Collection;
  * @param <K>
  * @param <V>
  */
-public interface Mappicator<K, V> extends Mapping<K, V>, Applicator<K, Collection<V>, V> {
+public interface Mapper<K, V> extends Mapping<K, V>, Applicator<K, Collection<V>, V> {
 	/**
 	 * Return a new {@link Collection} containing the output values obtained by applying
-	 * this {@link Mappicator} to the input
+	 * this {@link Mapper} to the input
 	 * @param c
 	 * @return
 	 */
 	public Collection<V> map(Collection<? extends K> c);
 	/**
-	 * Apply this {@link Mappicator} to the input {@link Collection} {@code c}, and add
+	 * Apply this {@link Mapper} to the input {@link Collection} {@code c}, and add
 	 * the results to the output {@link Collection} {@code into}
 	 * @param c
 	 * @param into

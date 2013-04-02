@@ -4,14 +4,14 @@ import java.util.NoSuchElementException;
 
 import org.funcish.core.fn.Sequence;
 
-public class ProxySequencator<E> extends AbstractSequencator<E> {
+public class ProxySequencer<E> extends AbstractSequencer<E> {
 	
 	private Sequence<? extends E> target;
 	
 	private Boolean hasNext = null;
 	private E next;
 	
-	public ProxySequencator(Class<E> e, Sequence<? extends E> target) {
+	public ProxySequencer(Class<E> e, Sequence<? extends E> target) {
 		super(e);
 		this.target = target;
 	}

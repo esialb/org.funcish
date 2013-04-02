@@ -9,8 +9,8 @@ import org.funcish.core.Reducers;
 import org.funcish.core.Sequences;
 import org.funcish.core.fn.Mapping;
 import org.funcish.core.fn.Predicate;
-import org.funcish.core.fn.Reducer;
-import org.funcish.core.fn.Sequencator;
+import org.funcish.core.fn.Reduction;
+import org.funcish.core.fn.Sequencer;
 
 public class ArrayFunctionalList<E> extends ArrayList<E> implements FunctionalList<E> {
 	/**
@@ -55,12 +55,12 @@ public class ArrayFunctionalList<E> extends ArrayList<E> implements FunctionalLi
 	}
 
 	@Override
-	public <M> M reduce(Reducer<? super E, M> r) {
+	public <M> M reduce(Reduction<? super E, M> r) {
 		return Reducers.reducator(r).reduce(this);
 	}
 
 	@Override
-	public Sequencator<E> seq() {
+	public Sequencer<E> seq() {
 		return Sequences.sequencator(e(), iterator());
 	}
 

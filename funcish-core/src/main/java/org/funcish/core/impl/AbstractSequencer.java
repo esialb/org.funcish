@@ -4,13 +4,13 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import org.funcish.core.fn.Sequencator;
+import org.funcish.core.fn.Sequencer;
 
-public abstract class AbstractSequencator<E> extends AbstractSequence<E> implements Sequencator<E> {
+public abstract class AbstractSequencer<E> extends AbstractSequence<E> implements Sequencer<E> {
 
 	public abstract boolean hasNext0(Integer index) throws Exception;
 
-	public AbstractSequencator(Class<E> e) {
+	public AbstractSequencer(Class<E> e) {
 		super(e);
 	}
 

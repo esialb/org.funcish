@@ -5,10 +5,10 @@ import java.util.Collection;
 import java.util.Iterator;
 
 import org.funcish.core.fn.Function;
-import org.funcish.core.impl.AbstractReducator;
+import org.funcish.core.impl.AbstractReducer;
 import org.funcish.core.impl.Proxied;
 
-public class ClojurelikeProxyReducator extends AbstractReducator<Object, Object> implements Proxied<Function<?>> {
+public class ClojurelikeProxyReducator extends AbstractReducer<Object, Object> implements Proxied<Function<?>> {
 
 	private Function<?> fn;
 	

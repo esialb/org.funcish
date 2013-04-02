@@ -4,7 +4,7 @@ import java.util.Arrays;
 
 import org.funcish.core.Mappings;
 import org.funcish.core.fn.Function;
-import org.funcish.core.fn.Mappicator;
+import org.funcish.core.fn.Mapper;
 import org.funcish.core.util.Strings;
 
 public abstract class AbstractFunction<T> implements Function<T> {
@@ -48,7 +48,7 @@ public abstract class AbstractFunction<T> implements Function<T> {
 	
 	@Override
 	public String toString() {
-		Mappicator<Class<?>, String> NAME = Mappings.classSimpleName();
+		Mapper<Class<?>, String> NAME = Mappings.classSimpleName();
 		StringBuilder sb = new StringBuilder();
 		sb.append("fn://");
 		sb.append(getClassName());

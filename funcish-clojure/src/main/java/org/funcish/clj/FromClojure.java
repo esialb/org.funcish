@@ -4,14 +4,14 @@ import org.funcish.core.Mappings;
 import org.funcish.core.Predicates;
 import org.funcish.core.Reducers;
 import org.funcish.core.fn.Function;
-import org.funcish.core.fn.Mappicator;
+import org.funcish.core.fn.Mapper;
 import org.funcish.core.fn.Mapping;
-import org.funcish.core.fn.ParaMappicator;
+import org.funcish.core.fn.ParaMapper;
 import org.funcish.core.fn.ParaPredicator;
-import org.funcish.core.fn.ParaReducator;
+import org.funcish.core.fn.ParaReducer;
 import org.funcish.core.fn.Predicate;
-import org.funcish.core.fn.Reducator;
 import org.funcish.core.fn.Reducer;
+import org.funcish.core.fn.Reduction;
 
 import clojure.lang.IFn;
 
@@ -41,31 +41,31 @@ public class FromClojure {
 		return Mappings.mapping(Object.class, function(fn, 1L));
 	}
 	
-	public static Mappicator<Object, Object> mappicator(IFn fn) {
+	public static Mapper<Object, Object> mappicator(IFn fn) {
 		return Mappings.mappicator(mapping(fn));
 	}
 	
-	public static ParaMappicator<Object, Object> paraMappicator(IFn fn) {
+	public static ParaMapper<Object, Object> paraMappicator(IFn fn) {
 		return Mappings.paraMappicator(mapping(fn));
 	}
 	
-	public static Reducer<Object, Object> reducer(IFn fn) {
+	public static Reduction<Object, Object> reducer(IFn fn) {
 		return Reducers.reducer(Object.class, function(fn, 2L));
 	}
 	
-	public static Reducer<Object, Object> reducer(IFn fn, Object memoStart) {
+	public static Reduction<Object, Object> reducer(IFn fn, Object memoStart) {
 		return Reducers.reducer(Object.class, memoStart, function(fn, 2L));
 	}
 	
-	public static Reducator<Object, Object> reducator(IFn fn) {
+	public static Reducer<Object, Object> reducator(IFn fn) {
 		return Reducers.reducator(reducer(fn));
 	}
 
-	public static Reducator<Object, Object> reducator(IFn fn, Object memoStart) {
+	public static Reducer<Object, Object> reducator(IFn fn, Object memoStart) {
 		return Reducers.reducator(reducer(fn, memoStart));
 	}
 	
-	public static ParaReducator<Object, Object> paraReducator(IFn fn, IFn collator) {
+	public static ParaReducer<Object, Object> paraReducator(IFn fn, IFn collator) {
 		return Reducers.paraReducator(reducer(fn), reducer(collator));
 	}
 

@@ -8,14 +8,14 @@ import java.util.concurrent.Future;
 import java.util.concurrent.FutureTask;
 import java.util.concurrent.RunnableFuture;
 
-import org.funcish.core.fn.ParaReducator;
-import org.funcish.core.fn.Reducer;
+import org.funcish.core.fn.ParaReducer;
+import org.funcish.core.fn.Reduction;
 
-public abstract class AbstractParaReducator<E, M> extends AbstractReducator<E, M> implements ParaReducator<E, M> {
+public abstract class AbstractParaReducer<E, M> extends AbstractReducer<E, M> implements ParaReducer<E, M> {
 
-	private Reducer<M, M> collator;
+	private Reduction<M, M> collator;
 	
-	public AbstractParaReducator(Class<E> e, Class<M> m, M memoStart, Reducer<M, M> collator) {
+	public AbstractParaReducer(Class<E> e, Class<M> m, M memoStart, Reduction<M, M> collator) {
 		super(e, m, memoStart);
 		this.collator = collator;
 	}
@@ -60,7 +60,7 @@ public abstract class AbstractParaReducator<E, M> extends AbstractReducator<E, M
 	}
 
 	@Override
-	public Reducer<M, M> collator() {
+	public Reduction<M, M> collator() {
 		return collator;
 	}
 

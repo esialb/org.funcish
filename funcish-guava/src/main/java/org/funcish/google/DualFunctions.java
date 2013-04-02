@@ -4,10 +4,10 @@ import org.funcish.core.fn.Function;
 import org.funcish.core.fn.Mapping;
 import org.funcish.core.fn.Predicate;
 import org.funcish.core.impl.AbstractFunction;
-import org.funcish.core.impl.AbstractMappicator;
+import org.funcish.core.impl.AbstractMapper;
 import org.funcish.core.impl.AbstractPredicator;
 import org.funcish.core.impl.ProxyFunction;
-import org.funcish.core.impl.ProxyMappicator;
+import org.funcish.core.impl.ProxyMapper;
 import org.funcish.core.impl.ProxyPredicator;
 
 public class DualFunctions {
@@ -86,7 +86,7 @@ public class DualFunctions {
 		}
 	}
 
-	private static class DualProxyMapping<F, T> extends ProxyMappicator<F, T> implements DualMapping<F, T> {
+	private static class DualProxyMapping<F, T> extends ProxyMapper<F, T> implements DualMapping<F, T> {
 		private DualProxyMapping(Mapping<F, T> target) {
 			super(target);
 		}
@@ -96,7 +96,7 @@ public class DualFunctions {
 		}
 	}
 
-	private static class DualUncheckedGMapping<F, T> extends AbstractMappicator<F, T> implements DualMapping<F, T> {
+	private static class DualUncheckedGMapping<F, T> extends AbstractMapper<F, T> implements DualMapping<F, T> {
 		private final com.google.common.base.Function<F, T> gf;
 
 		private DualUncheckedGMapping(com.google.common.base.Function<F, T> gf) {
@@ -115,7 +115,7 @@ public class DualFunctions {
 		}
 	}
 
-	private static class DualGMapping<F, T> extends AbstractMappicator<F, T> implements DualMapping<F, T> {
+	private static class DualGMapping<F, T> extends AbstractMapper<F, T> implements DualMapping<F, T> {
 		private final com.google.common.base.Function<F, T> gf;
 	
 		private DualGMapping(Class<T> t, Class<F> f, com.google.common.base.Function<F, T> gf) {
