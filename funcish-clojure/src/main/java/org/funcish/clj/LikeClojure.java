@@ -6,7 +6,7 @@ import org.funcish.core.fn.Reducer;
 public class LikeClojure {
 	
 	public static Reducer<Object, Object> reducator(Function<?> fn) {
-		return new ClojurelikeProxyReducator(fn);
+		return new ClojurelikeProxyReducer(fn);
 	}
 
 	private LikeClojure() {}
