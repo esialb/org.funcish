@@ -31,7 +31,7 @@ public class Mappings {
 	 * @param target
 	 * @return
 	 */
-	public static <K, V> Mapper<K, V> mappicator(Mapping<K, V> target) {
+	public static <K, V> Mapper<K, V> mapper(Mapping<K, V> target) {
 		if(target instanceof Mapper<?, ?>)
 			return (Mapper<K, V>) target;
 		return new ProxyMapper<K, V>(target);
@@ -43,7 +43,7 @@ public class Mappings {
 	 * @param target
 	 * @return
 	 */
-	public static <K, V> ParaMapper<K, V> paraMappicator(Mapping<K, V> target) {
+	public static <K, V> ParaMapper<K, V> paraMapper(Mapping<K, V> target) {
 		if(target instanceof ParaMapper<?, ?>)
 			return (ParaMapper<K, V>) target;
 		return new ProxyParaMapper<K, V>(target);

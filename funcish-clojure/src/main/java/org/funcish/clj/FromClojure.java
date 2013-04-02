@@ -42,31 +42,31 @@ public class FromClojure {
 	}
 	
 	public static Mapper<Object, Object> mappicator(IFn fn) {
-		return Mappings.mappicator(mapping(fn));
+		return Mappings.mapper(mapping(fn));
 	}
 	
 	public static ParaMapper<Object, Object> paraMappicator(IFn fn) {
-		return Mappings.paraMappicator(mapping(fn));
+		return Mappings.paraMapper(mapping(fn));
 	}
 	
 	public static Reduction<Object, Object> reducer(IFn fn) {
-		return Reducers.reducer(Object.class, function(fn, 2L));
+		return Reducers.reduction(Object.class, function(fn, 2L));
 	}
 	
 	public static Reduction<Object, Object> reducer(IFn fn, Object memoStart) {
-		return Reducers.reducer(Object.class, memoStart, function(fn, 2L));
+		return Reducers.reduction(Object.class, memoStart, function(fn, 2L));
 	}
 	
 	public static Reducer<Object, Object> reducator(IFn fn) {
-		return Reducers.reducator(reducer(fn));
+		return Reducers.reducer(reducer(fn));
 	}
 
 	public static Reducer<Object, Object> reducator(IFn fn, Object memoStart) {
-		return Reducers.reducator(reducer(fn, memoStart));
+		return Reducers.reducer(reducer(fn, memoStart));
 	}
 	
 	public static ParaReducer<Object, Object> paraReducator(IFn fn, IFn collator) {
-		return Reducers.paraReducator(reducer(fn), reducer(collator));
+		return Reducers.paraReducer(reducer(fn), reducer(collator));
 	}
 
 	public static Predicate<Object> predicate(IFn fn) {

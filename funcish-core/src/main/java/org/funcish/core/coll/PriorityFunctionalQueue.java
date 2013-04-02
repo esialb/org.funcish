@@ -48,16 +48,16 @@ public class PriorityFunctionalQueue<E> extends PriorityQueue<E> implements Func
 	
 	@Override
 	public <V> FunctionalQueue<V> map(Mapping<? super E, V> m) {
-		return Mappings.mappicator(m).map(this, new PriorityFunctionalQueue<V>(m.v()));
+		return Mappings.mapper(m).map(this, new PriorityFunctionalQueue<V>(m.v()));
 	}
 	
 	public <V> FunctionalQueue<V> map(Mapping<? super E, V> m, Comparator<? super V> cmp) {
-		return Mappings.mappicator(m).map(this, new PriorityFunctionalQueue<V>(m.v(), size(), cmp));
+		return Mappings.mapper(m).map(this, new PriorityFunctionalQueue<V>(m.v(), size(), cmp));
 	}
 
 	@Override
 	public <V, C extends Collection<? super V>> C map(Mapping<? super E, V> m, C into) {
-		return Mappings.mappicator(m).map(this, into);
+		return Mappings.mapper(m).map(this, into);
 	}
 
 	@Override
@@ -72,12 +72,12 @@ public class PriorityFunctionalQueue<E> extends PriorityQueue<E> implements Func
 
 	@Override
 	public <M> M reduce(Reduction<? super E, M> r) {
-		return Reducers.reducator(r).reduce(this);
+		return Reducers.reducer(r).reduce(this);
 	}
 
 	@Override
 	public Sequencer<E> seq() {
-		return Sequences.sequencator(e(), iterator());
+		return Sequences.sequencer(e(), iterator());
 	}
 
 }

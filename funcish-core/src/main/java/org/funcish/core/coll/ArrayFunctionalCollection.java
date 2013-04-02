@@ -37,12 +37,12 @@ public class ArrayFunctionalCollection<E> extends ArrayCollection<E> implements 
 
 	@Override
 	public <V> FunctionalCollection<V> map(Mapping<? super E, V> m) {
-		return Mappings.mappicator(m).map(this, new ArrayFunctionalCollection<V>(m.v()));
+		return Mappings.mapper(m).map(this, new ArrayFunctionalCollection<V>(m.v()));
 	}
 
 	@Override
 	public <V, C extends Collection<? super V>> C map(Mapping<? super E, V> m, C into) {
-		return Mappings.mappicator(m).map(this, into);
+		return Mappings.mapper(m).map(this, into);
 	}
 
 	@Override
@@ -57,12 +57,12 @@ public class ArrayFunctionalCollection<E> extends ArrayCollection<E> implements 
 
 	@Override
 	public <M> M reduce(Reduction<? super E, M> r) {
-		return Reducers.reducator(r).reduce(this);
+		return Reducers.reducer(r).reduce(this);
 	}
 
 	@Override
 	public Sequencer<E> seq() {
-		return Sequences.sequencator(e(), iterator());
+		return Sequences.sequencer(e(), iterator());
 	}
 
 }

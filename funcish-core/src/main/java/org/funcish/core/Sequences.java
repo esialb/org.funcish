@@ -22,7 +22,7 @@ public class Sequences {
 		return new ProxySequence<E>(e, target);
 	}
 	
-	public static <E> Sequencer<E> sequencator(Class<E> e, Sequence<? extends E> target) {
+	public static <E> Sequencer<E> sequencer(Class<E> e, Sequence<? extends E> target) {
 		if(target instanceof Sequencer<?>) {
 			final Sequencer<? extends E> s = (Sequencer<? extends E>) target;
 			return new WideningSequencator<E>(e, s);
@@ -30,16 +30,16 @@ public class Sequences {
 		return new ProxySequencer<E>(e, target);
 	}
 	
-	public static <E> Sequencer<E> sequencator(Class<E> e, Iterator<? extends E> in) {
+	public static <E> Sequencer<E> sequencer(Class<E> e, Iterator<? extends E> in) {
 		return new IteratorSequencator<E>(e, in);
 	}
 	
-	public static <E, M> Sequencer<M> sequencator(Reducer<E, M> reducator, Iterator<? extends E> in) {
+	public static <E, M> Sequencer<M> sequencer(Reducer<E, M> reducator, Iterator<? extends E> in) {
 		return new ReducatorSequencator<E, M>(reducator.m(), reducator, in);
 	}
 	
 	public static <E> Sequencer<E> widen(Class<E> e, final Sequencer<? extends E> sequence) {
-		return sequencator(e, (Sequence<? extends E>) sequence);
+		return sequencer(e, (Sequence<? extends E>) sequence);
 	}
 	
 	public static <E> Sequence<E> widen(Class<E> e, final Sequence<? extends E> sequence) {

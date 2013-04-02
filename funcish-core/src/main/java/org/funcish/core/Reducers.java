@@ -25,8 +25,8 @@ public class Reducers {
 	 * @param target
 	 * @return
 	 */
-	public static <E, M> Reduction<E, M> reducer(Class<E> e, Function<M> target) {
-		return reducer(e, null, target);
+	public static <E, M> Reduction<E, M> reduction(Class<E> e, Function<M> target) {
+		return reduction(e, null, target);
 	}
 	
 	/**
@@ -37,7 +37,7 @@ public class Reducers {
 	 * @param target
 	 * @return
 	 */
-	public static <E, M> Reduction<E, M> reducer(Class<E> e, M memoStart, Function<M> target) {
+	public static <E, M> Reduction<E, M> reduction(Class<E> e, M memoStart, Function<M> target) {
 		return new ProxyReduction<E, M>(e, memoStart, target);
 	}
 	
@@ -47,7 +47,7 @@ public class Reducers {
 	 * @param target
 	 * @return
 	 */
-	public static <E, M> Reducer<E, M> reducator(Reduction<E, M> target) {
+	public static <E, M> Reducer<E, M> reducer(Reduction<E, M> target) {
 		if(target instanceof Reducer<?, ?>)
 			return (Reducer<E, M>) target;
 		return new ProxyReducer<E, M>(target);
@@ -60,7 +60,7 @@ public class Reducers {
 	 * @param collator
 	 * @return
 	 */
-	public static <E, M> ParaReducer<E, M> paraReducator(Reduction<E, M> target, Reduction<M, M> collator) {
+	public static <E, M> ParaReducer<E, M> paraReducer(Reduction<E, M> target, Reduction<M, M> collator) {
 		return new ProxyParaReducer<E, M>(target, collator);
 	}
 
