@@ -2,9 +2,7 @@ package org.funcish.core;
 
 import java.io.BufferedReader;
 import java.io.Reader;
-import java.util.Collection;
 import java.util.Iterator;
-import java.util.List;
 import java.util.NoSuchElementException;
 
 import org.funcish.core.fn.Function;

@@ -1,7 +1,5 @@
 package org.funcish.core.fn;
 
-import java.util.concurrent.Callable;
-
 /**
  * Base interface for any function
  * @author robin
