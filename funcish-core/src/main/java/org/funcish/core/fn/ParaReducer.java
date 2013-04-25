@@ -4,18 +4,18 @@ import java.util.Collection;
 import java.util.concurrent.Executor;
 
 /**
- * Parallelized {@link Reducator}
+ * Parallelized {@link Reducer}
  * @author robin
  *
  * @param <E>
  * @param <M>
  */
-public interface ParaReducator<E, M> extends Reducator<E, M>, ParaApplicator<E, M, M> {
+public interface ParaReducer<E, M> extends Reducer<E, M>, ParaApplicator<E, M, M> {
 	/**
-	 * {@link Reducer} used to combine the parallelized reduction results
+	 * {@link Reduction} used to combine the parallelized reduction results
 	 * @return
 	 */
-	public Reducer<M, M> collator();
+	public Reduction<M, M> collator();
 	
 	/**
 	 * Reduce the input collection, using as the input memo the default initial memo for every step,

@@ -8,12 +8,12 @@ import java.util.concurrent.Future;
 import java.util.concurrent.FutureTask;
 import java.util.concurrent.RunnableFuture;
 
-import org.funcish.core.fn.ParaMappicator;
+import org.funcish.core.fn.ParaMapper;
 import org.funcish.core.util.ArrayCollection;
 
-public abstract class AbstractParaMappicator<K, V> extends AbstractMappicator<K, V> implements ParaMappicator<K, V> {
+public abstract class AbstractParaMapper<K, V> extends AbstractMapper<K, V> implements ParaMapper<K, V> {
 
-	public AbstractParaMappicator(Class<K> k, Class<V> v) {
+	public AbstractParaMapper(Class<K> k, Class<V> v) {
 		super(k, v);
 	}
 

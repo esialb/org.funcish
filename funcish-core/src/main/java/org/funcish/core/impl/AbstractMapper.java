@@ -2,12 +2,12 @@ package org.funcish.core.impl;
 
 import java.util.Collection;
 
-import org.funcish.core.fn.Mappicator;
+import org.funcish.core.fn.Mapper;
 import org.funcish.core.util.ArrayCollection;
 
-public abstract class AbstractMappicator<K, V> extends AbstractMapping<K, V> implements Mappicator<K, V> {
+public abstract class AbstractMapper<K, V> extends AbstractMapping<K, V> implements Mapper<K, V> {
 
-	public AbstractMappicator(Class<K> k, Class<V> v) {
+	public AbstractMapper(Class<K> k, Class<V> v) {
 		super(k, v);
 	}
 	

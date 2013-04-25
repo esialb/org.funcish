@@ -2,27 +2,31 @@ package org.funcish.core.coll;
 
 import java.util.Collection;
 
-import org.funcish.core.fn.Mappicator;
+import org.funcish.core.fn.Mapper;
 import org.funcish.core.fn.Mapping;
 import org.funcish.core.fn.Predicate;
 import org.funcish.core.fn.Predicator;
-import org.funcish.core.fn.Reducator;
 import org.funcish.core.fn.Reducer;
+import org.funcish.core.fn.Reduction;
+import org.funcish.core.fn.Sequencer;
 
 /**
  * {@link Collection} with additional helper methods to process itself using
- * {@link Mapping}, {@link Predicate}, and {@link Reducer} functions.
+ * {@link Mapping}, {@link Predicate}, and {@link Reduction} functions.
  * @author robin
  *
  * @param <E>
  */
 public interface FunctionalCollection<E> extends Collection<E> {
+	
+	public Class<E> e();
+	
 	/**
 	 * Return a new {@link FunctionalCollection} obtained by applying
 	 * the argument {@link Mapping} to this object.
 	 * @param m
 	 * @return
-	 * @see Mappicator#map(Collection)
+	 * @see Mapper#map(Collection)
 	 */
 	public <V> FunctionalCollection<V> map(Mapping<? super E, V> m);
 	/**
@@ -31,7 +35,7 @@ public interface FunctionalCollection<E> extends Collection<E> {
 	 * @param m
 	 * @param into
 	 * @return
-	 * @see Mappicator#map(Collection, Collection)
+	 * @see Mapper#map(Collection, Collection)
 	 */
 	public <V, C extends Collection<? super V>> C map(Mapping<? super E, V> m, C into);
 	
@@ -57,7 +61,9 @@ public interface FunctionalCollection<E> extends Collection<E> {
 	 * Reduce this {@link FunctionalCollection}
 	 * @param r
 	 * @return
-	 * @see Reducator#reduce(Collection)
+	 * @see Reducer#reduce(Collection)
 	 */
-	public <M> M reduce(Reducer<? super E, M> r);
+	public <M> M reduce(Reduction<? super E, M> r);
+	
+	public Sequencer<E> seq();
 }

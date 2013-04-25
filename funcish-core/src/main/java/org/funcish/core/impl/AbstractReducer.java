@@ -1,51 +1,45 @@
 package org.funcish.core.impl;
 
+import java.util.Collection;
+
 import org.funcish.core.fn.Reducer;
 
-public abstract class AbstractReducer<E, M> extends AbstractFunction<M> implements Reducer<E, M> {
+public abstract class AbstractReducer<E, M> extends AbstractReduction<E, M> implements Reducer<E, M> {
 
-	private M memoStart;
-	
-	private Class<E> e;
-	private Class<M> m;
-	
-	public abstract M reduce0(M memo, E obj, Integer index) throws Exception;
-	
 	public AbstractReducer(Class<E> e, Class<M> m, M memoStart) {
-		super(m, new Class<?>[] {m, e, Integer.class});
-		this.e = e;
-		this.m = m;
-		this.memoStart = memoStart;
+		super(e, m, memoStart);
 	}
-	
-	@Override
-	public M memoStart() {
-		return memoStart;
-	}
-	
-	@Override
-	public Class<E> e() {
-		return e;
-	}
-	
-	@Override
-	public Class<M> m() {
-		return m;
+
+	protected M innerOver(M memo, Collection<? extends E> c) {
+		int index = 0;
+		for(E e : c) {
+			try {
+				memo = reduce0(memo, e, index++);
+			} catch(RuntimeException re) {
+				throw re;
+			} catch(Exception ex) {
+				throw new RuntimeException(ex);
+			}
+		}
+		return memo;
 	}
 
 	@Override
-	public M call(Object... args) throws Exception {
-		return m.cast(reduce0(m.cast(args[0]), e.cast(args[1]), (Integer) args[2]));
+	public M over(Collection<? extends E> c) {
+		return innerOver(memoStart(), c);
+	}
+	
+	public M into(Collection<? extends E> c, M into) {
+		return innerOver(into, c);
 	}
 	
 	@Override
-	public M reduce(M memo, E obj, Integer index) {
-		try {
-			return reduce0(memo, obj, index);
-		} catch(RuntimeException re) {
-			throw re;
-		} catch(Exception ex) {
-			throw new RuntimeException(ex);
-		}
+	public M reduce(Collection<? extends E> c) {
+		return over(c);
+	}
+	
+	@Override
+	public M reduce(Collection<? extends E> c, M into) {
+		return into(c, into);
 	}
 }
