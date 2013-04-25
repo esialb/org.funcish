@@ -8,7 +8,7 @@ import java.util.concurrent.Callable;
  *
  * @param <T>
  */
-public interface Function<T> extends Callable<T> {
+public interface Function<T> extends Fn<T> {
 	/**
 	 * Returns the classes of the arguments to this function.
 	 * @return
@@ -26,11 +26,4 @@ public interface Function<T> extends Callable<T> {
 	 * @return
 	 */
 	public Object[] args(Object[] args);
-	/**
-	 * Call this function
-	 * @param args The arguments to the function
-	 * @return The value of the function
-	 * @throws Exception
-	 */
-	public T call(Object... args) throws Exception;
 }
