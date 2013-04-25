@@ -44,6 +44,10 @@ public class Sequences {
 		return sequence(e, sequence);
 	}
 	
+	public static <E> Sequence<E> repeat(Class<E> e, final E val) {
+		return new RepeatSequence<E>(e, val);
+	}
+	
 	public static Sequence<String> lines(Reader r) {
 		final BufferedReader br = new BufferedReader(r); 
 		return new AbstractSequence<String>(String.class) {
@@ -59,6 +63,20 @@ public class Sequences {
 		};
 	}
 	
+	private static class RepeatSequence<E> extends AbstractSequence<E> {
+		private final E val;
+
+		private RepeatSequence(Class<E> e, E val) {
+			super(e);
+			this.val = val;
+		}
+
+		@Override
+		public E next0(Integer index) throws Exception {
+			return val;
+		}
+	}
+
 	private static class IteratorSequencator<E> extends AbstractSequencer<E> {
 		private final Iterator<? extends E> in;
 
