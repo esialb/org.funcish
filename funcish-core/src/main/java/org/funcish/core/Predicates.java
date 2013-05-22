@@ -115,6 +115,24 @@ public class Predicates {
 		return new ClassIsAssignableFrom((Class)Class.class, cls);
 	}
 	
+	public static <T> Predicator<T> repeat(Class<T> t, final boolean val) {
+		return new RepeatPredicator<T>(t, val);
+	}
+	
+	private static class RepeatPredicator<T> extends AbstractPredicator<T> {
+		private final boolean val;
+
+		private RepeatPredicator(Class<T> t, boolean val) {
+			super(t);
+			this.val = val;
+		}
+
+		@Override
+		public boolean test0(T value, Integer index) throws Exception {
+			return val;
+		}
+	}
+
 	private static class PatternFind extends AbstractPredicator<CharSequence> {
 		private final Pattern p;
 

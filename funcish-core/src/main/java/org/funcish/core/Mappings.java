@@ -113,6 +113,24 @@ public class Mappings {
 		return new ClassForName<V>(String.class, (Class) Class.class, v);
 	}
 	
+	public static <K, V> Mapper<K, V> repeat(Class<K> k, Class<V> v, final V val) {
+		return new RepeatMapper<K, V>(k, v, val);
+	}
+	
+	private static class RepeatMapper<K, V> extends AbstractMapper<K, V> {
+		private final V val;
+
+		private RepeatMapper(Class<K> k, Class<V> v, V val) {
+			super(k, v);
+			this.val = val;
+		}
+
+		@Override
+		public V map0(K key, Integer index) throws Exception {
+			return val;
+		}
+	}
+
 	private static class ClassForName<V> extends
 			AbstractMapper<String, Class<? extends V>> {
 		private final Class<V> v;

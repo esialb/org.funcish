@@ -1,12 +1,9 @@
 package org.funcish.google;
 
-import org.funcish.core.fn.Function;
 import org.funcish.core.fn.Mapping;
 import org.funcish.core.fn.Predicate;
-import org.funcish.core.impl.AbstractFunction;
 import org.funcish.core.impl.AbstractMapper;
 import org.funcish.core.impl.AbstractPredicator;
-import org.funcish.core.impl.ProxyFunction;
 import org.funcish.core.impl.ProxyMapper;
 import org.funcish.core.impl.ProxyPredicator;
 

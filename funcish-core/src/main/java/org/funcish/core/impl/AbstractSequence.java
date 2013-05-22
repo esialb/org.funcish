@@ -1,7 +1,5 @@
 package org.funcish.core.impl;
 
-import java.util.Iterator;
-
 import org.funcish.core.fn.Sequence;
 
 public abstract class AbstractSequence<E> extends AbstractFunction<E> implements Sequence<E> {
