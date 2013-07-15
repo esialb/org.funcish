@@ -34,6 +34,7 @@ import java.util.Collection;
 import java.util.Comparator;
 import java.util.PriorityQueue;
 
+import org.funcish.core.Iterables;
 import org.funcish.core.Mappings;
 import org.funcish.core.Predicates;
 import org.funcish.core.Reducers;
@@ -78,26 +79,16 @@ public class PriorityFunctionalQueue<E> extends PriorityQueue<E> implements Func
 	
 	@Override
 	public <V> FunctionalQueue<V> map(Mapping<? super E, V> m) {
-		return Mappings.mapper(m).map(this, new PriorityFunctionalQueue<V>(m.v()));
+		return Iterables.into(Mappings.mapper(m).map(this), new PriorityFunctionalQueue<V>(m.v()));
 	}
 	
 	public <V> FunctionalQueue<V> map(Mapping<? super E, V> m, Comparator<? super V> cmp) {
-		return Mappings.mapper(m).map(this, new PriorityFunctionalQueue<V>(m.v(), size(), cmp));
-	}
-
-	@Override
-	public <V, C extends Collection<? super V>> C map(Mapping<? super E, V> m, C into) {
-		return Mappings.mapper(m).map(this, into);
+		return Iterables.into(Mappings.mapper(m).map(this), new PriorityFunctionalQueue<V>(m.v(), size(), cmp));
 	}
 
 	@Override
 	public FunctionalQueue<E> filter(Predicate<? super E> p) {
-		return Predicates.predicator(p).filter(this, new PriorityFunctionalQueue<E>(e(), 0, comparator()));
-	}
-
-	@Override
-	public <C extends Collection<? super E>> C filter(Predicate<? super E> p, C into) {
-		return Predicates.predicator(p).filter(this, into);
+		return Iterables.into(Predicates.predicator(e(), p).filter(this), new PriorityFunctionalQueue<E>(e(), 0, comparator()));
 	}
 
 	@Override

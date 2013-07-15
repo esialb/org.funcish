@@ -32,6 +32,7 @@ package org.funcish.core.coll;
 
 import java.util.Collection;
 
+import org.funcish.core.Iterables;
 import org.funcish.core.Mappings;
 import org.funcish.core.Predicates;
 import org.funcish.core.Reducers;
@@ -67,22 +68,12 @@ public class ArrayFunctionalCollection<E> extends ArrayCollection<E> implements 
 
 	@Override
 	public <V> FunctionalCollection<V> map(Mapping<? super E, V> m) {
-		return Mappings.mapper(m).map(this, new ArrayFunctionalCollection<V>(m.v()));
-	}
-
-	@Override
-	public <V, C extends Collection<? super V>> C map(Mapping<? super E, V> m, C into) {
-		return Mappings.mapper(m).map(this, into);
+		return Iterables.into(Mappings.mapper(m).map(this), new ArrayFunctionalCollection<V>(m.v()));
 	}
 
 	@Override
 	public FunctionalCollection<E> filter(Predicate<? super E> p) {
-		return Predicates.predicator(p).filter(this, new ArrayFunctionalCollection<E>(e()));
-	}
-
-	@Override
-	public <C extends Collection<? super E>> C filter(Predicate<? super E> p, C into) {
-		return Predicates.predicator(p).filter(this, into);
+		return Iterables.into(Predicates.predicator(e(), p).filter(this), new ArrayFunctionalCollection<E>(e()));
 	}
 
 	@Override

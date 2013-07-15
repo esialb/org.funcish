@@ -41,7 +41,7 @@ public abstract class AbstractMapper<K, V> extends AbstractMapping<K, V> impleme
 		super(k, v);
 	}
 	
-	protected <C extends Collection<? super V>> C innerOver(C out, Collection<? extends K> c) {
+	protected <C extends Collection<? super V>> C innerOver(C out, Iterable<? extends K> c) {
 		int index = 0;
 		for(K e : c) {
 			try {
@@ -56,21 +56,12 @@ public abstract class AbstractMapper<K, V> extends AbstractMapping<K, V> impleme
 	}
 
 	@Override
-	public Collection<V> over(Collection<? extends K> c) {
+	public Collection<V> over(Iterable<? extends K> c) {
 		return innerOver(new ArrayCollection<V>(), c);
 	}
 	
-	public <C extends Collection<? super V>> C into(Collection<? extends K> c, C into) {
-		return innerOver(into, c);
-	}
-
 	@Override
-	public Collection<V> map(Collection<? extends K> c) {
+	public Iterable<V> map(Iterable<? extends K> c) {
 		return over(c);
-	}
-
-	@Override
-	public <C extends Collection<? super V>> C map(Collection<? extends K> c, C into) {
-		return into(c, into);
 	}
 }

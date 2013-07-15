@@ -47,7 +47,7 @@ public abstract class AbstractParaMapper<K, V> extends AbstractMapper<K, V> impl
 		super(k, v);
 	}
 
-	protected <C extends Collection<? super V>> C paraInnerOver(C out, Executor exec, Collection<? extends K> c) {
+	protected <C extends Collection<? super V>> C paraInnerOver(C out, Executor exec, Iterable<? extends K> c) {
 		Collection<Future<V>> futures = new ArrayList<Future<V>>();
 		int index = 0;
 		for(K e : c) {
@@ -75,21 +75,12 @@ public abstract class AbstractParaMapper<K, V> extends AbstractMapper<K, V> impl
 	}
 	
 	@Override
-	public Collection<V> over(Executor exec, Collection<? extends K> c) {
+	public Collection<V> over(Executor exec, Iterable<? extends K> c) {
 		return paraInnerOver(new ArrayCollection<V>(), exec, c);
 	}
 
-	public <C extends Collection<? super V>> C into(Executor exec, Collection<? extends K> c, C into) {
-		return paraInnerOver(into, exec, c);
-	}
-
 	@Override
-	public Collection<V> map(Executor exec, Collection<? extends K> c) {
+	public Collection<V> map(Executor exec, Iterable<? extends K> c) {
 		return over(exec, c);
-	}
-	
-	@Override
-	public <C extends Collection<? super V>> C map(Executor exec, Collection<? extends K> c, C into) {
-		return into(exec, c, into);
 	}
 }
