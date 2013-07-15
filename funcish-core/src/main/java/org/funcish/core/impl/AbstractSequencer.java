@@ -36,7 +36,7 @@ import java.util.List;
 
 import org.funcish.core.fn.Sequencer;
 
-public abstract class AbstractSequencer<E> extends AbstractSequence<E> implements Sequencer<E> {
+public abstract class AbstractSequencer<E> extends AbstractSequence<E> implements Sequencer<E>, Iterator<E> {
 
 	public abstract boolean hasNext0(Integer index) throws Exception;
 
