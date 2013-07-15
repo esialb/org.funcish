@@ -37,7 +37,7 @@ import java.util.Collection;
  *
  * @param <T>
  */
-public interface Predicator<T> extends Predicate<T>, Applicator<T, Collection<T>, Boolean> {
+public interface Predicator<T> extends Predicate<T>, Applicator<T, Iterable<T>, Boolean> {
 	/**
 	 * Return a new {@link Collection} containing only those elements of the argument
 	 * {@link Collection} {@code c} that are accepted by this {@link Predicator}'s
@@ -45,14 +45,5 @@ public interface Predicator<T> extends Predicate<T>, Applicator<T, Collection<T>
 	 * @param c
 	 * @return
 	 */
-	public Collection<T> filter(Collection<? extends T> c);
-	/**
-	 * Add to the argument {@link Collection} {@code into} those elements of the argument
-	 * {@link Collection} {@code c} that are accepted by this {@link Predicator}'s
-	 * {@link #test(Object, Integer)} method
-	 * @param c
-	 * @param into
-	 * @return
-	 */
-	public <U extends T, C extends Collection<? super U>> C filter(Collection<? extends U> c, C into);
+	public Iterable<T> filter(Iterable<? extends T> c);
 }
