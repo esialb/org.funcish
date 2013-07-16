@@ -67,12 +67,12 @@ public class ArrayFunctionalCollection<E> extends ArrayCollection<E> implements 
 
 	@Override
 	public <V> FunctionalCollection<V> map(Mapping<? super E, V> m) {
-		return Iterables.into(Mappings.mapper(m).map(this), new ArrayFunctionalCollection<V>(m.v()));
+		return Mappings.mapper(m).map(this).into(new ArrayFunctionalCollection<V>(m.v()));
 	}
 
 	@Override
 	public FunctionalCollection<E> filter(Predicate<? super E> p) {
-		return Iterables.into(Predicates.predicator(e(), p).filter(this), new ArrayFunctionalCollection<E>(e()));
+		return Predicates.predicator(e(), p).filter(this).into(new ArrayFunctionalCollection<E>(e()));
 	}
 
 	@Override

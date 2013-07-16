@@ -79,16 +79,16 @@ public class PriorityFunctionalQueue<E> extends PriorityQueue<E> implements Func
 	
 	@Override
 	public <V> FunctionalQueue<V> map(Mapping<? super E, V> m) {
-		return Iterables.into(Mappings.mapper(m).map(this), new PriorityFunctionalQueue<V>(m.v()));
+		return Mappings.mapper(m).map(this).into(new PriorityFunctionalQueue<V>(m.v()));
 	}
 	
 	public <V> FunctionalQueue<V> map(Mapping<? super E, V> m, Comparator<? super V> cmp) {
-		return Iterables.into(Mappings.mapper(m).map(this), new PriorityFunctionalQueue<V>(m.v(), size(), cmp));
+		return Mappings.mapper(m).map(this).into(new PriorityFunctionalQueue<V>(m.v(), size(), cmp));
 	}
 
 	@Override
 	public FunctionalQueue<E> filter(Predicate<? super E> p) {
-		return Iterables.into(Predicates.predicator(e(), p).filter(this), new PriorityFunctionalQueue<E>(e(), 0, comparator()));
+		return Predicates.predicator(e(), p).filter(this).into(new PriorityFunctionalQueue<E>(e(), 0, comparator()));
 	}
 
 	@Override

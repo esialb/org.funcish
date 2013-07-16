@@ -67,12 +67,12 @@ public class ArrayFunctionalList<E> extends ArrayList<E> implements FunctionalLi
 
 	@Override
 	public <V> FunctionalList<V> map(Mapping<? super E, V> m) {
-		return Iterables.into(Mappings.mapper(m).map(this), new ArrayFunctionalList<V>(m.v()));
+		return Mappings.mapper(m).map(this).into(new ArrayFunctionalList<V>(m.v()));
 	}
 
 	@Override
 	public FunctionalList<E> filter(Predicate<? super E> p) {
-		return Iterables.into(Predicates.predicator(e(), p).filter(this), new ArrayFunctionalList<E>(e()));
+		return Predicates.predicator(e(), p).filter(this).into(new ArrayFunctionalList<E>(e()));
 	}
 
 	@Override

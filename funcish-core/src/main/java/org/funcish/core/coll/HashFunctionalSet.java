@@ -67,12 +67,12 @@ public class HashFunctionalSet<E> extends HashSet<E> implements FunctionalSet<E>
 	
 	@Override
 	public <V> FunctionalSet<V> map(Mapping<? super E, V> m) {
-		return Iterables.into(Mappings.mapper(m).map(this), new HashFunctionalSet<V>(m.v()));
+		return Mappings.mapper(m).map(this).into(new HashFunctionalSet<V>(m.v()));
 	}
 
 	@Override
 	public FunctionalSet<E> filter(Predicate<? super E> p) {
-		return Iterables.into(Predicates.predicator(e(), p).filter(this), new HashFunctionalSet<E>(e()));
+		return Predicates.predicator(e(), p).filter(this).into(new HashFunctionalSet<E>(e()));
 	}
 
 	@Override

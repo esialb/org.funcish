@@ -68,12 +68,12 @@ public class ArrayFunctionalDeque<E> extends ArrayDeque<E> implements Functional
 	
 	@Override
 	public <V> FunctionalDeque<V> map(Mapping<? super E, V> m) {
-		return Iterables.into(Mappings.mapper(m).map(this), new ArrayFunctionalDeque<V>(m.v()));
+		return Mappings.mapper(m).map(this).into(new ArrayFunctionalDeque<V>(m.v()));
 	}
 
 	@Override
 	public FunctionalDeque<E> filter(Predicate<? super E> p) {
-		return Iterables.into(Predicates.predicator(e(), p).filter(this), new ArrayFunctionalDeque<E>(e()));
+		return Predicates.predicator(e(), p).filter(this).into(new ArrayFunctionalDeque<E>(e()));
 	}
 
 	@Override
