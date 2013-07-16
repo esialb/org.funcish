@@ -31,6 +31,7 @@
 package org.funcish.core.impl;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
@@ -85,6 +86,14 @@ public abstract class AbstractSequencer<E> extends AbstractSequence<E> implement
 			index++;
 		}
 		return ret;
+	}
+	
+	@Override
+	public <C extends Collection<? super E>> C into(C dest) {
+		for(E e : this) {
+			dest.add(e);
+		}
+		return dest;
 	}
 
 }

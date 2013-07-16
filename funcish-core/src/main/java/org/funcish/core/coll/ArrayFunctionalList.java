@@ -85,4 +85,10 @@ public class ArrayFunctionalList<E> extends ArrayList<E> implements FunctionalLi
 		return Sequences.sequencer(e(), iterator());
 	}
 
+	@Override
+	public <C extends Collection<? super E>> C into(C dest) {
+		dest.addAll(this);
+		return dest;
+	}
+
 }

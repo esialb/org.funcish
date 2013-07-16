@@ -30,8 +30,9 @@
 
 package org.funcish.core.fn;
 
+import java.util.Collection;
 import java.util.Iterator;
 
-public interface AutoIterable<E> extends Iterable<E> {
-
+public interface IntoIterable<E> extends Iterable<E> {
+	public <C extends Collection<? super E>> C into(C dest);
 }

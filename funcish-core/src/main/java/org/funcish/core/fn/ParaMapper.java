@@ -49,5 +49,5 @@ public interface ParaMapper<K, V> extends Mapper<K, V>, ParaApplicator<K, Iterab
 	 * @param c
 	 * @return
 	 */
-	public Iterable<V> map(Executor exec, Iterable<? extends K> c);
+	public IntoIterable<V> map(Executor exec, Iterable<? extends K> c);
 }

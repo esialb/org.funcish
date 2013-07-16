@@ -32,6 +32,7 @@ package org.funcish.core.coll;
 
 import java.util.Collection;
 
+import org.funcish.core.fn.IntoIterable;
 import org.funcish.core.fn.Mapper;
 import org.funcish.core.fn.Mapping;
 import org.funcish.core.fn.Predicate;
@@ -47,7 +48,7 @@ import org.funcish.core.fn.Sequencer;
  *
  * @param <E>
  */
-public interface FunctionalCollection<E> extends Collection<E> {
+public interface FunctionalCollection<E> extends Collection<E>, IntoIterable<E> {
 	
 	public Class<E> e();
 	

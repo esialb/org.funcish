@@ -32,6 +32,9 @@ package org.funcish.core.impl;
 
 import java.util.Collection;
 
+import org.funcish.core.coll.ArrayFunctionalCollection;
+import org.funcish.core.coll.FunctionalCollection;
+import org.funcish.core.fn.IntoIterable;
 import org.funcish.core.fn.Mapper;
 import org.funcish.core.util.ArrayCollection;
 
@@ -56,12 +59,12 @@ public abstract class AbstractMapper<K, V> extends AbstractMapping<K, V> impleme
 	}
 
 	@Override
-	public Collection<V> over(Iterable<? extends K> c) {
-		return innerOver(new ArrayCollection<V>(), c);
+	public FunctionalCollection<V> over(Iterable<? extends K> c) {
+		return innerOver(new ArrayFunctionalCollection<V>(v()), c);
 	}
 	
 	@Override
-	public Iterable<V> map(Iterable<? extends K> c) {
+	public IntoIterable<V> map(Iterable<? extends K> c) {
 		return over(c);
 	}
 }

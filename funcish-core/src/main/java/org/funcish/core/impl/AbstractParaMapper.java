@@ -38,6 +38,9 @@ import java.util.concurrent.Future;
 import java.util.concurrent.FutureTask;
 import java.util.concurrent.RunnableFuture;
 
+import org.funcish.core.coll.ArrayFunctionalCollection;
+import org.funcish.core.coll.FunctionalCollection;
+import org.funcish.core.fn.IntoIterable;
 import org.funcish.core.fn.ParaMapper;
 import org.funcish.core.util.ArrayCollection;
 
@@ -75,12 +78,12 @@ public abstract class AbstractParaMapper<K, V> extends AbstractMapper<K, V> impl
 	}
 	
 	@Override
-	public Collection<V> over(Executor exec, Iterable<? extends K> c) {
-		return paraInnerOver(new ArrayCollection<V>(), exec, c);
+	public FunctionalCollection<V> over(Executor exec, Iterable<? extends K> c) {
+		return paraInnerOver(new ArrayFunctionalCollection<V>(v()), exec, c);
 	}
 
 	@Override
-	public Collection<V> map(Executor exec, Iterable<? extends K> c) {
+	public IntoIterable<V> map(Executor exec, Iterable<? extends K> c) {
 		return over(exec, c);
 	}
 }

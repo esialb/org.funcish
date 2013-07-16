@@ -47,5 +47,5 @@ public interface ParaPredicator<T> extends Predicator<T>, ParaApplicator<T, Iter
 	 * @param c
 	 * @return
 	 */
-	public Iterable<T> filter(Executor exec, Iterable<? extends T> c);
+	public IntoIterable<T> filter(Executor exec, Iterable<? extends T> c);
 }

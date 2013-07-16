@@ -101,4 +101,10 @@ public class PriorityFunctionalQueue<E> extends PriorityQueue<E> implements Func
 		return Sequences.sequencer(e(), iterator());
 	}
 
+	@Override
+	public <C extends Collection<? super E>> C into(C dest) {
+		dest.addAll(this);
+		return dest;
+	}
+
 }

@@ -85,4 +85,10 @@ public class HashFunctionalSet<E> extends HashSet<E> implements FunctionalSet<E>
 		return Sequences.sequencer(e(), iterator());
 	}
 
+	@Override
+	public <C extends Collection<? super E>> C into(C dest) {
+		dest.addAll(this);
+		return dest;
+	}
+
 }

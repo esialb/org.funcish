@@ -45,5 +45,5 @@ public interface Predicator<T> extends Predicate<T>, Applicator<T, Iterable<T>, 
 	 * @param c
 	 * @return
 	 */
-	public Iterable<T> filter(Iterable<? extends T> c);
+	public IntoIterable<T> filter(Iterable<? extends T> c);
 }

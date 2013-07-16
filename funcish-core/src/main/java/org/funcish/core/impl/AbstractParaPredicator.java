@@ -38,6 +38,9 @@ import java.util.concurrent.Future;
 import java.util.concurrent.FutureTask;
 import java.util.concurrent.RunnableFuture;
 
+import org.funcish.core.coll.ArrayFunctionalCollection;
+import org.funcish.core.coll.FunctionalCollection;
+import org.funcish.core.fn.IntoIterable;
 import org.funcish.core.fn.ParaPredicator;
 import org.funcish.core.util.ArrayCollection;
 
@@ -77,12 +80,12 @@ public abstract class AbstractParaPredicator<T> extends AbstractPredicator<T> im
 	}
 
 	@Override
-	public Collection<T> over(Executor exec, Iterable<? extends T> c) {
-		return paraInnerOver(new ArrayCollection<T>(), exec, c);
+	public FunctionalCollection<T> over(Executor exec, Iterable<? extends T> c) {
+		return paraInnerOver(new ArrayFunctionalCollection<T>(t()), exec, c);
 	}
 
 	@Override
-	public Collection<T> filter(Executor exec, Iterable<? extends T> c) {
+	public IntoIterable<T> filter(Executor exec, Iterable<? extends T> c) {
 		return over(exec, c);
 	}
 }

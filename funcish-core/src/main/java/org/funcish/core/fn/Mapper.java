@@ -46,5 +46,5 @@ public interface Mapper<K, V> extends Mapping<K, V>, Applicator<K, Iterable<V>, 
 	 * @param c
 	 * @return
 	 */
-	public Iterable<V> map(Iterable<? extends K> c);
+	public IntoIterable<V> map(Iterable<? extends K> c);
 }
