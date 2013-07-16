@@ -33,15 +33,15 @@ package org.funcish.core.coll;
 import java.util.Collection;
 import java.util.HashSet;
 
-import org.funcish.core.Iterables;
-import org.funcish.core.Mappings;
-import org.funcish.core.Predicates;
-import org.funcish.core.Reducers;
-import org.funcish.core.Sequences;
 import org.funcish.core.fn.Mapping;
 import org.funcish.core.fn.Predicate;
 import org.funcish.core.fn.Reduction;
 import org.funcish.core.fn.Sequencer;
+import org.funcish.core.util.Iterables;
+import org.funcish.core.util.Mappings;
+import org.funcish.core.util.Predicates;
+import org.funcish.core.util.Reducers;
+import org.funcish.core.util.Sequences;
 
 public class HashFunctionalSet<E> extends HashSet<E> implements FunctionalSet<E> {
 	/**

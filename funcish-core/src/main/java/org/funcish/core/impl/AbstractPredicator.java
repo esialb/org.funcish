@@ -32,11 +32,11 @@ package org.funcish.core.impl;
 
 import java.util.Collection;
 
+import org.funcish.core.coll.ArrayCollection;
 import org.funcish.core.coll.ArrayFunctionalCollection;
 import org.funcish.core.coll.FunctionalCollection;
 import org.funcish.core.fn.IntoIterable;
 import org.funcish.core.fn.Predicator;
-import org.funcish.core.util.ArrayCollection;
 
 public abstract class AbstractPredicator<T> extends AbstractPredicate<T> implements Predicator<T> {
 

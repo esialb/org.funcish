@@ -28,23 +28,51 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.funcish.core;
+package org.funcish.core.coll;
 
-import java.util.Comparator;
-import java.util.List;
+import java.io.Serializable;
+import java.util.AbstractCollection;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
 
-public class Comparisons {
-	
-	public static <T> Comparator<T> indexOf(final List<? super T> ordered) {
-		return new Comparator<T>() {
-			@Override
-			public int compare(T o1, T o2) {
-				Integer p1 = ordered.indexOf(o1);
-				Integer p2 = ordered.indexOf(o2);
-				return p1.compareTo(p2);
-			}
-		};
+public class ArrayCollection<E> extends AbstractCollection<E> implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private Collection<E> backing = new ArrayList<E>();
+
+	public ArrayCollection() {
 	}
 	
-	private Comparisons() {}
+	public ArrayCollection(Collection<? extends E> c) {
+		backing.addAll(c);
+	}
+	
+	@Override
+	public Iterator<E> iterator() {
+		return backing.iterator();
+	}
+
+	@Override
+	public int size() {
+		return backing.size();
+	}
+
+	@Override
+	public boolean contains(Object o) {
+		return backing.contains(o);
+	}
+
+	@Override
+	public boolean add(E e) {
+		return backing.add(e);
+	}
+
+	@Override
+	public boolean remove(Object o) {
+		return backing.remove(o);
+	}
+	
 }

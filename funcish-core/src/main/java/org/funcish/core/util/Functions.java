@@ -28,7 +28,7 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.funcish.core;
+package org.funcish.core.util;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;

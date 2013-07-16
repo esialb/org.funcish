@@ -1,4 +1,4 @@
-package org.funcish.core;
+package org.funcish.core.util;
 
 import java.util.Collection;
 

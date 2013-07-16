@@ -28,7 +28,7 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.funcish.core;
+package org.funcish.core.util;
 
 import org.funcish.core.fn.Function;
 import org.funcish.core.fn.Mapper;

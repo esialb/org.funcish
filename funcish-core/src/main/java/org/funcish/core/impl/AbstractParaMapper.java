@@ -38,11 +38,11 @@ import java.util.concurrent.Future;
 import java.util.concurrent.FutureTask;
 import java.util.concurrent.RunnableFuture;
 
+import org.funcish.core.coll.ArrayCollection;
 import org.funcish.core.coll.ArrayFunctionalCollection;
 import org.funcish.core.coll.FunctionalCollection;
 import org.funcish.core.fn.IntoIterable;
 import org.funcish.core.fn.ParaMapper;
-import org.funcish.core.util.ArrayCollection;
 
 public abstract class AbstractParaMapper<K, V> extends AbstractMapper<K, V> implements ParaMapper<K, V> {
 
