@@ -37,6 +37,7 @@ import org.funcish.core.coll.ArrayFunctionalCollection;
 import org.funcish.core.coll.FunctionalCollection;
 import org.funcish.core.fn.IntoIterable;
 import org.funcish.core.fn.Predicator;
+import org.funcish.core.util.Predicates;
 
 public abstract class AbstractPredicator<T> extends AbstractPredicate<T> implements Predicator<T> {
 
@@ -68,5 +69,29 @@ public abstract class AbstractPredicator<T> extends AbstractPredicate<T> impleme
 	@Override
 	public IntoIterable<T> filter(Iterable<? extends T> c) {
 		return over(c);
+	}
+
+
+	@Override
+	public Predicator<T> and(Predicator<T>... preds) {
+		return Predicates.and(this, preds);
+	}
+
+
+	@Override
+	public Predicator<T> or(Predicator<T>... preds) {
+		return Predicates.or(this, preds);
+	}
+
+
+	@Override
+	public Predicator<T> not() {
+		return Predicates.not(this);
+	}
+
+
+	@Override
+	public <U extends T> Predicator<U> narrow(Class<U> u) {
+		return Predicates.narrow(u, this);
 	}
 }

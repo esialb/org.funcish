@@ -46,4 +46,6 @@ public interface Reducer<E, M> extends Reduction<E, M>, Applicator<E, M, M> {
 	 * @return
 	 */
 	public M reduce(Iterable<? extends E> c);
+	
+	public <F extends E> Reducer<F, M> narrow(Class<F> f);
 }
