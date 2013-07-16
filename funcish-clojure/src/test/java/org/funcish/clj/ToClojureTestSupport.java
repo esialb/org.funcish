@@ -30,7 +30,7 @@
 
 package org.funcish.clj;
 
-import org.funcish.core.Functions;
+import org.funcish.core.util.Functions;
 import org.funcish.core.ann.MethodFunction;
 import org.funcish.core.fn.Function;
 

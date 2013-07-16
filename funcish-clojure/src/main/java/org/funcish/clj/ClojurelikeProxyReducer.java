@@ -54,7 +54,7 @@ public class ClojurelikeProxyReducer extends AbstractReducer<Object, Object> imp
 	}
 	
 	@Override
-	public Object over(Collection<?> c) {
+	public Object over(Iterable<?> c) {
 		Iterator<?> i = c.iterator();
 		Object first = i.next();
 		Collection<Object> rest = new ArrayList<Object>();

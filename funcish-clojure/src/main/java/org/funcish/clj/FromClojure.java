@@ -30,9 +30,9 @@
 
 package org.funcish.clj;
 
-import org.funcish.core.Mappings;
-import org.funcish.core.Predicates;
-import org.funcish.core.Reducers;
+import org.funcish.core.util.Mappings;
+import org.funcish.core.util.Predicates;
+import org.funcish.core.util.Reducers;
 import org.funcish.core.fn.Function;
 import org.funcish.core.fn.Mapper;
 import org.funcish.core.fn.Mapping;
@@ -104,11 +104,11 @@ public class FromClojure {
 	}
 	
 	public static Predicate<Object> predicator(IFn fn) {
-		return Predicates.predicator(predicate(fn));
+		return Predicates.predicator(Object.class, predicate(fn));
 	}
 	
 	public static ParaPredicator<Object> paraPredicator(IFn fn) {
-		return Predicates.paraPredicator(predicate(fn));
+		return Predicates.paraPredicator(Object.class, predicate(fn));
 	}
 	
 	private FromClojure() {}
