@@ -30,6 +30,8 @@
 
 package org.funcish.core.util;
 
+import java.util.Map;
+
 import org.funcish.core.fn.Function;
 import org.funcish.core.fn.Mapper;
 import org.funcish.core.fn.Mapping;
@@ -143,10 +145,28 @@ public class Mappings {
 		return new ClassForName<V>(String.class, (Class) Class.class, v);
 	}
 	
-	public static <K, V> Mapper<K, V> repeat(Class<K> k, Class<V> v, final V val) {
+	public static <K, V> Mapper<K, V> repeat(Class<K> k, Class<V> v, V val) {
 		return new RepeatMapper<K, V>(k, v, val);
 	}
 	
+	public static <K, V> Mapper<K, V> fromMap(Class<K> k, Class<V> v, Map<K, V> map) {
+		return new MapMapper<K, V>(k, v, map);
+	}
+	
+	private static class MapMapper<K, V> extends AbstractMapper<K, V> {
+		private final Map<K, V> map;
+
+		private MapMapper(Class<K> k, Class<V> v, Map<K, V> map) {
+			super(k, v);
+			this.map = map;
+		}
+
+		@Override
+		public V map0(K key, Integer index) throws Exception {
+			return map.get(key);
+		}
+	}
+
 	private static class RepeatMapper<K, V> extends AbstractMapper<K, V> {
 		private final V val;
 
