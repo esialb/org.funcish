@@ -3,7 +3,7 @@
 (use 'clojure.test)
 (use 'clojure.test.junit)
 
-(import '(org.funcish.core Functions Mappings Predicates Reducers))
+(import '(org.funcish.core.util Functions Mappings Predicates Reducers))
 (import '(org.funcish.clj ToClojure FromClojure LikeClojure))
 
 (import '(org.funcish.clj ToClojureTestSupport))
