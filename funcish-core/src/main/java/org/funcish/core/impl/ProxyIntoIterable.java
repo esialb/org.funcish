@@ -1,0 +1,27 @@
+package org.funcish.core.impl;
+
+import java.util.Collection;
+import java.util.Iterator;
+
+import org.funcish.core.fn.IntoIterable;
+
+public class ProxyIntoIterable<E> implements IntoIterable<E> {
+	protected Iterable<E> itr;
+	
+	public ProxyIntoIterable(Iterable<E> itr) {
+		this.itr = itr;
+	}
+
+	@Override
+	public Iterator<E> iterator() {
+		return itr.iterator();
+	}
+
+	@Override
+	public <C extends Collection<? super E>> C into(C dest) {
+		for(E e : itr) {
+			dest.add(e);
+		}
+		return dest;
+	}
+}
