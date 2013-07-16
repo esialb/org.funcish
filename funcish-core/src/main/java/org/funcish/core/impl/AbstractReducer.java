@@ -40,7 +40,7 @@ public abstract class AbstractReducer<E, M> extends AbstractReduction<E, M> impl
 		super(e, m, memoStart);
 	}
 
-	protected M innerOver(M memo, Collection<? extends E> c) {
+	protected M innerOver(M memo, Iterable<? extends E> c) {
 		int index = 0;
 		for(E e : c) {
 			try {
@@ -55,21 +55,12 @@ public abstract class AbstractReducer<E, M> extends AbstractReduction<E, M> impl
 	}
 
 	@Override
-	public M over(Collection<? extends E> c) {
+	public M over(Iterable<? extends E> c) {
 		return innerOver(memoStart(), c);
 	}
 	
-	public M into(Collection<? extends E> c, M into) {
-		return innerOver(into, c);
-	}
-	
 	@Override
-	public M reduce(Collection<? extends E> c) {
+	public M reduce(Iterable<? extends E> c) {
 		return over(c);
-	}
-	
-	@Override
-	public M reduce(Collection<? extends E> c, M into) {
-		return into(c, into);
 	}
 }

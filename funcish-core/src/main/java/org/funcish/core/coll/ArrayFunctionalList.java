@@ -33,14 +33,15 @@ package org.funcish.core.coll;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import org.funcish.core.Mappings;
-import org.funcish.core.Predicates;
-import org.funcish.core.Reducers;
-import org.funcish.core.Sequences;
 import org.funcish.core.fn.Mapping;
 import org.funcish.core.fn.Predicate;
 import org.funcish.core.fn.Reduction;
 import org.funcish.core.fn.Sequencer;
+import org.funcish.core.util.Iterables;
+import org.funcish.core.util.Mappings;
+import org.funcish.core.util.Predicates;
+import org.funcish.core.util.Reducers;
+import org.funcish.core.util.Sequences;
 
 public class ArrayFunctionalList<E> extends ArrayList<E> implements FunctionalList<E> {
 	/**
@@ -66,22 +67,12 @@ public class ArrayFunctionalList<E> extends ArrayList<E> implements FunctionalLi
 
 	@Override
 	public <V> FunctionalList<V> map(Mapping<? super E, V> m) {
-		return Mappings.mapper(m).map(this, new ArrayFunctionalList<V>(m.v()));
-	}
-
-	@Override
-	public <V, C extends Collection<? super V>> C map(Mapping<? super E, V> m, C into) {
-		return Mappings.mapper(m).map(this, into);
+		return Mappings.mapper(m).map(this).into(new ArrayFunctionalList<V>(m.v()));
 	}
 
 	@Override
 	public FunctionalList<E> filter(Predicate<? super E> p) {
-		return Predicates.predicator(p).filter(this, new ArrayFunctionalList<E>(e()));
-	}
-
-	@Override
-	public <C extends Collection<? super E>> C filter(Predicate<? super E> p, C into) {
-		return Predicates.predicator(p).filter(this, into);
+		return Predicates.predicator(e(), p).filter(this).into(new ArrayFunctionalList<E>(e()));
 	}
 
 	@Override
@@ -92,6 +83,12 @@ public class ArrayFunctionalList<E> extends ArrayList<E> implements FunctionalLi
 	@Override
 	public Sequencer<E> seq() {
 		return Sequences.sequencer(e(), iterator());
+	}
+
+	@Override
+	public <C extends Collection<? super E>> C into(C dest) {
+		dest.addAll(this);
+		return dest;
 	}
 
 }

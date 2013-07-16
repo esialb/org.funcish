@@ -34,6 +34,7 @@ import java.util.concurrent.Callable;
 
 import org.funcish.core.ann.MethodFunction;
 import org.funcish.core.fn.Function;
+import org.funcish.core.util.Functions;
 import org.junit.Assert;
 import org.junit.Test;
 

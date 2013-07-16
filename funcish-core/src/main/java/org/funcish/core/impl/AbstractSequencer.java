@@ -31,12 +31,13 @@
 package org.funcish.core.impl;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
 import org.funcish.core.fn.Sequencer;
 
-public abstract class AbstractSequencer<E> extends AbstractSequence<E> implements Sequencer<E> {
+public abstract class AbstractSequencer<E> extends AbstractSequence<E> implements Sequencer<E>, Iterator<E> {
 
 	public abstract boolean hasNext0(Integer index) throws Exception;
 
@@ -85,6 +86,14 @@ public abstract class AbstractSequencer<E> extends AbstractSequence<E> implement
 			index++;
 		}
 		return ret;
+	}
+	
+	@Override
+	public <C extends Collection<? super E>> C into(C dest) {
+		for(E e : this) {
+			dest.add(e);
+		}
+		return dest;
 	}
 
 }

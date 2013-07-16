@@ -32,8 +32,11 @@ package org.funcish.core.impl;
 
 import java.util.Collection;
 
+import org.funcish.core.coll.ArrayCollection;
+import org.funcish.core.coll.ArrayFunctionalCollection;
+import org.funcish.core.coll.FunctionalCollection;
+import org.funcish.core.fn.IntoIterable;
 import org.funcish.core.fn.Predicator;
-import org.funcish.core.util.ArrayCollection;
 
 public abstract class AbstractPredicator<T> extends AbstractPredicate<T> implements Predicator<T> {
 
@@ -42,7 +45,7 @@ public abstract class AbstractPredicator<T> extends AbstractPredicate<T> impleme
 	}
 
 	
-	protected <U extends T, C extends Collection<? super U>> C innerOver(C out, Collection<? extends U> c) {
+	protected <U extends T, C extends Collection<? super U>> C innerOver(C out, Iterable<? extends U> c) {
 		int index = 0;
 		for(U e : c) {
 			try {
@@ -58,21 +61,12 @@ public abstract class AbstractPredicator<T> extends AbstractPredicate<T> impleme
 	}
 
 	@Override
-	public Collection<T> over(Collection<? extends T> c) {
-		return innerOver(new ArrayCollection<T>(), c);
-	}
-	
-	public <U extends T, C extends Collection<? super U>> C into(Collection<? extends U> c, C into) {
-		return innerOver(into, c);
+	public FunctionalCollection<T> over(Iterable<? extends T> c) {
+		return innerOver(new ArrayFunctionalCollection<T>(t()), c);
 	}
 
 	@Override
-	public Collection<T> filter(Collection<? extends T> c) {
+	public IntoIterable<T> filter(Iterable<? extends T> c) {
 		return over(c);
-	}
-	
-	@Override
-	public <U extends T, C extends Collection<? super U>> C filter(Collection<? extends U> c, C into) {
-		return into(c, into);
 	}
 }

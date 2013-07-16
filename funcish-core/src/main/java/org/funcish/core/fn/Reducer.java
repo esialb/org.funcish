@@ -45,12 +45,5 @@ public interface Reducer<E, M> extends Reduction<E, M>, Applicator<E, M, M> {
 	 * @param c
 	 * @return
 	 */
-	public M reduce(Collection<? extends E> c);
-	/**
-	 * Reduce the argumetn {@link Collection} using the argument initial value
-	 * @param c
-	 * @param into
-	 * @return
-	 */
-	public M reduce(Collection<? extends E> c, M into);
+	public M reduce(Iterable<? extends E> c);
 }

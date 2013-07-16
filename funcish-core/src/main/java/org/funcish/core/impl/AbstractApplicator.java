@@ -41,7 +41,7 @@ public abstract class AbstractApplicator<E, T> extends AbstractFunction<T> imple
 	}
 
 	@Override
-	public T over(Collection<? extends E> c) {
+	public T over(Iterable<? extends E> c) {
 		T ret = null;
 		int index = 0;
 		for(E e : c) {

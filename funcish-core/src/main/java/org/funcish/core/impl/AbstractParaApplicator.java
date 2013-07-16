@@ -47,7 +47,7 @@ public abstract class AbstractParaApplicator<E, T> extends AbstractApplicator<E,
 	}
 
 	@Override
-	public T over(Executor exec, Collection<? extends E> c) {
+	public T over(Executor exec, Iterable<? extends E> c) {
 		Collection<Future<T>> futures = new ArrayList<Future<T>>();
 		T ret = null;
 		int index = 0;

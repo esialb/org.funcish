@@ -32,7 +32,7 @@ package org.funcish.core.fn;
 
 import java.util.List;
 
-public interface Sequencer<E> extends Sequence<E>, AutoIterable<E> {
+public interface Sequencer<E> extends Sequence<E>, IntoIterable<E> {
 	
 	public boolean hasNext(Integer index);
 

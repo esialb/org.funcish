@@ -38,8 +38,11 @@ import java.util.concurrent.Future;
 import java.util.concurrent.FutureTask;
 import java.util.concurrent.RunnableFuture;
 
+import org.funcish.core.coll.ArrayCollection;
+import org.funcish.core.coll.ArrayFunctionalCollection;
+import org.funcish.core.coll.FunctionalCollection;
+import org.funcish.core.fn.IntoIterable;
 import org.funcish.core.fn.ParaMapper;
-import org.funcish.core.util.ArrayCollection;
 
 public abstract class AbstractParaMapper<K, V> extends AbstractMapper<K, V> implements ParaMapper<K, V> {
 
@@ -47,7 +50,7 @@ public abstract class AbstractParaMapper<K, V> extends AbstractMapper<K, V> impl
 		super(k, v);
 	}
 
-	protected <C extends Collection<? super V>> C paraInnerOver(C out, Executor exec, Collection<? extends K> c) {
+	protected <C extends Collection<? super V>> C paraInnerOver(C out, Executor exec, Iterable<? extends K> c) {
 		Collection<Future<V>> futures = new ArrayList<Future<V>>();
 		int index = 0;
 		for(K e : c) {
@@ -75,21 +78,12 @@ public abstract class AbstractParaMapper<K, V> extends AbstractMapper<K, V> impl
 	}
 	
 	@Override
-	public Collection<V> over(Executor exec, Collection<? extends K> c) {
-		return paraInnerOver(new ArrayCollection<V>(), exec, c);
-	}
-
-	public <C extends Collection<? super V>> C into(Executor exec, Collection<? extends K> c, C into) {
-		return paraInnerOver(into, exec, c);
+	public FunctionalCollection<V> over(Executor exec, Iterable<? extends K> c) {
+		return paraInnerOver(new ArrayFunctionalCollection<V>(v()), exec, c);
 	}
 
 	@Override
-	public Collection<V> map(Executor exec, Collection<? extends K> c) {
+	public IntoIterable<V> map(Executor exec, Iterable<? extends K> c) {
 		return over(exec, c);
-	}
-	
-	@Override
-	public <C extends Collection<? super V>> C map(Executor exec, Collection<? extends K> c, C into) {
-		return into(exec, c, into);
 	}
 }
