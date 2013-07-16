@@ -37,6 +37,7 @@ import org.funcish.core.coll.ArrayFunctionalCollection;
 import org.funcish.core.coll.FunctionalCollection;
 import org.funcish.core.fn.IntoIterable;
 import org.funcish.core.fn.Mapper;
+import org.funcish.core.util.Mappings;
 
 public abstract class AbstractMapper<K, V> extends AbstractMapping<K, V> implements Mapper<K, V> {
 
@@ -66,5 +67,15 @@ public abstract class AbstractMapper<K, V> extends AbstractMapping<K, V> impleme
 	@Override
 	public IntoIterable<V> map(Iterable<? extends K> c) {
 		return over(c);
+	}
+
+	@Override
+	public <L extends K> Mapper<L, V> narrow(Class<L> l) {
+		return Mappings.narrow(l, this);
+	}
+
+	@Override
+	public Mapper<K, ?> widen(Class<? super V> u) {
+		return Mappings.widen(u, this);
 	}
 }

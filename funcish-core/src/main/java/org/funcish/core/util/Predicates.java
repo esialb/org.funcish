@@ -87,6 +87,14 @@ public class Predicates {
 		return new NarrowingPredicator<T, U>(u, test);
 	}
 	
+	public static Predicator<Object> every() {
+		return new EveryPredicator(Object.class);
+	}
+	
+	public static Predicator<Object> none() {
+		return not(every());
+	}
+	
 	/**
 	 * Returns a new {@link Predicate} that lazily evaluates the argument {@link Predicate}s
 	 * in order, returning false if any return false, otherwise returning true.
@@ -118,6 +126,18 @@ public class Predicates {
 		return new NotPredicator<T>(p.t(), p);
 	}
 	
+	public static Predicator<Object> contains(Iterable<?> itr) {
+		return new ContainsPredicator(itr);
+	}
+	
+	public static Predicator<Object> only(final Object test) {
+		return new OnlyPredicator(test);
+	}
+	
+	public static Predicator<Object> except(Object test) {
+		return only(test).not();
+	}
+	
 	/**
 	 * Returns a new {@link Predicate} that calls {@link Class#isInstance(Object)}
 	 * @param t
@@ -145,6 +165,49 @@ public class Predicates {
 		return new RepeatPredicator<T>(t, val);
 	}
 	
+	private static class OnlyPredicator extends AbstractPredicator<Object> {
+		private final Object test;
+
+		private OnlyPredicator(Object test) {
+			super(Object.class);
+			this.test = test;
+		}
+
+		@Override
+		public boolean test0(Object value, Integer index) throws Exception {
+			return test == null ? value == null : test.equals(value);
+		}
+	}
+
+	private static class ContainsPredicator extends AbstractPredicator<Object> {
+		private final Iterable<?> itr;
+
+		private ContainsPredicator(Iterable<?> itr) {
+			super(Object.class);
+			this.itr = itr;
+		}
+
+		@Override
+		public boolean test0(Object value, Integer index) throws Exception {
+			for(Object o : itr) {
+				if(value == null ? o == null : value.equals(o))
+					return true;
+			}
+			return false;
+		}
+	}
+
+	private static class EveryPredicator extends AbstractPredicator<Object> {
+		private EveryPredicator(Class<Object> t) {
+			super(t);
+		}
+
+		@Override
+		public boolean test0(Object value, Integer index) throws Exception {
+			return true;
+		}
+	}
+
 	private static class RepeatPredicator<T> extends AbstractPredicator<T> {
 		private final boolean val;
 

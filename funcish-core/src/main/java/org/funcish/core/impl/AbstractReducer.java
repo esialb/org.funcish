@@ -33,6 +33,7 @@ package org.funcish.core.impl;
 import java.util.Collection;
 
 import org.funcish.core.fn.Reducer;
+import org.funcish.core.util.Reducers;
 
 public abstract class AbstractReducer<E, M> extends AbstractReduction<E, M> implements Reducer<E, M> {
 
@@ -62,5 +63,10 @@ public abstract class AbstractReducer<E, M> extends AbstractReduction<E, M> impl
 	@Override
 	public M reduce(Iterable<? extends E> c) {
 		return over(c);
+	}
+
+	@Override
+	public <V extends E> Reducer<V, M> narrow(Class<V> f) {
+		return Reducers.narrow(f, this);
 	}
 }
