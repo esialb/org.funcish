@@ -28,7 +28,7 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.funcish.core;
+package org.funcish.core.util;
 
 import java.util.regex.Pattern;
 
@@ -63,10 +63,8 @@ public class Predicates {
 	 * @param target
 	 * @return
 	 */
-	public static <T> Predicator<T> predicator(Predicate<T> target) {
-		if(target instanceof Predicator<?>)
-			return (Predicator<T>) target;
-		return new ProxyPredicator<T>(target);
+	public static <T> Predicator<T> predicator(Class<T> t, Predicate<? super T> target) {
+		return new ProxyPredicator<T>(narrow(t, target));
 	}
 	
 	/**
@@ -75,10 +73,8 @@ public class Predicates {
 	 * @param target
 	 * @return
 	 */
-	public static <T> ParaPredicator<T> paraPredicator(Predicate<T> target) {
-		if(target instanceof ParaPredicator<?>)
-			return (ParaPredicator<T>) target;
-		return new ProxyParaPredicator<T>(target);
+	public static <T> ParaPredicator<T> paraPredicator(Class<T> t, Predicate<? super T> target) {
+		return new ProxyParaPredicator<T>(narrow(t, target));
 	}
 	
 	/**

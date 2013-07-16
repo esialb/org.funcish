@@ -54,14 +54,5 @@ public interface ParaReducer<E, M> extends Reducer<E, M>, ParaApplicator<E, M, M
 	 * @param c
 	 * @return
 	 */
-	public M reduce(Executor exec, Collection<? extends E> c);
-	/**
-	 * Reduce the input collection, using as the input memo the argument initial memo for every step,
-	 * submitting each step to the executor.  Results are then reduced again using the {@link #collator()}
-	 * @param exec
-	 * @param c
-	 * @param into
-	 * @return
-	 */
-	public M reduce(Executor exec, Collection<? extends E> c, M into);
+	public M reduce(Executor exec, Iterable<? extends E> c);
 }

@@ -32,9 +32,9 @@ package org.funcish.core.impl;
 
 import java.util.Arrays;
 
-import org.funcish.core.Mappings;
 import org.funcish.core.fn.Function;
 import org.funcish.core.fn.Mapper;
+import org.funcish.core.util.Mappings;
 import org.funcish.core.util.Strings;
 
 public abstract class AbstractFunction<T> implements Function<T> {

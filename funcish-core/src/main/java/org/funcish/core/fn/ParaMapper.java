@@ -40,7 +40,7 @@ import java.util.concurrent.Executor;
  * @param <K>
  * @param <V>
  */
-public interface ParaMapper<K, V> extends Mapper<K, V>, ParaApplicator<K, Collection<V>, V> {
+public interface ParaMapper<K, V> extends Mapper<K, V>, ParaApplicator<K, Iterable<V>, V> {
 	/**
 	 * Apply this {@link ParaMapper} to the input {@link Collection} {@code c}, with
 	 * each application in a separate job submitted to the {@link Executor} {@code exec},
@@ -49,15 +49,5 @@ public interface ParaMapper<K, V> extends Mapper<K, V>, ParaApplicator<K, Collec
 	 * @param c
 	 * @return
 	 */
-	public Collection<V> map(Executor exec, Collection<? extends K> c);
-	/**
-	 * Apply this {@link ParaMapper} to the input {@link Collection} {@code c} with each
-	 * application in a separate job submitted to the {@link Executor} {@code exec},
-	 * adding the results to the output {@link Collection} {@code into}
-	 * @param exec
-	 * @param c
-	 * @param into
-	 * @return
-	 */
-	public <C extends Collection<? super V>> C map(Executor exec, Collection<? extends K> c, C into);
+	public IntoIterable<V> map(Executor exec, Iterable<? extends K> c);
 }

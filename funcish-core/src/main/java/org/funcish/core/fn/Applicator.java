@@ -47,5 +47,5 @@ public interface Applicator<E, V, T> extends Function<T> {
 	 * @param c
 	 * @return
 	 */
-	public V over(Collection<? extends E> c);
+	public V over(Iterable<? extends E> c);
 }
