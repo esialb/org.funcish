@@ -126,8 +126,16 @@ public class Predicates {
 		return new NotPredicator<T>(p.t(), p);
 	}
 	
-	public static Predicator<Object> contains(final Iterable<?> itr) {
-		return new ContainsPredicator(Object.class, itr);
+	public static Predicator<Object> contains(Iterable<?> itr) {
+		return new ContainsPredicator(itr);
+	}
+	
+	public static Predicator<Object> only(final Object test) {
+		return new OnlyPredicator(test);
+	}
+	
+	public static Predicator<Object> except(Object test) {
+		return only(test).not();
 	}
 	
 	/**
@@ -157,11 +165,25 @@ public class Predicates {
 		return new RepeatPredicator<T>(t, val);
 	}
 	
+	private static class OnlyPredicator extends AbstractPredicator<Object> {
+		private final Object test;
+
+		private OnlyPredicator(Object test) {
+			super(Object.class);
+			this.test = test;
+		}
+
+		@Override
+		public boolean test0(Object value, Integer index) throws Exception {
+			return test == null ? value == null : test.equals(value);
+		}
+	}
+
 	private static class ContainsPredicator extends AbstractPredicator<Object> {
 		private final Iterable<?> itr;
 
-		private ContainsPredicator(Class<Object> t, Iterable<?> itr) {
-			super(t);
+		private ContainsPredicator(Iterable<?> itr) {
+			super(Object.class);
 			this.itr = itr;
 		}
 
