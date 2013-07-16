@@ -126,6 +126,10 @@ public class Predicates {
 		return new NotPredicator<T>(p.t(), p);
 	}
 	
+	public static Predicator<Object> contains(final Iterable<?> itr) {
+		return new ContainsPredicator(Object.class, itr);
+	}
+	
 	/**
 	 * Returns a new {@link Predicate} that calls {@link Class#isInstance(Object)}
 	 * @param t
@@ -153,6 +157,24 @@ public class Predicates {
 		return new RepeatPredicator<T>(t, val);
 	}
 	
+	private static class ContainsPredicator extends AbstractPredicator<Object> {
+		private final Iterable<?> itr;
+
+		private ContainsPredicator(Class<Object> t, Iterable<?> itr) {
+			super(t);
+			this.itr = itr;
+		}
+
+		@Override
+		public boolean test0(Object value, Integer index) throws Exception {
+			for(Object o : itr) {
+				if(value == null ? o == null : value.equals(o))
+					return true;
+			}
+			return false;
+		}
+	}
+
 	private static class EveryPredicator extends AbstractPredicator<Object> {
 		private EveryPredicator(Class<Object> t) {
 			super(t);
