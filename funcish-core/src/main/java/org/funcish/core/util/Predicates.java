@@ -87,6 +87,14 @@ public class Predicates {
 		return new NarrowingPredicator<T, U>(u, test);
 	}
 	
+	public static Predicator<Object> every() {
+		return new EveryPredicator(Object.class);
+	}
+	
+	public static Predicator<Object> none() {
+		return not(every());
+	}
+	
 	/**
 	 * Returns a new {@link Predicate} that lazily evaluates the argument {@link Predicate}s
 	 * in order, returning false if any return false, otherwise returning true.
@@ -145,6 +153,17 @@ public class Predicates {
 		return new RepeatPredicator<T>(t, val);
 	}
 	
+	private static class EveryPredicator extends AbstractPredicator<Object> {
+		private EveryPredicator(Class<Object> t) {
+			super(t);
+		}
+
+		@Override
+		public boolean test0(Object value, Integer index) throws Exception {
+			return true;
+		}
+	}
+
 	private static class RepeatPredicator<T> extends AbstractPredicator<T> {
 		private final boolean val;
 
