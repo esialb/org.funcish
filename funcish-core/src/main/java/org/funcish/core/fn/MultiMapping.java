@@ -1,6 +1,6 @@
 package org.funcish.core.fn;
 
-public interface MultiMapping<K, V> extends Function<V[]> {
+public interface MultiMapping<K, V> extends Function<Void> {
 	public Class<K> k();
 	public Class<V> v();
 	
