@@ -10,7 +10,7 @@ public abstract class AbstractMultiMapping<K, V> extends AbstractFunction<Void> 
 	private Class<K> k;
 	private Class<V> v;
 	
-	public abstract void map0(K key, MultiReceiver<V> receiver, Integer index) throws Exception;
+	public abstract void map0(K key, MultiReceiver<? super V> receiver, Integer index) throws Exception;
 	
 	public AbstractMultiMapping(Class<K> k, Class<V> v) {
 		super(Void.class, new Class<?>[] {k, MultiReceiver.class, Integer.class});
@@ -35,7 +35,7 @@ public abstract class AbstractMultiMapping<K, V> extends AbstractFunction<Void> 
 	}
 
 	@Override
-	public void map(K key, MultiReceiver<V> receiver, Integer index) {
+	public void map(K key, MultiReceiver<? super V> receiver, Integer index) {
 		try {
 			map0(key, receiver, index);
 		} catch(RuntimeException re) {

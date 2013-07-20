@@ -14,7 +14,7 @@ public class AbstractMultiMapperTest {
 	public void testMap() {
 		MultiMapper<Integer, Integer> mm = new AbstractMultiMapper<Integer, Integer>(Integer.class, Integer.class) {
 			@Override
-			public void map0(Integer key, MultiReceiver<Integer> receiver, Integer index) throws Exception {
+			public void map0(Integer key, MultiReceiver<? super Integer> receiver, Integer index) throws Exception {
 				receiver.receive(key * 2);
 				receiver.receive(key * 4);
 			}
