@@ -34,7 +34,7 @@ import java.util.NoSuchElementException;
 
 import org.funcish.core.fn.Sequence;
 
-public class ProxySequencer<E> extends AbstractSequencer<E> {
+public class ProxySequencer<E> extends AbstractSequencer<E> implements Proxied<Sequence<? extends E>> {
 	
 	private Sequence<? extends E> target;
 	
@@ -65,6 +65,11 @@ public class ProxySequencer<E> extends AbstractSequencer<E> {
 			throw new NoSuchElementException();
 		hasNext = null;
 		return next;
+	}
+
+	@Override
+	public Sequence<? extends E> proxiedTarget() {
+		return target;
 	}
 
 	
