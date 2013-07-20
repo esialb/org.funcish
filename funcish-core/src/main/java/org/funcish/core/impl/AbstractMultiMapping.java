@@ -14,6 +14,8 @@ public abstract class AbstractMultiMapping<K, V> extends AbstractFunction<Void> 
 	
 	public AbstractMultiMapping(Class<K> k, Class<V> v) {
 		super(Void.class, new Class<?>[] {k, MultiReceiver.class, Integer.class});
+		this.k = k;
+		this.v = v;
 	}
 
 	@Override

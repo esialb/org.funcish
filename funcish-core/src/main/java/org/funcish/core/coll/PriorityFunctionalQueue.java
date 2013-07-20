@@ -30,6 +30,7 @@
 
 package org.funcish.core.coll;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.PriorityQueue;
@@ -58,8 +59,12 @@ public class PriorityFunctionalQueue<E> extends PriorityQueue<E> implements Func
 	}
 
 	public PriorityFunctionalQueue(Class<E> e, Collection<? extends E> c) {
-		super(c);
-		this.e = e;
+		this(e);
+		addAll(c);
+	}
+	
+	public PriorityFunctionalQueue(Class<E> e, E...c) {
+		this(e, Arrays.asList(c));
 	}
 
 	public PriorityFunctionalQueue(Class<E> e, int initialCapacity, Comparator<? super E> comparator) {
@@ -67,9 +72,14 @@ public class PriorityFunctionalQueue<E> extends PriorityQueue<E> implements Func
 		this.e = e;
 	}
 
-	public PriorityFunctionalQueue(Class<E> e, PriorityQueue<? extends E> c) {
-		super(c);
-		this.e = e;
+	@Override
+	public boolean add(E e) {
+		return super.add(e().cast(e));
+	}
+	
+	@Override
+	public boolean offer(E e) {
+		return super.offer(e().cast(e));
 	}
 	
 	@Override
@@ -88,7 +98,7 @@ public class PriorityFunctionalQueue<E> extends PriorityQueue<E> implements Func
 
 	@Override
 	public FunctionalQueue<E> filter(Predicate<? super E> p) {
-		return Predicates.predicator(e(), p).filter(this).into(new PriorityFunctionalQueue<E>(e(), 0, comparator()));
+		return Predicates.predicator(e(), p).filter(this).into(new PriorityFunctionalQueue<E>(e(), 1, comparator()));
 	}
 
 	@Override
@@ -107,4 +117,26 @@ public class PriorityFunctionalQueue<E> extends PriorityQueue<E> implements Func
 		return dest;
 	}
 
+	@Override
+	public boolean equals(Object obj) {
+		if(obj == null)
+			return false;
+		if(obj == this)
+			return true;
+		if(obj instanceof PriorityQueue<?>) {
+			if(size() != ((PriorityQueue<?>) obj).size())
+				return false;
+			PriorityQueue<Object> copyThis = new PriorityQueue<Object>(this);
+			PriorityQueue<Object> copyObj = new PriorityQueue<Object>((PriorityQueue<?>) obj);
+			while(copyThis.size() > 0 && copyObj.size() > 0) {
+				Object o1 = copyThis.poll();
+				Object o2 = copyObj.poll();
+				if(o1 == null ? o2 != null : !o1.equals(o2))
+					return false;
+			}
+			return true;
+		}
+		return false;
+	}
+	
 }

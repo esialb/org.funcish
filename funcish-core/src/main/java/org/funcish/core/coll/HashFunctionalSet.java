@@ -30,6 +30,7 @@
 
 package org.funcish.core.coll;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
 
@@ -54,10 +55,19 @@ public class HashFunctionalSet<E> extends HashSet<E> implements FunctionalSet<E>
 	public HashFunctionalSet(Class<E> e) {
 		this.e = e;
 	}
+	
+	public HashFunctionalSet(Class<E> e, E...c) {
+		this(e, Arrays.asList(c));
+	}
 
 	public HashFunctionalSet(Class<E> e, Collection<? extends E> c) {
-		super(c);
-		this.e = e;
+		this(e);
+		addAll(c);
+	}
+	
+	@Override
+	public boolean add(E e) {
+		return super.add(e().cast(e));
 	}
 
 	@Override

@@ -30,6 +30,7 @@
 
 package org.funcish.core.coll;
 
+import java.util.Arrays;
 import java.util.Collection;
 
 import org.funcish.core.fn.Mapping;
@@ -56,15 +57,12 @@ public class ArrayFunctionalCollection<E> extends ArrayCollection<E> implements 
 	}
 	
 	public ArrayFunctionalCollection(Class<E> e, E... c) {
-		this.e = e;
-		for(E element : c) {
-			add(element);
-		}
+		this(e, Arrays.asList(c));
 	}
 
 	public ArrayFunctionalCollection(Class<E> e, Collection<? extends E> c) {
-		super(c);
-		this.e = e;
+		this(e);
+		addAll(c);
 	}
 	
 	@Override

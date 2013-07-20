@@ -31,7 +31,9 @@
 package org.funcish.core.coll;
 
 import java.util.ArrayDeque;
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.Deque;
 
 import org.funcish.core.fn.Mapping;
 import org.funcish.core.fn.Predicate;
@@ -56,9 +58,28 @@ public class ArrayFunctionalDeque<E> extends ArrayDeque<E> implements Functional
 		this.e = e;
 	}
 
+	public ArrayFunctionalDeque(Class<E> e, E... c) {
+		this(e, Arrays.asList(c));
+	}
+	
 	public ArrayFunctionalDeque(Class<E> e, Collection<? extends E> c) {
-		super(c);
-		this.e = e;
+		this(e);
+		addAll(c);
+	}
+	
+	@Override
+	public boolean add(E e) {
+		return super.add(e().cast(e));
+	}
+	
+	@Override
+	public void addFirst(E e) {
+		super.addFirst(e().cast(e));
+	}
+	
+	@Override
+	public void addLast(E e) {
+		super.addLast(e().cast(e));
 	}
 
 	@Override
@@ -92,4 +113,16 @@ public class ArrayFunctionalDeque<E> extends ArrayDeque<E> implements Functional
 		return dest;
 	}
 
+	@Override
+	public boolean equals(Object obj) {
+		if(obj == null)
+			return false;
+		if(obj == this)
+			return true;
+		if(obj instanceof Deque<?>) {
+			return Arrays.equals(toArray(), ((Deque<?>) obj).toArray());
+		}
+		return false;
+	}
+	
 }

@@ -31,6 +31,7 @@
 package org.funcish.core.coll;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 
 import org.funcish.core.fn.Mapping;
@@ -54,12 +55,31 @@ public class ArrayFunctionalList<E> extends ArrayList<E> implements FunctionalLi
 	public ArrayFunctionalList(Class<E> e) {
 		this.e = e;
 	}
-
-	public ArrayFunctionalList(Class<E> e, Collection<? extends E> c) {
-		super(c);
-		this.e = e;
+	
+	public ArrayFunctionalList(Class<E> e, E...c) {
+		this(e, Arrays.asList(c));
 	}
 
+	public ArrayFunctionalList(Class<E> e, Collection<? extends E> c) {
+		this(e);
+		addAll(c);
+	}
+
+	@Override
+	public boolean add(E e) {
+		return super.add(e().cast(e));
+	}
+	
+	@Override
+	public void add(int index, E element) {
+		super.add(index, e().cast(element));
+	}
+	
+	@Override
+	public E set(int index, E element) {
+		return super.set(index, e().cast(element));
+	}
+	
 	@Override
 	public Class<E> e() {
 		return e;
