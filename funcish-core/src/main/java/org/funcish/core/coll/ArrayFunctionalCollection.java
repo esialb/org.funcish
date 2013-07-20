@@ -54,10 +54,22 @@ public class ArrayFunctionalCollection<E> extends ArrayCollection<E> implements 
 	public ArrayFunctionalCollection(Class<E> e) {
 		this.e = e;
 	}
+	
+	public ArrayFunctionalCollection(Class<E> e, E... c) {
+		this.e = e;
+		for(E element : c) {
+			add(element);
+		}
+	}
 
 	public ArrayFunctionalCollection(Class<E> e, Collection<? extends E> c) {
 		super(c);
 		this.e = e;
+	}
+	
+	@Override
+	public boolean add(E e) {
+		return super.add(e().cast(e));
 	}
 
 	@Override

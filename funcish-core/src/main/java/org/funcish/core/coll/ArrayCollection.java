@@ -46,6 +46,12 @@ public class ArrayCollection<E> extends AbstractCollection<E> implements Seriali
 	public ArrayCollection() {
 	}
 	
+	public ArrayCollection(E... c) {
+		for(E e : c) {
+			add(e);
+		}
+	}
+	
 	public ArrayCollection(Collection<? extends E> c) {
 		backing.addAll(c);
 	}
@@ -75,4 +81,15 @@ public class ArrayCollection<E> extends AbstractCollection<E> implements Seriali
 		return backing.remove(o);
 	}
 	
+	@Override
+	public boolean equals(Object obj) {
+		if(obj == null)
+			return false;
+		if(obj == this)
+			return true;
+		if(obj instanceof Collection<?>) {
+			return containsAll((Collection<?>) obj);
+		}
+		return false;
+	}
 }
