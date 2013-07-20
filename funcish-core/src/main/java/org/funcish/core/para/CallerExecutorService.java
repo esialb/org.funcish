@@ -56,7 +56,7 @@ public class CallerExecutorService extends AbstractExecutorService {
 
 	@Override
 	public boolean isShutdown() {
-		return latch.getCount() > 0;
+		return latch.getCount() <= 0;
 	}
 
 	@Override
