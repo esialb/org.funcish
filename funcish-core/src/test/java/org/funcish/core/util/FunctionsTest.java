@@ -28,7 +28,7 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.funcish.core;
+package org.funcish.core.util;
 
 import java.util.concurrent.Callable;
 
@@ -49,7 +49,7 @@ public class FunctionsTest {
 		};
 		Function<?> f = Functions.fn(plus);
 		Assert.assertNotNull(f);
-		System.out.println(f);
+		Assert.assertEquals(3, f.call(1, 2));
 	}
 	
 	@Test
@@ -61,6 +61,6 @@ public class FunctionsTest {
 			}
 		};
 		Function<?> f = Functions.fn(foo);
-		System.out.println(f);
+		Assert.assertEquals("bar", f.call());
 	}
 }
