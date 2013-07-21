@@ -35,6 +35,7 @@ import java.util.Collection;
 import org.funcish.core.fn.IntoIterable;
 import org.funcish.core.fn.Mapper;
 import org.funcish.core.fn.Mapping;
+import org.funcish.core.fn.MultiMapping;
 import org.funcish.core.fn.Predicate;
 import org.funcish.core.fn.Predicator;
 import org.funcish.core.fn.Reducer;
@@ -60,6 +61,8 @@ public interface FunctionalCollection<E> extends Collection<E>, IntoIterable<E> 
 	 * @see Mapper#map(Collection)
 	 */
 	public <V> FunctionalCollection<V> map(Mapping<? super E, V> m);
+	
+	public <V> FunctionalCollection<V> map(MultiMapping<? super E, V> m);
 	
 	/**
 	 * Return a new {@link FunctionalCollection} obtained by applying

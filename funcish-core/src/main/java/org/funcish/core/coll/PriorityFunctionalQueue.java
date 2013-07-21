@@ -36,11 +36,13 @@ import java.util.Comparator;
 import java.util.PriorityQueue;
 
 import org.funcish.core.fn.Mapping;
+import org.funcish.core.fn.MultiMapping;
 import org.funcish.core.fn.Predicate;
 import org.funcish.core.fn.Reduction;
 import org.funcish.core.fn.Sequencer;
 import org.funcish.core.util.Iterables;
 import org.funcish.core.util.Mappings;
+import org.funcish.core.util.MultiMappings;
 import org.funcish.core.util.Predicates;
 import org.funcish.core.util.Reducers;
 import org.funcish.core.util.Sequences;
@@ -94,6 +96,11 @@ public class PriorityFunctionalQueue<E> extends PriorityQueue<E> implements Func
 	
 	public <V> FunctionalQueue<V> map(Mapping<? super E, V> m, Comparator<? super V> cmp) {
 		return Mappings.mapper(m).map(this).into(new PriorityFunctionalQueue<V>(m.v(), size(), cmp));
+	}
+	
+	@Override
+	public <V> FunctionalQueue<V> map(MultiMapping<? super E, V> m) {
+		return MultiMappings.mapper(m).map(this).into(new PriorityFunctionalQueue<V>(m.v()));
 	}
 
 	@Override

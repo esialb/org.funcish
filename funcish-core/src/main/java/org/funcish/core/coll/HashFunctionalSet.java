@@ -35,11 +35,13 @@ import java.util.Collection;
 import java.util.HashSet;
 
 import org.funcish.core.fn.Mapping;
+import org.funcish.core.fn.MultiMapping;
 import org.funcish.core.fn.Predicate;
 import org.funcish.core.fn.Reduction;
 import org.funcish.core.fn.Sequencer;
 import org.funcish.core.util.Iterables;
 import org.funcish.core.util.Mappings;
+import org.funcish.core.util.MultiMappings;
 import org.funcish.core.util.Predicates;
 import org.funcish.core.util.Reducers;
 import org.funcish.core.util.Sequences;
@@ -78,6 +80,11 @@ public class HashFunctionalSet<E> extends HashSet<E> implements FunctionalSet<E>
 	@Override
 	public <V> FunctionalSet<V> map(Mapping<? super E, V> m) {
 		return Mappings.mapper(m).map(this).into(new HashFunctionalSet<V>(m.v()));
+	}
+	
+	@Override
+	public <V> FunctionalSet<V> map(MultiMapping<? super E, V> m) {
+		return MultiMappings.mapper(m).map(this).into(new HashFunctionalSet<V>(m.v()));
 	}
 
 	@Override

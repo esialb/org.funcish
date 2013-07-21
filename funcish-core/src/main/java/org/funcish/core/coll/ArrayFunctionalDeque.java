@@ -36,11 +36,13 @@ import java.util.Collection;
 import java.util.Deque;
 
 import org.funcish.core.fn.Mapping;
+import org.funcish.core.fn.MultiMapping;
 import org.funcish.core.fn.Predicate;
 import org.funcish.core.fn.Reduction;
 import org.funcish.core.fn.Sequencer;
 import org.funcish.core.util.Iterables;
 import org.funcish.core.util.Mappings;
+import org.funcish.core.util.MultiMappings;
 import org.funcish.core.util.Predicates;
 import org.funcish.core.util.Reducers;
 import org.funcish.core.util.Sequences;
@@ -92,6 +94,11 @@ public class ArrayFunctionalDeque<E> extends ArrayDeque<E> implements Functional
 		return Mappings.mapper(m).map(this).into(new ArrayFunctionalDeque<V>(m.v()));
 	}
 
+	@Override
+	public <V> FunctionalDeque<V> map(MultiMapping<? super E, V> m) {
+		return MultiMappings.mapper(m).map(this).into(new ArrayFunctionalDeque<V>(m.v()));
+	}
+	
 	@Override
 	public FunctionalDeque<E> filter(Predicate<? super E> p) {
 		return Predicates.predicator(e(), p).filter(this).into(new ArrayFunctionalDeque<E>(e()));
