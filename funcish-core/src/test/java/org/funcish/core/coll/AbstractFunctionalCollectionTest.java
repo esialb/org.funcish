@@ -3,9 +3,12 @@ package org.funcish.core.coll;
 import java.util.Collection;
 
 import org.funcish.core.fn.Mapping;
+import org.funcish.core.fn.MultiMapping;
+import org.funcish.core.fn.MultiReceiver;
 import org.funcish.core.fn.Predicate;
 import org.funcish.core.fn.Reduction;
 import org.funcish.core.impl.AbstractMapping;
+import org.funcish.core.impl.AbstractMultiMapping;
 import org.funcish.core.impl.AbstractPredicate;
 import org.funcish.core.impl.AbstractReduction;
 import org.junit.Assert;
@@ -37,6 +40,20 @@ public abstract class AbstractFunctionalCollectionTest<F extends FunctionalColle
 		};
 		F ints = create(1,2,3);
 		Assert.assertEquals(create(2,4,6), ints.map(timesTwo));
+	}
+	
+	@Test
+	public void testMultiMap() {
+		MultiMapping<Integer, Integer> duplicate = new AbstractMultiMapping<Integer, Integer>(Integer.class, Integer.class) {
+			@Override
+			public void map0(Integer key, MultiReceiver<? super Integer> receiver, Integer index)
+					throws Exception {
+				receiver.receive(key);
+				receiver.receive(key);
+			}
+		};
+		F ints = create(1,2,3);
+		Assert.assertEquals(create(1,1,2,2,3,3), ints.map(duplicate));
 	}
 	
 	@Test
