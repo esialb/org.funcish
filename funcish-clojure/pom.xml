@@ -6,7 +6,7 @@
 	<parent>
 		<groupId>org.funcish</groupId>
 		<artifactId>funcish-parent</artifactId>
-		<version>0.1.0</version>
+		<version>0.1.1-SNAPSHOT</version>
 		<relativePath>../funcish-parent</relativePath>
 	</parent>
 	<dependencies>
