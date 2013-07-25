@@ -3,7 +3,7 @@
 (use 'clojure.test)
 (use 'clojure.test.junit)
 
-(import '(org.funcish.core Functions Mappings Predicates Reducers))
+(import '(org.funcish.core.util Functions Mappings Predicates Reducers))
 (import '(org.funcish.clj ToClojure FromClojure LikeClojure))
 
 
@@ -18,5 +18,5 @@
   )
 
 (deftest predicates
-  (is (= (list 2 4) (.filter (FromClojure/predicator even?) (list 1 2 3 4 5) (new java.util.ArrayList))))
+  (is (= (list 2 4) (.into (.filter (FromClojure/predicator even?) (list 1 2 3 4 5)) (new java.util.ArrayList))))
   )
