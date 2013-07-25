@@ -14,7 +14,7 @@
 	<parent>
 		<groupId>org.funcish</groupId>
 		<artifactId>funcish-parent</artifactId>
-		<version>0.1.0-SNAPSHOT</version>
+		<version>0.1.0</version>
 		<relativePath>../funcish-parent</relativePath>
 	</parent>
 	<name>funcish utilities: core</name>
